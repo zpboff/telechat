@@ -4,7 +4,7 @@
   "description": "telechat",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"cd backend && node index.js\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
