@@ -1,5 +1,3 @@
-const AppSettings = {
+module.exports =  {
     Port: 3001
 }
-
-module.exports = AppSettings

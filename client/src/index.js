@@ -2,12 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import configureSocket from './socket';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 const store = configureStore();
-export const socket = configureSocket(store.dispatch);
 
 ReactDOM.render(
 	<Provider store={store}>
