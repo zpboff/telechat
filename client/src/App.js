@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { getAName } from './usernames';
+import { getCurrentPot } from './socket'
 import SnackBarNotif from './SnackbarNotif';
 
 class App extends Component {
@@ -11,7 +12,6 @@ class App extends Component {
 		const name = getAName();
 		getCurrentPot(dispatch);
 		assignUserName(name);
-		sendNameToServer(name);
 	}
 
 	render() {
