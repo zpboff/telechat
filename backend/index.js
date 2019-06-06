@@ -19,6 +19,11 @@ var server = require("http").createServer(app);
 var io = require('socket.io')(server);
 
 io.on("connection", socketManager);
+// io.on('connection', (client) => {
+//   client.on('LOGIN', (user) => {
+//     console.log('client is subscribing login', user);
+//   });
+// });
 
 app.get('/', (req, res) => {
     res.sendStatus(200);

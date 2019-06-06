@@ -1,3 +1,3 @@
 module.exports = {
-    ChatApiUrl: 'http://localhost:3001'
+    ChatApiUrl: 'http://localhost:3002'
 }

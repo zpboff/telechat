@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classnames from "classnames";
-import io from "socket.io-client";
+import { connect } from 'react-redux'
 
 class Login extends Component {
     constructor(props) {
@@ -13,11 +13,6 @@ class Login extends Component {
         };
     }
 
-    componentDidMount() {
-        const socket = io();
-        this.setState({ socket });
-    }
-
     handleInputChange = event => {
         const { value, name } = event.target;
         this.setState({
@@ -27,7 +22,7 @@ class Login extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        const { socket } = this.state;
+        const { socket } = this.props;
         socket.emit("LOGIN", { ...this.state });
     };
 
@@ -78,7 +73,7 @@ class Login extends Component {
                         </div>
                     </div>
                     <button
-                        class="btn waves-effect waves-light"
+                        className="btn waves-effect waves-light"
                         type="submit"
                         name="action"
                     >
@@ -90,4 +85,8 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+    socket: state.chat.socket
+});
+
+export default connect(mapStateToProps)(Login);
