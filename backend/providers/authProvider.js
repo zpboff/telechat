@@ -24,7 +24,7 @@ const authenticate = (user, callback) => {
         (err, token) => {
             if (err) {
                 console.error("There is some error in token", err);
-                return callback({ error: err.message });
+                return callback({ errors: err.message });
             } else {
                 callback(null, token);
             }
@@ -36,10 +36,10 @@ const register = (user, callback) => {
     const { errors, isValid } = validateRegister(user);
 
     if (!isValid) {
-        return callback(errors);
+        return callback({ errors });
     }
     User.findOne({
-        email: req.body.email
+        email: user.email
     }).then(user => {
         if (user) {
             return callback({ error: "Email already exists" });
@@ -70,10 +70,10 @@ const register = (user, callback) => {
 };
 
 const login = (user, callback) => {
-    const { errors, isValid } = validateLogin(User);
+    const { errors, isValid } = validateLogin(user);
 
     if (!isValid) {
-        return callback(errors);
+        return callback({ errors });
     }
 
     const { email, password } = user;
@@ -81,14 +81,14 @@ const login = (user, callback) => {
     User.findOne({ email }).then(user => {
         if (!user) {
             errors.email = "User not found";
-            return callback(errors);
+            return callback({ errors });
         }
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
                 authenticate(user, callback);
             } else {
                 errors.password = "Incorrect Password";
-                return callback(errors);
+                return callback({ errors });
             }
         });
     });

@@ -13,6 +13,15 @@ class Login extends Component {
         };
     }
 
+    componentDidMount() {
+        const { socket } = this.props;
+        socket.on('LOGIN', (data) => {
+            if(data.errors){
+                alert('Error happened')
+            }
+        })
+    }
+
     handleInputChange = event => {
         const { value, name } = event.target;
         this.setState({
