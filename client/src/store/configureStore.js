@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import rootReducer from "../reducers";
+import rootReducer from "../reducers/rootReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-export default (configureStore = initialState => {
+export default (initialState = {}) => {
     const store = createStore(
         rootReducer,
         initialState,
@@ -11,4 +11,4 @@ export default (configureStore = initialState => {
     );
 
     return store;
-});
+};
