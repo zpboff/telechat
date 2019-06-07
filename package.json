@@ -19,6 +19,7 @@
   "homepage": "https://github.com/zpboff/telechat#readme",
   "dependencies": {
     "concurrently": "^4.1.0",
+    "nodemon": "^1.19.1",
     "uuid": "^3.3.2"
   }
 }
