@@ -57,7 +57,8 @@ class Login extends Component {
                     </Grid>
                 </Grid>
             </div>
-        )
+        );
+        
         return (
             <div className="container">
                 <h5>Введите Email и пароль</h5>
