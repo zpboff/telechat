@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -60,7 +59,6 @@ class Register extends Component {
 
 	render() {
 		var { email, password, passwordConfirm, lastName, firstName, errors } = this.state;
-
 		return (
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
@@ -84,7 +82,7 @@ class Register extends Component {
 									label="Имя"
 									autoFocus
                                     onChange={this.handleInputChange}
-                                    value={this.state.firstName}
+                                    value={firstName}
 								/>
 							</Grid>
 							<Grid item xs={12} sm={6}>
@@ -97,7 +95,7 @@ class Register extends Component {
 									name="lastName"
 									autoComplete="lname"
                                     onChange={this.handleInputChange}
-                                    value={this.state.lastName}
+                                    value={lastName}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -110,7 +108,7 @@ class Register extends Component {
 									name="email"
 									autoComplete="email"
                                     onChange={this.handleInputChange}
-                                    value={this.state.email}
+                                    value={email}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -124,7 +122,7 @@ class Register extends Component {
 									id="password"
 									autoComplete="current-password"
                                     onChange={this.handleInputChange}
-                                    value={this.state.password}
+                                    value={password}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -138,7 +136,7 @@ class Register extends Component {
 									id="passwordConfirm"
 									autoComplete="password-confirm"
                                     onChange={this.handleInputChange}
-                                    value={this.state.passwordConfirm}
+                                    value={passwordConfirm}
 								/>
 							</Grid>
 						</Grid>

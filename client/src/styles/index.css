@@ -14,3 +14,7 @@ a, a:visited {
     padding: 2em;
     text-align: center;
 }
+
+.MuiListItem-button a {
+    color: inherit;
+}

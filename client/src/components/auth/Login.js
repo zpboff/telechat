@@ -79,7 +79,7 @@ class Login extends Component {
 							autoComplete="email"
 							onChange={this.handleInputChange}
 							autoFocus
-							value={this.state.email}
+							value={email}
 						/>
 						<TextField
 							variant="outlined"
@@ -92,14 +92,14 @@ class Login extends Component {
 							id="password"
 							autoComplete="current-password"
 							onChange={this.handleInputChange}
-							value={this.state.password}
+							value={password}
 						/>
 						<Button type="submit" fullWidth variant="contained" color="primary" className="submit">
 							Вход
 						</Button>
 						<Grid container>
 							<Grid item xs>
-								<NavLink to="/">Забыли пароль?</NavLink>
+								<NavLink to="/recover">Забыли пароль?</NavLink>
 							</Grid>
 							<Grid item>
 								<NavLink to="/register">Нет аккаунта? Регистрация</NavLink>
