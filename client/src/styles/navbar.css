@@ -6,10 +6,6 @@
     margin: 2em;
 }
 
-.grow {
-    flex-grow: 1;
-}
-
 .section-desktop {
     display: flex;
 }

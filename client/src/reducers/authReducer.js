@@ -1,7 +1,12 @@
 import { AuthActions } from '../constants/actions';
 import ValidationHelper from '../helpers/validation'
 
-export default (state = {}, action) => {
+const initialState = {
+	errors: {},
+	isAuthenticated: false
+}
+
+export default (state = initialState, action) => {
 	switch (action.type) {
 		case AuthActions.SET_CURRENT_USER:
 			return {

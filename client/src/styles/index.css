@@ -5,3 +5,12 @@ body {
 a, a:visited {
     text-decoration: none;
 }
+
+.grow {
+    flex-grow: 1;
+}
+
+.paper {
+    padding: 2em;
+    text-align: center;
+}

@@ -4,6 +4,8 @@ import { login } from "../../actions/auth";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { withRouter } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 class Login extends Component {
     constructor(props) {
@@ -46,6 +48,16 @@ class Login extends Component {
 
     render() {
         var { email, password, errors } = this.state;
+
+        return (
+            <div className='grow'>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Paper className='paper'>xs=12</Paper>
+                    </Grid>
+                </Grid>
+            </div>
+        )
         return (
             <div className="container">
                 <h5>Введите Email и пароль</h5>
