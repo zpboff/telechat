@@ -1,3 +1,20 @@
 .navbar.MuiAppBar-colorPrimary {
     background-color: #2196f3;
 }
+
+.menu-btn {
+    margin: 2em;
+}
+
+.grow {
+    flex-grow: 1;
+}
+
+.section-desktop {
+    display: flex;
+}
+
+.home-link {
+    color: white;
+    flex-grow: 1;
+}
