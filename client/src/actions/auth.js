@@ -16,7 +16,7 @@ export const setErrors = errors => ({
 
 export const register = (user, history) => dispatch => {
     axios
-        .post(`${ConnectionStrings.AuthApiUrl}/api/auth/register`, user)
+        .post(`${ConnectionStrings.AuthApiUrl}/register`, user)
         .then(res => {
             const { token, error, success } = res.data;
             if (success) {
@@ -35,7 +35,7 @@ export const register = (user, history) => dispatch => {
 
 export const login = user => dispatch => {
     axios
-        .post(`${ConnectionStrings.AuthApiUrl}/api/auth/login`, user)
+        .post(`${ConnectionStrings.AuthApiUrl}/login`, user)
         .then(res => {
             const { token } = res.data;
             localStorage.setItem("jwtToken", token);
