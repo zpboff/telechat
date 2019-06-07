@@ -4,6 +4,7 @@ import Login from "../auth/Login";
 import Home from '../home/Home';
 import Register from '../auth/Register';
 import Navbar from './Navbar';
+import { Container } from '@material-ui/core';
 
 class Layout extends Component {
     render() {
@@ -11,15 +12,13 @@ class Layout extends Component {
             <BrowserRouter>
                 <div className="App">
                     <Navbar />
-                    <div className="dashboard container">
-                        <div className="row">
-                            <Switch>
-                                <Route exact path="/" component={Home} />
-                                <Route exact path="/login" component={Login} />
-                                <Route exact path="/register" component={Register} />
-                            </Switch>
-                        </div>
-                    </div>
+                    <Container maxWidth="lg">
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route exact path="/login" component={Login} />
+                            <Route exact path="/register" component={Register} />
+                        </Switch>
+                    </Container>
                 </div>
             </BrowserRouter>
         );
