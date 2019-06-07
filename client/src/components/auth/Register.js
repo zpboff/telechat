@@ -3,17 +3,16 @@ import { withRouter } from 'react-router-dom';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import InputWithError from '../shared/InputWithError';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
-import '../../styles/auth.css'
+import '../../styles/auth.css';
 
 class Register extends Component {
 	constructor(props) {
@@ -62,8 +61,8 @@ class Register extends Component {
 		return (
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
-				<div className='paper'>
-					<Avatar className='avatar'>
+				<div className="paper">
+					<Avatar className="avatar">
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
@@ -72,75 +71,57 @@ class Register extends Component {
 					<form noValidate onSubmit={this.handleSubmit}>
 						<Grid container spacing={2}>
 							<Grid item xs={12} sm={6}>
-								<TextField
-									autoComplete="fname"
-									name="firstName"
-									variant="outlined"
-									required
-									fullWidth
+								<InputWithError
+									handleInputChange={this.handleInputChange}
+									value={firstName}
+									inputError={errors.firstName}
+									type="text"
 									id="firstName"
 									label="Имя"
-									autoFocus
-                                    onChange={this.handleInputChange}
-                                    value={firstName}
 								/>
 							</Grid>
 							<Grid item xs={12} sm={6}>
-								<TextField
-									variant="outlined"
-									required
-									fullWidth
+								<InputWithError
+									handleInputChange={this.handleInputChange}
+									value={lastName}
+									inputError={errors.lastName}
+									type="text"
 									id="lastName"
 									label="Фамилия"
-									name="lastName"
-									autoComplete="lname"
-                                    onChange={this.handleInputChange}
-                                    value={lastName}
 								/>
 							</Grid>
 							<Grid item xs={12}>
-								<TextField
-									variant="outlined"
-									required
-									fullWidth
+								<InputWithError
+									handleInputChange={this.handleInputChange}
+									value={email}
+									inputError={errors.email}
+									type="email"
 									id="email"
 									label="Email"
-									name="email"
-									autoComplete="email"
-                                    onChange={this.handleInputChange}
-                                    value={email}
 								/>
 							</Grid>
 							<Grid item xs={12}>
-								<TextField
-									variant="outlined"
-									required
-									fullWidth
-									name="password"
-									label="Пароль"
+								<InputWithError
+									handleInputChange={this.handleInputChange}
+									value={password}
+									inputError={errors.password}
 									type="password"
 									id="password"
-									autoComplete="current-password"
-                                    onChange={this.handleInputChange}
-                                    value={password}
+									label="Пароль"
 								/>
 							</Grid>
 							<Grid item xs={12}>
-								<TextField
-									variant="outlined"
-									required
-									fullWidth
-									name="passwordConfirm"
-									label="Подтверждение пароля"
+								<InputWithError
+									handleInputChange={this.handleInputChange}
+									value={passwordConfirm}
+									inputError={errors.passwordConfirm}
 									type="password"
 									id="passwordConfirm"
-									autoComplete="password-confirm"
-                                    onChange={this.handleInputChange}
-                                    value={passwordConfirm}
+									label="Подтверждение пароля"
 								/>
 							</Grid>
 						</Grid>
-						<Button type="submit" fullWidth variant="contained" color="primary" className='submit'>
+						<Button type="submit" fullWidth variant="contained" color="primary" className="submit">
 							Зарегистрироваться
 						</Button>
 						<Grid container justify="flex-end">

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
@@ -11,9 +10,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import TextField from '@material-ui/core/TextField';
 import { NavLink } from 'react-router-dom';
 import '../../styles/auth.css';
+import InputWithError from '../shared/InputWithError';
 
 class Login extends Component {
 	constructor(props) {
@@ -55,8 +54,7 @@ class Login extends Component {
 	};
 
 	render() {
-		var { email, password, errors } = this.state;
-
+		const { email, errors, password } = this.state;
 		return (
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
@@ -68,31 +66,21 @@ class Login extends Component {
 						Sign in
 					</Typography>
 					<form noValidate onSubmit={this.handeSubmit}>
-						<TextField
-							variant="outlined"
-							margin="normal"
-							required
-							fullWidth
+						<InputWithError
+							handleInputChange={this.handleInputChange}
+							value={email}
+							inputError={errors.email}
+							type="text"
 							id="email"
 							label="Email"
-							name="email"
-							autoComplete="email"
-							onChange={this.handleInputChange}
-							autoFocus
-							value={email}
 						/>
-						<TextField
-							variant="outlined"
-							margin="normal"
-							required
-							fullWidth
-							name="password"
-							label="Password"
+						<InputWithError
+							handleInputChange={this.handleInputChange}
+							value={password}
+							inputError={errors.password}
 							type="password"
 							id="password"
-							autoComplete="current-password"
-							onChange={this.handleInputChange}
-							value={password}
+							label="Пароль"
 						/>
 						<Button type="submit" fullWidth variant="contained" color="primary" className="submit">
 							Вход
@@ -108,12 +96,7 @@ class Login extends Component {
 					</form>
 				</div>
 			</Container>
-        );
-        // {errors.lastName && (
-        //     <span className="helper-text red lighten-1">
-        //         {errors.lastName}
-        //     </span>
-        // )}
+		);
 	}
 }
 
