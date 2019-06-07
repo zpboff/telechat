@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
+import PropTypes from "prop-types";
 import classnames from "classnames";
-import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 class Login extends Component {
     constructor(props) {
@@ -8,18 +11,25 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            errors: {},
-            socket: null
+            errors: {}
         };
     }
 
     componentDidMount() {
-        const { socket } = this.props;
-        socket.on('LOGIN', (data) => {
-            if(data.errors){
-                alert('Error happened')
-            }
-        })
+        if (this.props.isAuthenticated) {
+            this.props.history.push("/");
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isAuthenticated) {
+            this.props.history.push("/");
+        }
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
     }
 
     handleInputChange = event => {
@@ -31,8 +41,7 @@ class Login extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        const { socket } = this.props;
-        socket.emit("LOGIN", { ...this.state });
+        this.props.login({ ...this.state });
     };
 
     render() {
@@ -81,11 +90,7 @@ class Login extends Component {
                             )}
                         </div>
                     </div>
-                    <button
-                        className="btn waves-effect waves-light"
-                        type="submit"
-                        name="action"
-                    >
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
                         Вход
                     </button>
                 </form>
@@ -94,8 +99,23 @@ class Login extends Component {
     }
 }
 
+Login.propTypes = {
+    errors: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool
+};
+
 const mapStateToProps = state => ({
-    socket: state.chat.socket
+    errors: state.auth.errors,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = dispatch => {
+    return {
+        login: user => dispatch(login(user))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(Login));

@@ -4,7 +4,8 @@ const initializeDbConnection = require('./db/connector')
 const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
 const passport = require('passport');
-const express = require('express')
+const express = require('express');
+const authApi = require('./routes/authRoute')
 var cors = require("cors");
 
 initializeDbConnection();
@@ -15,19 +16,12 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
+app.use("/api/auth", authApi);
+
 var server = require("http").createServer(app);
 var io = require('socket.io')(server);
 
 io.on("connection", socketManager);
-// io.on('connection', (client) => {
-//   client.on('LOGIN', (user) => {
-//     console.log('client is subscribing login', user);
-//   });
-// });
-
-app.get('/', (req, res) => {
-    res.sendStatus(200);
-})
 
 server.listen(AppSettings.SocketPort, () => {
     console.log(`Socket listening on *:${AppSettings.SocketPort}`);
