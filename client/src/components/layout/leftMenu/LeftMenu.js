@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import FullMenuItems from './FullMenuItems';
-import LimitedMenuItems from './LimitedMenuItems';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class LeftMenu extends Component {
 	render() {
-		const { avatar, isAuthenticated } = this.props;
+		const { avatar } = this.props;
 		return (
 			<nav className="menu" tabIndex="0">
 				<div className="smartphone-menu-trigger" />
-				{isAuthenticated ? (
-					<header className="avatar">
-						<img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" alt="Аватар" />
-					</header>
-				) : null}
-				{isAuthenticated ? <FullMenuItems /> : <LimitedMenuItems />}
+				<header className="avatar">
+					<img width='64' height='64' src={avatar} alt="Аватар" />
+				</header>
+				<FullMenuItems />
 			</nav>
 		);
 	}
 }
 
-export default LeftMenu;
+LeftMenu.propTypes = {
+	avatar: PropTypes.string.isRequired
+};
+
+const mapStateToProps = (state) => ({
+	avatar: state.auth.user.avatar
+});
+
+export default connect(mapStateToProps)(LeftMenu);

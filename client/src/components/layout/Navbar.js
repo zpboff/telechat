@@ -7,7 +7,6 @@ import '../../styles/navbar.css';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LeftMenu from './leftMenu/LeftMenu';
 
 class Navbar extends Component {
 	constructor(props) {
@@ -31,7 +30,6 @@ class Navbar extends Component {
 						<div className="section-desktop">{isAuthenticated ? <UserLinks /> : <AuthLinks />}</div>
 					</Toolbar>
 				</AppBar>
-				{isAuthenticated && <LeftMenu isAuthenticated={isAuthenticated}/>}
 			</div>
 		);
 	}
