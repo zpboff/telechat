@@ -38,8 +38,6 @@ main .helper span {
 	display: block;
 }
 .menu {
-	display: flex;
-    flex-grow: 1;
 	height: 100vh;
 	min-width: 240px;
 	position: fixed;
