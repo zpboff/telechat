@@ -2,63 +2,47 @@ import AppBar from '@material-ui/core/AppBar';
 import React, { Component } from 'react';
 import UserLinks from './UserLinks';
 import AuthLinks from './AuthLinks';
-import { Toolbar, IconButton, Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Toolbar, Typography } from '@material-ui/core';
 import '../../styles/navbar.css';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import LeftMenu from './leftMenu/LeftMenu';
 
 class Navbar extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			menuIsOpened: false
+		};
+	}
 
-    renderLeftMenu = () => {
-        return (
-            <IconButton
-                edge="start"
-                className='menu-btn'
-                color="inherit"
-                aria-label="Open drawer"
-            >
-                <MenuIcon />
-            </IconButton>
-        )
-    }
-
-    renderLinks = () => {
-        const { isAuthenticated } = this.props;
-        if (isAuthenticated) {
-            return <UserLinks />;
-        }
-        return <AuthLinks />
-    }
-
-    render() {
-        return (
-            <div className='grow'>
-                <AppBar className='navbar' position="static">
-                    <Toolbar>
-                        {this.renderLeftMenu()}
-                        <NavLink to="/" className='home-link'>
-                            <Typography variant="h6" className=''>
-                                Telechat
-                            </Typography>
-                        </NavLink>
-                        <div className='section-desktop'>
-                            {this.renderLinks()}
-                        </div>
-                    </Toolbar>
-                </AppBar>
-            </div>
-        );
-    }
+	render() {
+		const { isAuthenticated } = this.props;
+		return (
+			<div className="grow">
+				<AppBar className="navbar" position="static">
+					<Toolbar>
+						<NavLink to="/" className="home-link">
+							<Typography variant="h6" className="">
+								Telechat
+							</Typography>
+						</NavLink>
+						<div className="section-desktop">{isAuthenticated ? <UserLinks /> : <AuthLinks />}</div>
+					</Toolbar>
+				</AppBar>
+				{isAuthenticated && <LeftMenu isAuthenticated={isAuthenticated}/>}
+			</div>
+		);
+	}
 }
 
 Navbar.propTypes = {
-    isAuthenticated: PropTypes.bool
-}
+	isAuthenticated: PropTypes.bool
+};
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
-})
+	isAuthenticated: state.auth.isAuthenticated
+});
 
-export default connect(mapStateToProps)(Navbar)
+export default connect(mapStateToProps)(Navbar);
