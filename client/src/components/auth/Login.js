@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { NavLink } from 'react-router-dom';
 import '../../styles/auth.css';
 import InputWithError from '../shared/InputWithError';
+import withoutAuth from '../shared/withoutAuth';
 
 class Login extends Component {
 	constructor(props) {
@@ -24,16 +24,7 @@ class Login extends Component {
 		};
 	}
 
-	componentDidMount() {
-		if (this.props.isAuthenticated) {
-			this.props.history.push('/');
-		}
-	}
-
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.isAuthenticated) {
-			this.props.history.push('/');
-		}
 		if (nextProps.errors) {
 			this.setState({
 				errors: nextProps.errors
@@ -116,4 +107,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(withoutAuth(Login));

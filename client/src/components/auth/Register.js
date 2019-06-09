@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
 import '../../styles/auth.css';
+import withoutAuth from '../shared/withoutAuth';
 
 class Register extends Component {
 	constructor(props) {
@@ -40,19 +40,10 @@ class Register extends Component {
 	};
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.isAuthenticated) {
-			this.props.history.push('/');
-		}
 		if (nextProps.errors) {
 			this.setState({
 				errors: nextProps.errors
 			});
-		}
-	}
-
-	componentDidMount() {
-		if (this.props.isAuthenticated) {
-			this.props.history.push('/');
 		}
 	}
 
@@ -150,4 +141,4 @@ const mapDispatchToProps = (dispatch) => ({
 	register: (user, history) => dispatch(register(user, history))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Register));
+export default connect(mapStateToProps, mapDispatchToProps)(withoutAuth(Register));
