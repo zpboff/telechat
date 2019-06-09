@@ -50,3 +50,8 @@ a:visited {
 .avatar img {
 	border-radius: 50%;
 }
+
+.bage .MuiBadge-badge {
+	background-color: #2196f3;
+	color: #fff;
+}
