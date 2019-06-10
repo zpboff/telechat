@@ -27,26 +27,7 @@ class AccountLinks extends Component {
 	render() {
 		const { anchorEl } = this.state;
 		return (
-			<div>
-				{/* <IconButton
-					edge="end"
-					aria-label="Account of current user"
-					aria-controls="profile"
-					aria-haspopup="true"
-					onClick={this.handleClick}
-					color="inherit"
-				>
-					<AccountCircle />
-				</IconButton>
-				<Menu id="profile" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={this.handleClose}>
-					<MenuItem>
-						<NavLink to="/profile">
-                            Профиль
-						</NavLink>
-					</MenuItem>
-					<MenuItem onClick={this.logout}>Выход</MenuItem>
-				</Menu> */}
-			</div>
+			<div>AccountLinks</div>
 		);
 	}
 }

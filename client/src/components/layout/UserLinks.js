@@ -4,7 +4,6 @@ import AccountLinks from './AccountLink';
 
 export default (props) => (
     <>
-        {/* <BageLinks/> */}
         <AccountLinks/>
     </>
 )

@@ -7,9 +7,9 @@ class LeftMenu extends Component {
 	render() {
 		const { avatar } = this.props;
 		return (
-			<nav className="menu" tabIndex="0">
-				<div className="smartphone-menu-trigger" />
-				<header className="avatar">
+			<nav tabIndex="0">
+				<div/>
+				<header>
 					<img width='64' height='64' src={avatar} alt="Аватар" />
 				</header>
 				<FullMenuItems />
