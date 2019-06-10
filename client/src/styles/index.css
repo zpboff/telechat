@@ -56,3 +56,8 @@ a:visited {
 	background-color: #2196f3;
 	color: #fff;
 }
+
+.container {
+	flex-grow: 1;
+	justify-items: center;
+}

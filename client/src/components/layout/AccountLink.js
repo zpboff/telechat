@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Menu from '@material-ui/core/Menu';
-import { IconButton } from '@material-ui/core';
-import MenuItem from '@material-ui/core/MenuItem';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import { logout } from '../../actions/auth';
 import { NavLink, withRouter } from 'react-router-dom';
 
@@ -32,7 +28,7 @@ class AccountLinks extends Component {
 		const { anchorEl } = this.state;
 		return (
 			<div>
-				<IconButton
+				{/* <IconButton
 					edge="end"
 					aria-label="Account of current user"
 					aria-controls="profile"
@@ -49,7 +45,7 @@ class AccountLinks extends Component {
 						</NavLink>
 					</MenuItem>
 					<MenuItem onClick={this.logout}>Выход</MenuItem>
-				</Menu>
+				</Menu> */}
 			</div>
 		);
 	}
