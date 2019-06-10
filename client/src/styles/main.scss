@@ -1,0 +1,154 @@
+$font-sizes: (
+    primary: 16px
+);
+
+$colors: (
+    primary: #e53935
+);
+
+@function getColor($color-name) {
+    @return map-get($map: $colors, $key: $color-name);
+}
+
+@function getFontSize($font-name) {
+    @return map-get($map: $font-sizes, $key: $font-name);
+}
+
+@mixin nav-link {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+@mixin nav-link-a {
+    @include nav-link;
+    text-align: center;
+    padding: 1em;
+}
+
+$desktop: 840px;
+
+@mixin desktop {
+    @media (max-width: #{$desktop}) {
+        @content;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+*html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+li {
+    list-style: none;
+}
+
+header {
+    nav {
+        height: 10vh;
+        background-color: getColor(primary);
+
+        @include desktop {
+            position: relative;
+        }
+
+        .hamburger {
+            display: none;
+
+            @include desktop {
+                position: absolute;
+                display: inline-block;
+                cursor: pointer;
+                right: 5%;
+                top: 50%;
+                transform: translate(-5%, -50%);
+                z-index: 2;
+            }
+
+            .line {
+                width: 30px;
+                height: 3px;
+                background-color: #fff;
+                margin: 5px;
+            }
+        }
+
+        .nav-links {
+            @include nav-link;
+            display: flex;
+            width: 50%;
+            justify-content: space-around;
+            align-items: center;
+            margin-left: auto;
+
+            @include desktop {
+                position: fixed;
+                background-color: getColor(primary);
+                height: 100vh;
+                width: 100%;
+                flex-direction: column;
+                clip-path: circle(100px at 90% -10%);
+                transition: all 1s ease-out;
+            }
+
+            &.open {
+                @include desktop {
+                    clip-path: circle(1000px at 90% -10%);
+                    transition: all 1s ease-out;
+                } 
+            }
+
+            li:first-child {
+                flex-grow: 1;
+            }
+
+            li {
+                a.logo {
+                    img {
+                        height: 4em;
+                        width: 4em;
+                    }
+                }
+
+                a:not(.logo) {
+                    @include nav-link-a;
+                    font-size: getFontSize(primary);
+
+                    &:hover {
+                        background-color: darken(
+                            $color: getColor(primary),
+                            $amount: 5
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
+
+body {
+    section.layout {
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include desktop {
+            flex-direction: column;
+        }
+    }
+}
