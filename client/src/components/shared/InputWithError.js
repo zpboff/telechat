@@ -6,39 +6,12 @@ const InputWithError = (props) => {
 
 	if (inputError) {
 		return (
-			<TextField
-				variant="outlined"
-				margin="normal"
-				required
-				fullWidth
-				error
-				id={id}
-				label={inputError}
-				name={id}
-				autoComplete={id}
-				onChange={handleInputChange}
-				autoFocus
-				type={type}
-				value={value}
-			/>
+			<input type='text' />
 		);
 	}
 
 	return (
-		<TextField
-			variant="outlined"
-			margin="normal"
-			required
-			fullWidth
-			id={id}
-			label={label}
-			name={id}
-			autoComplete={id}
-			onChange={handleInputChange}
-			autoFocus
-			type={type}
-			value={value}
-		/>
+		<input type='text' />
 	);
 };
 

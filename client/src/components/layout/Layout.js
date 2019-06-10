@@ -5,7 +5,6 @@ import Home from '../home/Home';
 import Profile from '../profile/Profile';
 import Register from '../auth/Register';
 import Navbar from './Navbar';
-import { Container } from '@material-ui/core';
 import LeftMenu from './leftMenu/LeftMenu';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,16 +16,14 @@ class Layout extends Component {
 			<BrowserRouter>
 				<div className="App">
 					<Navbar />
-					<div className='main'>
+					<div>
 						{isAuthenticated && <LeftMenu isAuthenticated={isAuthenticated} />}
-						<Container maxWidth="lg">
-							<Switch>
-								<Route exact path="/" component={Home} />
-								<Route exact path="/login" component={Login} />
-								<Route exact path="/register" component={Register} />
-								<Route exact path="/profile" component={Profile} />
-							</Switch>
-						</Container>
+						<Switch>
+							<Route exact path="/" component={Home} />
+							<Route exact path="/login" component={Login} />
+							<Route exact path="/register" component={Register} />
+							<Route exact path="/profile" component={Profile} />
+						</Switch>
 					</div>
 				</div>
 			</BrowserRouter>
