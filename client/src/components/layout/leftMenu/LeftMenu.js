@@ -1,29 +1,60 @@
-import React, { Component } from 'react';
-import FullMenuItems from './FullMenuItems';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 class LeftMenu extends Component {
-	render() {
-		const { avatar } = this.props;
-		return (
-			<nav tabIndex="0">
-				<div/>
-				<header>
-					<img width='64' height='64' src={avatar} alt="Аватар" />
-				</header>
-				<FullMenuItems />
-			</nav>
-		);
-	}
+    render() {
+        return (
+            <nav className="left-menu">
+                <ul>
+                    <li>
+                        <NavLink to="/profile">
+                            <img
+                                src={require("../../../images/icons/baseline-account_box-24px.svg")}
+                                alt="Профиль"
+                            />
+                            <span>Профиль</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/chats">
+                            <img
+                                src={require("../../../images/icons/baseline-chat-24px.svg")}
+                                alt="Диалоги"
+                            />
+                            <span>Диалоги</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/friends">
+                            <img
+                                src={require("../../../images/icons/baseline-supervisor_account-24px.svg")}
+                                alt="Друзья"
+                            />
+                            <span>Друзья</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/calendar">
+                            <img
+                                src={require("../../../images/icons/baseline-calendar_today-24px.svg")}
+                                alt="Календарь"
+                            />
+                            <span>Календарь</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/settings">
+                            <img
+                                src={require("../../../images/icons/baseline-settings-20px.svg")}
+                                alt="Настройки"
+                            />
+                            <span>Настройки</span>
+                        </NavLink>
+                    </li>
+                </ul>
+            </nav>
+        );
+    }
 }
 
-LeftMenu.propTypes = {
-	avatar: PropTypes.string.isRequired
-};
-
-const mapStateToProps = (state) => ({
-	avatar: state.auth.user.avatar
-});
-
-export default connect(mapStateToProps)(LeftMenu);
+export default LeftMenu;

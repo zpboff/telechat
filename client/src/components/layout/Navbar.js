@@ -11,11 +11,6 @@ class Navbar extends Component {
         const { isAuthenticated } = this.props;
         return (
             <header>
-                <div className="hamburger">
-                    <div className='line' />
-                    <div className='line' />
-                    <div className='line' />
-                </div>
                 <div className='logo'>
                     <NavLink to="/">
                         <img src={logo} alt='Логотип' />
