@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AccountLinks from "./AccountLinks";
+import AuthLinks from "./AuthLinks";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -10,22 +11,18 @@ class Navbar extends Component {
         const { isAuthenticated } = this.props;
         return (
             <header>
+                <div className="hamburger">
+                    <div className='line' />
+                    <div className='line' />
+                    <div className='line' />
+                </div>
                 <div className='logo'>
                     <NavLink to="/">
                         <img src={logo} alt='Логотип' />
                     </NavLink>
                 </div>
                 <nav>
-                    <div className="hamburger">
-                        <div className='line' />
-                        <div className='line' />
-                        <div className='line' />
-                    </div>
-                    <ul>
-                        <li>
-                            <NavLink to="/profile">Профиль</NavLink>
-                        </li>
-                    </ul>
+                    {isAuthenticated ? <AccountLinks /> : <AuthLinks />}
                 </nav>
             </header>
         );

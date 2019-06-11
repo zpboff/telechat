@@ -29,11 +29,24 @@ header {
   background-color: #d32f2f;
 }
 
+header .hamburger {
+  position: relative;
+}
+
+header .hamburger .line {
+  position: absolute;
+  background-color: #fff;
+  width: 30px;
+  height: 3px;
+  top: 50%;
+}
+
 header .logo {
   display: inline-block;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  margin: 0 1em;
 }
 
 header .logo a {

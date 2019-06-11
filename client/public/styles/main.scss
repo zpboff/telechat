@@ -33,9 +33,22 @@ header {
   display: flex;
   background-color: getColor(primary);
 
+  .hamburger {
+    position: relative;
+    .line {
+      position: absolute;
+      background-color: #fff;
+      width: 30px;
+      height: 3px;
+      top: 50%;
+
+    }
+  }
+
   .logo {
     display: inline-block;
     flex-grow: 1;
+    margin: 0 1em;
     a {
       display: inline-block;
       img {
@@ -58,7 +71,7 @@ header {
           height: 100%;
 
           &:hover {
-            background-color: darken($color: getColor(primary), $amount: 10)
+            background-color: darken($color: getColor(primary), $amount: 10);
           }
         }
       }

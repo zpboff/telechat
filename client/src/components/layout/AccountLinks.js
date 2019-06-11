@@ -5,29 +5,18 @@ import { logout } from '../../actions/auth';
 import { NavLink, withRouter } from 'react-router-dom';
 
 class AccountLinks extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			anchorEl: null
-		};
-	}
-
-	handleClick = (event) => {
-		this.setState({ anchorEl: event.currentTarget });
-	};
-
-	handleClose = () => {
-		this.setState({ anchorEl: null });
-	};
-
+	
 	logout = () => {
 		this.props.logout(this.props.history);
 	}
 
 	render() {
-		const { anchorEl } = this.state;
 		return (
-			<div>AccountLinks</div>
+			<ul>
+				<li>
+					<NavLink to="/profile">Профиль</NavLink>
+				</li>
+			</ul>
 		);
 	}
 }
