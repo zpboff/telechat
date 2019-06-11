@@ -10,20 +10,20 @@ class Navbar extends Component {
         const { isAuthenticated } = this.props;
         return (
             <header>
+                <div className='logo'>
+                    <NavLink to="/">
+                        <img src={logo} alt='Логотип' />
+                    </NavLink>
+                </div>
                 <nav>
                     <div className="hamburger">
                         <div className='line' />
                         <div className='line' />
                         <div className='line' />
                     </div>
-                    <ul className="nav-links">
+                    <ul>
                         <li>
-                            <NavLink to="/" className='logo'>
-                                <img src={logo} />
-                            </NavLink>
-                        </li>
-                        <li>
-                            <a href="#">Профиль</a>
+                            <NavLink to="/profile">Профиль</NavLink>
                         </li>
                     </ul>
                 </nav>
