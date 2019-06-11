@@ -106,7 +106,7 @@ section.layout section.main {
 }
 
 section.layout nav {
-  background-color: #d81b60;
+  background-color: #ff6659;
 }
 
 section.layout nav ul li a {
@@ -119,10 +119,17 @@ section.layout nav ul li a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
 }
 
 section.layout nav ul li a:hover {
-  background-color: #ab154c;
+  background-color: #ff3726;
+}
+
+@media (max-width: 840px) {
+  section.layout nav ul li a:hover span {
+    display: block;
+  }
 }
 
 section.layout nav ul li a span {
@@ -135,6 +142,26 @@ section.layout nav ul li a span {
 @media (max-width: 840px) {
   section.layout nav ul li a span {
     display: none;
+    width: 120px;
+    background-color: #42a5f5;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    left: 105%;
+    top: 5px;
+    z-index: 1;
+  }
+  section.layout nav ul li a span::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #42a5f5 transparent transparent;
   }
 }
 /*# sourceMappingURL=main.css.map */
