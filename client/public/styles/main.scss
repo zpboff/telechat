@@ -39,14 +39,14 @@ header {
       position: absolute;
       background-color: #fff;
       width: 30px;
-      height: 3px;
+      height: 3px;      
       top: 50%;
-
     }
   }
 
   .logo {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     flex-grow: 1;
     margin: 0 1em;
     a {
