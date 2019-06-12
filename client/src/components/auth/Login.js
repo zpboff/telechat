@@ -43,7 +43,7 @@ class Login extends Component {
                 <h4>Вход</h4>
                 <div className="input-area">
                     <input
-                        id="email"
+                        name="email"
                         type="text"
                         onChange={this.handleInputChange}
                         value={email}
@@ -52,7 +52,7 @@ class Login extends Component {
                 </div>
                 <div className="input-area">
                     <input
-                        id="password"
+                        name="password"
                         type="password"
                         onChange={this.handleInputChange}
                         value={password}
