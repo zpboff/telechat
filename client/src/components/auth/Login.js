@@ -39,9 +39,27 @@ class Login extends Component {
     render() {
         const { email, errors, password } = this.state;
         return (
-            <form>
+            <form onSubmit={this.handeSubmit}>
                 <h4>Вход</h4>
-                <input type="text" placeholder="Email" />
+                <div className="input-area">
+                    <input
+                        id="email"
+                        type="text"
+                        onChange={this.handleInputChange}
+                        value={email}
+                        placeholder="Email"
+                    />
+                </div>
+                <div className="input-area">
+                    <input
+                        id="password"
+                        type="password"
+                        onChange={this.handleInputChange}
+                        value={password}
+                        placeholder="Пароль"
+                    />
+                </div>
+                <button type="submit">Вход</button>
             </form>
         );
     }
