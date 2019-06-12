@@ -16,12 +16,16 @@ class Layout extends Component {
             <BrowserRouter>
                 <Navbar />
                 <section className="layout">
-                    <LeftMenu />
+                    {isAuthenticated && <LeftMenu />}
                     <section className="main">
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/login" component={Login} />
-                            <Route exact path="/register" component={Register} />
+                            <Route
+                                exact
+                                path="/register"
+                                component={Register}
+                            />
                             <Route exact path="/profile" component={Profile} />
                             <Route exact path="/chats" component={Profile} />
                             <Route exact path="/friends" component={Profile} />

@@ -103,6 +103,17 @@ section.layout {
 
     section.main {
         flex-grow: 1;
+        display: flex;
+        justify-content: center;
+
+        form {
+            width: 100vh;
+            height: 75vh;
+            margin: 40px 0;
+            background-color: #fff;
+            box-shadow: 0 0 3px getColor(tips);
+            border-radius: 15px;
+        }
     }
 
     nav {

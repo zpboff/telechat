@@ -103,6 +103,22 @@ section.layout section.main {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+section.layout section.main form {
+  width: 100vh;
+  height: 75vh;
+  margin: 40px 0;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 3px #42a5f5;
+          box-shadow: 0 0 3px #42a5f5;
+  border-radius: 15px;
 }
 
 section.layout nav {
