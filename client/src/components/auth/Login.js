@@ -39,28 +39,24 @@ class Login extends Component {
     render() {
         const { email, errors, password } = this.state;
         return (
-            <form onSubmit={this.handeSubmit}>
-                <h4>Вход</h4>
-                <div className="input-area">
-                    <input
-                        name="email"
-                        type="text"
-                        onChange={this.handleInputChange}
-                        value={email}
-                        placeholder="Email"
-                    />
+            <div className="container">
+                <div className="form-wrapper">
+                    <form>
+                        <span className="form-title">Авторизация</span>
+                        <div class="input-wrapper">
+                            <input
+                                class="text-input"
+                                type="text"
+                                name="email"
+                                placeholder="Email"
+                            />
+                            <span class="error" />
+                        </div>
+                        <input type="text" placeholder="Email" />
+                        <input type="text" placeholder="Email" />
+                    </form>
                 </div>
-                <div className="input-area">
-                    <input
-                        name="password"
-                        type="password"
-                        onChange={this.handleInputChange}
-                        value={password}
-                        placeholder="Пароль"
-                    />
-                </div>
-                <button type="submit">Вход</button>
-            </form>
+            </div>
         );
     }
 }

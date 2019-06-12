@@ -105,14 +105,54 @@ section.layout {
         flex-grow: 1;
         display: flex;
         justify-content: center;
+        //background-color: getColor(layout);
 
-        form {
-            width: 100vh;
-            height: 75vh;
-            margin: 40px 0;
-            background-color: #fff;
-            box-shadow: 0 0 3px getColor(tips);
-            border-radius: 15px;
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .form-wrapper {
+                min-width: 390px;
+                padding-top: 50px;
+                padding-bottom: 90px;
+
+                form {
+                    display: flex;
+                    width: 100%;
+                    flex-direction: column;
+
+                    .form-title {
+                        font-size: 30px;
+                        color: getColor(secondary);
+                        line-height: 1.2;
+                        text-transform: uppercase;
+                        text-align: center;
+                        width: 100%;
+                        display: block;
+                    }
+
+                    .input-wrapper {
+                        width: 100%;
+                        position: relative;
+                        background-color: #fff;
+                        border: 1px solid transparent;
+                        border-radius: 3px;
+                        margin-bottom: 16px;
+                        //https://colorlib.com/etc/lf/Login_v10/index.html
+                        input[type='text'], input[type='password'] {
+                            color: getColor(secondary);
+                            line-height: 1.2;
+                            font-size: 18px;
+                            display: block;
+                            width: 100%;
+                            background: transparent;
+                            height: 62px;
+                            padding: 0 20px 0 38px;
+                        }
+                    }
+                }
+            }
         }
     }
 
