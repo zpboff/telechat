@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import InputWithError from "../shared/InputWithError";
 import withoutAuth from "../shared/withoutAuth";
+import classnames from 'classnames'
 
 class Login extends Component {
     constructor(props) {
@@ -41,19 +41,54 @@ class Login extends Component {
         return (
             <div className="container">
                 <div className="form-wrapper">
-                    <form>
+                    <form noValidate onSubmit={this.handeSubmit}>
                         <span className="form-title">Авторизация</span>
-                        <div class="input-wrapper">
+                        <div data-validate={errors.email} className={classnames("input-wrapper", {
+                            'error': errors.email
+                        })}>
                             <input
-                                class="text-input"
+                                className="text-input"
                                 type="text"
                                 name="email"
                                 placeholder="Email"
+                                onChange={this.handleInputChange}
+                                value={email}
                             />
-                            <span class="error" />
+                            <span className="error" />
                         </div>
-                        <input type="text" placeholder="Email" />
-                        <input type="text" placeholder="Email" />
+                        <div data-validate={errors.password} className={classnames("input-wrapper", {
+                            'error': errors.password
+                        })}>
+                            <input
+                                className="text-input"
+                                type="password"
+                                name="password"
+                                placeholder="Пароль"
+                                onChange={this.handleInputChange}
+                                value={password}
+                            />
+                            <span className="warning" />
+                        </div>
+                        <div className="additional">
+                            <div className="checkbox-wrapper">
+                                <input
+                                    id='remember'
+                                    type="checkbox"
+                                    name="remember"
+                                />
+                                <label htmlFor="remember">
+                                    Запомнить меня
+                                </label>
+                            </div>
+                            <div>
+                                <NavLink to='/' className='notice'>
+                                    Забыли пароль?
+                                </NavLink>
+                            </div>
+                        </div>
+                        <div className="btn-wrapper">
+                            <button>Вход</button>
+                        </div>
                     </form>
                 </div>
             </div>
