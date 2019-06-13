@@ -153,16 +153,38 @@ section.layout {
                     font-size: 1rem;
                     font-weight: 400;
                     line-height: 1.5;
+                    height: 390px;
 
                     .form-title {
                         font-size: 30px;
                         color: getColor(secondary);
-                        padding-bottom: 51px;
+                        padding-bottom: 41px;
                         line-height: 1.2;
                         text-transform: uppercase;
                         text-align: center;
                         width: 100%;
                         display: block;
+                    }
+
+                    .steps-wrapper {
+                        display: flex;
+                        width: 100%;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 20px 0;
+                        .step {
+                            height: 15px;
+                            width: 15px;
+                            margin: 0 2px;
+                            background-color: getColor(secondary);
+                            border: none;
+                            border-radius: 50%;
+                            display: inline-block;
+
+                            &.current {
+                                background-color: getColor(primary);
+                            }
+                        }
                     }
 
                     .input-wrapper {
@@ -194,7 +216,6 @@ section.layout {
                             max-width: 70%;
                             background-color: #fff;
                             border: 1px solid getColor(primary);
-                            border-radius: 3px;
                             padding: 4px 25px 5px 10px;
                             top: 50%;
                             transform: translateY(-50%);
@@ -229,8 +250,9 @@ section.layout {
                             font-size: 18px;
                             display: block;
                             width: 100%;
+                            border-radius: 3px;
                             background: transparent;
-                            height: 62px;
+                            height: 52px;
                             padding: 0 20px 0 38px;
                             border: none;
                             box-shadow: 0 0 2px getColor(secondary);
@@ -305,7 +327,7 @@ section.layout {
                             line-height: 1.2;
                             display: block;
                             position: relative;
-                            padding-left: 26px;
+                            padding-left: 30px;
                             cursor: pointer;
 
                             &::before {

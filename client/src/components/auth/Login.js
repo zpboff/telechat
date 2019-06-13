@@ -31,7 +31,7 @@ class Login extends Component {
         });
     };
 
-    handeSubmit = event => {
+    handleSubmit = event => {
         event.preventDefault();
         this.props.login({ ...this.state });
     };
@@ -41,7 +41,7 @@ class Login extends Component {
         return (
             <div className="container">
                 <div className="form-wrapper">
-                    <form noValidate onSubmit={this.handeSubmit}>
+                    <form noValidate onSubmit={this.handleSubmit}>
                         <span className="form-title">Авторизация</span>
                         <div data-validate={errors.email} className={classnames("input-wrapper", {
                             'error': errors.email
