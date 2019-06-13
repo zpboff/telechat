@@ -15,13 +15,24 @@ class Layout extends Component {
         return (
             <BrowserRouter>
                 <Navbar />
-                <section className='layout'>
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/register" component={Register} />
-                        <Route exact path="/profile" component={Profile} />
-                    </Switch>
+                <section className="layout">
+                    {isAuthenticated && <LeftMenu />}
+                    <section className="main">
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route exact path="/login" component={Login} />
+                            <Route
+                                exact
+                                path="/register"
+                                component={Register}
+                            />
+                            <Route exact path="/profile" component={Profile} />
+                            <Route exact path="/chats" component={Profile} />
+                            <Route exact path="/friends" component={Profile} />
+                            <Route exact path="/settings" component={Profile} />
+                            <Route exact path="/calendar" component={Profile} />
+                        </Switch>
+                    </section>
                 </section>
             </BrowserRouter>
         );

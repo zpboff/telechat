@@ -19,7 +19,7 @@ router.post("/register", (req, res) => {
     }).then(user => {
         if (user) {
             return res.status(400).json({
-                email: "Email already exists"
+                email: "Email занят"
             });
         }
         const avatar = gravatar.url(req.body.email, {
@@ -33,8 +33,6 @@ router.post("/register", (req, res) => {
             email: req.body.email,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            registeredAt: new Date(),
-            updatedAt: new Date(),
             initials: req.body.firstName[0] + req.body.lastName[0],
             password: req.body.password,
             avatar
@@ -58,14 +56,14 @@ router.post("/login", (req, res) => {
 
     User.findOne({ email }).then(user => {
         if (!user) {
-            errors.email = "User not found";
+            errors.email = "Пользователь не найден";
             return res.status(404).json(errors);
         }
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
                 authenticate(user, res);
             } else {
-                errors.password = "Incorrect Password";
+                errors.password = "Неверный пароль";
                 return res.status(400).json(errors);
             }
         });

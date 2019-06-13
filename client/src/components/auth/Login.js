@@ -1,11 +1,10 @@
-
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { login } from '../../actions/auth';
-import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import InputWithError from '../shared/InputWithError';
-import withoutAuth from '../shared/withoutAuth';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
+import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
+import InputWithError from "../shared/InputWithError";
+import withoutAuth from "../shared/withoutAuth";
 
 class Login extends Component {
     constructor(props) {
@@ -37,12 +36,29 @@ class Login extends Component {
         this.props.login({ ...this.state });
     };
 
-	render() {
-		const { email, errors, password } = this.state;
-		return (
-			<div>Login</div>
-		);
-	}
+    render() {
+        const { email, errors, password } = this.state;
+        return (
+            <div className="container">
+                <div className="form-wrapper">
+                    <form>
+                        <span className="form-title">Авторизация</span>
+                        <div class="input-wrapper">
+                            <input
+                                class="text-input"
+                                type="text"
+                                name="email"
+                                placeholder="Email"
+                            />
+                            <span class="error" />
+                        </div>
+                        <input type="text" placeholder="Email" />
+                        <input type="text" placeholder="Email" />
+                    </form>
+                </div>
+            </div>
+        );
+    }
 }
 
 Login.propTypes = {
