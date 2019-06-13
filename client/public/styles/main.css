@@ -222,38 +222,29 @@ section.layout section.main .container .form-wrapper form .input-wrapper {
 }
 
 section.layout section.main .container .form-wrapper form .input-wrapper.error:hover::before {
-  visibility: visible;
-  opacity: 1;
+  display: block;
 }
 
 section.layout section.main .container .form-wrapper form .input-wrapper.error::before {
-  visibility: visible;
-  opacity: 1;
   content: attr(data-validate);
+  display: none;
+  width: 240px;
+  background-color: #ff6659;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
   position: absolute;
-  max-width: 70%;
-  background-color: #fff;
-  border: 1px solid #d32f2f;
-  padding: 4px 25px 5px 10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  right: 12px;
+  left: 105%;
+  top: 5px;
+  z-index: 1;
   pointer-events: none;
-  color: #ff6659;
-  font-size: 14px;
-  line-height: 1.4;
-  text-align: left;
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: opacity 0.4s;
-  transition: opacity 0.4s;
 }
 
 @media (max-width: 840px) {
   section.layout section.main .container .form-wrapper form .input-wrapper.error::before {
-    visibility: visible;
-    opacity: 1;
+    display: block;
+    left: 60%;
   }
 }
 

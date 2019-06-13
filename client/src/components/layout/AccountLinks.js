@@ -16,6 +16,9 @@ class AccountLinks extends Component {
 				<li>
 					<NavLink to="/profile">Профиль</NavLink>
 				</li>
+				<li>
+					<a onClick={this.logout}>Выход</a>
+				</li>
 			</ul>
 		);
 	}

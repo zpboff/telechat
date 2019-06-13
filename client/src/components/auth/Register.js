@@ -24,7 +24,11 @@ class Register extends Component {
     handleInputChange = event => {
         const { value, name } = event.target;
         this.setState({
-            [name]: value
+            [name]: value,
+            errors: {
+                ...this.state.errors,
+                [name]: ""
+            }
         });
     };
 
@@ -35,8 +39,15 @@ class Register extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
+            const { email, password, passwordConfirm } = nextProps.errors;
+            const stepWithError =
+                email || password || passwordConfirm
+                    ? Enums.RegisterStep.Credentials
+                    : Enums.RegisterStep.Personal;
+                    
             this.setState({
-                errors: nextProps.errors
+                errors: nextProps.errors,
+                step: stepWithError
             });
         }
     }
@@ -67,15 +78,15 @@ class Register extends Component {
         const nextStep = Math.min(
             Object.values(Enums.RegisterStep).length,
             step + 1
-		);
-		
+        );
+
         if (step === nextStep) {
             return <button type="submit">Зарегистрироваться</button>;
         }
         return (
             <button
-				key={step}
-				type='button'
+                key={step}
+                type="button"
                 disabled={disabled}
                 onClick={this.swithStep.bind(this, nextStep)}
             >
@@ -120,7 +131,6 @@ class Register extends Component {
                         onChange={this.handleInputChange}
                         value={email}
                     />
-                    <span className="error" />
                 </div>
                 <div
                     data-validate={errors.password}
@@ -136,7 +146,6 @@ class Register extends Component {
                         onChange={this.handleInputChange}
                         value={password}
                     />
-                    <span className="warning" />
                 </div>
                 <div
                     data-validate={errors.password}
@@ -152,7 +161,6 @@ class Register extends Component {
                         onChange={this.handleInputChange}
                         value={passwordConfirm}
                     />
-                    <span className="warning" />
                 </div>
             </>
         );

@@ -200,34 +200,28 @@ section.layout {
                         -webkit-tap-highlight-color: transparent;
 
                         &.error:hover::before {
-                            visibility: visible;
-                            opacity: 1;
+                            display: block;
                         }
 
                         &.error::before {
                             @include mobile {
-                                visibility: visible;
-                                opacity: 1;
+                                display: block;
+                                left: 60%;
                             }
-                            visibility: visible;
-                            opacity: 1;
+
                             content: attr(data-validate);
+                            display: none;
+                            width: 240px;
+                            background-color: getColor(secondary);
+                            color: #fff;
+                            text-align: center;
+                            padding: 5px 0;
+                            border-radius: 6px;
                             position: absolute;
-                            max-width: 70%;
-                            background-color: #fff;
-                            border: 1px solid getColor(primary);
-                            padding: 4px 25px 5px 10px;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            right: 12px;
+                            left: 105%;
+                            top: 5px;
+                            z-index: 1;
                             pointer-events: none;
-                            color: getColor(secondary);
-                            font-size: 14px;
-                            line-height: 1.4;
-                            text-align: left;
-                            visibility: hidden;
-                            opacity: 0;
-                            transition: opacity 0.4s;
                         }
 
                         &.error::after {

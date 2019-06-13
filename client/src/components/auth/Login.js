@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import withoutAuth from "../shared/withoutAuth";
 import classnames from 'classnames'
+import Enums from "../../constants/enums";
 
 class Login extends Component {
     constructor(props) {
@@ -27,7 +28,11 @@ class Login extends Component {
     handleInputChange = event => {
         const { value, name } = event.target;
         this.setState({
-            [name]: value
+            [name]: value,
+            errors: {
+                ...this.state.errors,
+                [name]: ''
+            }
         });
     };
 
@@ -54,7 +59,6 @@ class Login extends Component {
                                 onChange={this.handleInputChange}
                                 value={email}
                             />
-                            <span className="error" />
                         </div>
                         <div data-validate={errors.password} className={classnames("input-wrapper", {
                             'error': errors.password
@@ -67,7 +71,6 @@ class Login extends Component {
                                 onChange={this.handleInputChange}
                                 value={password}
                             />
-                            <span className="warning" />
                         </div>
                         <div className="additional">
                             <div className="checkbox-wrapper">
