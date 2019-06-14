@@ -17,12 +17,27 @@ class Register extends Component {
             lastName: "",
             firstName: "",
             passwordConfirm: "",
+            avatar: [],
+            avatarPreview: "",
             errors: {}
         };
     }
 
+    handleUploadFiles = event => {
+        const avatar = event.target.files[0];
+        var avatarPreview = URL.createObjectURL(avatar);
+        this.setState({
+            avatar,
+            avatarPreview,
+            errors: {
+                ...this.state.errors,
+                avatar: ""
+            }
+        });
+    };
+
     handleInputChange = event => {
-        const { value, name } = event.target;
+        const { name, value } = event.target;
         this.setState({
             [name]: value,
             errors: {
@@ -44,7 +59,7 @@ class Register extends Component {
                 email || password || passwordConfirm
                     ? Enums.RegisterStep.Credentials
                     : Enums.RegisterStep.Personal;
-                    
+
             this.setState({
                 errors: nextProps.errors,
                 step: stepWithError
@@ -206,12 +221,33 @@ class Register extends Component {
         );
     };
 
+    avatar = () => {
+        return (
+            <div className="file-upload">
+                {this.state.avatarPreview && (
+                    <img src={this.state.avatarPreview} />
+                )}
+                <div className="input-file__wrapper">
+                    +
+                    <input
+                        name="avatar"
+                        type="file"
+                        accept="image/*"
+                        onChange={this.handleUploadFiles}
+                    />
+                </div>
+            </div>
+        );
+    };
+
     getBody = () => {
         switch (this.state.step) {
             case Enums.RegisterStep.Credentials:
                 return this.credentials();
             case Enums.RegisterStep.Personal:
                 return this.personal();
+            case Enums.RegisterStep.Avatar:
+                return this.avatar();
             default:
                 return <div>Wrong step!</div>;
         }
