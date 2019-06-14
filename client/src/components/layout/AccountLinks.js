@@ -6,7 +6,8 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 class AccountLinks extends Component {
 	
-	logout = () => {
+	logout = (event) => {
+		event.preventDefault();
 		this.props.logout(this.props.history);
 	}
 
@@ -17,7 +18,7 @@ class AccountLinks extends Component {
 					<NavLink to="/profile">Профиль</NavLink>
 				</li>
 				<li>
-					<a onClick={this.logout}>Выход</a>
+					<NavLink to="/logout" onClick={this.logout}>Выход</NavLink>
 				</li>
 			</ul>
 		);
