@@ -9,6 +9,7 @@
     "cropperjs": "^1.5.1",
     "jwt-decode": "^2.2.0",
     "react": "^16.8.6",
+    "react-cropper": "^1.2.0",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "react-router": "^5.0.1",
