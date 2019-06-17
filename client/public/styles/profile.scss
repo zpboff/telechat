@@ -1,0 +1,11 @@
+.profile-page {
+    display: flex;
+    
+	canvas {
+		height: 600px;
+		width: 600px;
+		background-color: #ffffff;
+		cursor: default;
+		border: 1px solid black;
+	}
+}

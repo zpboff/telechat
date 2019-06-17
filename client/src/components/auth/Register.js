@@ -22,7 +22,7 @@ class Register extends Component {
     }
 
     handleInputChange = event => {
-        const { value, name } = event.target;
+        const { name, value } = event.target;
         this.setState({
             [name]: value,
             errors: {
@@ -44,7 +44,7 @@ class Register extends Component {
                 email || password || passwordConfirm
                     ? Enums.RegisterStep.Credentials
                     : Enums.RegisterStep.Personal;
-                    
+
             this.setState({
                 errors: nextProps.errors,
                 step: stepWithError
