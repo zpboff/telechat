@@ -15,8 +15,8 @@ class UserList extends Component {
             <div>
                 <ul>
                     {users &&
-                        users.map(x => (
-                            <li>
+                        users.map((x, i) => (
+                            <li key={`user-${i}`}>
                                 {x.firstName} {x.lastName}
                             </li>
                         ))}
