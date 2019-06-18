@@ -34,6 +34,15 @@ class LeftMenu extends Component {
                         </NavLink>
                     </li>
                     <li>
+                        <NavLink to="/users">
+                            <img
+                                src={require("../../../images/icons/baseline-supervisor_account-24px.svg")}
+                                alt="Все пользователи"
+                            />
+                            <span>Все пользователи</span>
+                        </NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/calendar">
                             <img
                                 src={require("../../../images/icons/baseline-calendar_today-24px.svg")}
