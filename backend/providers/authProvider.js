@@ -7,7 +7,8 @@ const authenticate = (user, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         avatar: user.avatar,
-        initials: user.initials
+        initials: user.initials,
+        birthDate: user.birthDate
     };
     
     jwt.sign(

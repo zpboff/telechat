@@ -72,20 +72,20 @@ class Login extends Component {
                             />
                         </div>
                         <div className="additional">
+                            <div>
+                                <NavLink to='/' className='notice'>
+                                    Забыли пароль?
+                                </NavLink>
+                            </div>
                             <div className="checkbox-wrapper">
-                                <input
+                                {/* <input
                                     id='remember'
                                     type="checkbox"
                                     name="remember"
                                 />
                                 <label htmlFor="remember">
                                     Запомнить меня
-                                </label>
-                            </div>
-                            <div>
-                                <NavLink to='/' className='notice'>
-                                    Забыли пароль?
-                                </NavLink>
+                                </label> */}
                             </div>
                         </div>
                         <div className="btn-wrapper">

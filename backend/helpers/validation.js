@@ -16,6 +16,7 @@ const validateRegister = (data) => {
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.passwordConfirm = !isEmpty(data.passwordConfirm) ? data.passwordConfirm : '';
+    data.birthDate = !isEmpty(data.birthDate) ? data.birthDate : '';
 
     if(!Validator.isLength(data.firstName, { min: 2, max: 30 })) {
         errors.firstName = 'Имя должно содержать не менее 2 символов';
@@ -59,6 +60,10 @@ const validateRegister = (data) => {
 
     if(Validator.isEmpty(data.passwordConfirm)) {
         errors.passwordConfirm = 'Необходимо ввести подтвердить пароль';
+    }
+
+    if(Validator.isEmpty(data.birthDate)) {
+        errors.birthDate = 'Необходимо выбрать день рождения';
     }
 
     return {

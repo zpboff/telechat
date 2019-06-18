@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    birthDate: { type: Date, required: true },
     registeredAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     initials: { type: String },
