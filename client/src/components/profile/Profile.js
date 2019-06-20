@@ -10,10 +10,9 @@ class Profile extends Component {
 		super(props);
 		this.state = {
 			error: '',
-			avatar: [],
-			avatarPreview: ''
+			avatar: ''
 		};
-		this.avatar = React.createRef();
+		this.originalImage = React.createRef();
 	}
 
 	componentDidMount() {
@@ -25,13 +24,13 @@ class Profile extends Component {
 				type: 'square'
 			}
 		}
-		this.cropper = new Croppie(this.avatar.current, opts);
+		this.cropper = new Croppie(this.originalImage.current, opts);
 	}
 
 	getCroppedImage = () => {
 		const args = { type: 'base64', size: 'viewport', format: 'webp', quality: 1, circle: true }
 		this.cropper.result(args).then(value => {
-			console.log(value);
+			this.setState({ avatar: value })
 		});
 	}
 
@@ -39,8 +38,9 @@ class Profile extends Component {
 		return (
 			<div>
 				{this.props.birthDate}
-				<img ref={this.avatar} src='https://foliotek.github.io/Croppie/demo/demo-1.jpg' alt='avatar' />
+				<img ref={this.originalImage} src='https://foliotek.github.io/Croppie/demo/demo-1.jpg' alt='preview' />
 				<button type='button' onClick={this.getCroppedImage}>Загрузить</button>
+				{this.state.avatar && <img src={this.state.avatar} alt='avatar' />}
 			</div>
 		);
 	}
