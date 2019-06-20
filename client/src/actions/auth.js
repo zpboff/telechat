@@ -10,7 +10,7 @@ export const setCurrentUser = decoded => ({
 });
 
 export const setErrors = errors => ({
-    type: AuthActions.SET_ERRORS,
+    type: AuthActions.SET_AUTH_ERRORS,
     errors
 })
 

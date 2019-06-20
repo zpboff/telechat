@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import withoutAuth from "../shared/withoutAuth";
 import classnames from "classnames";
 import Enums from "../../constants/enums";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import "react-day-picker/lib/style.css";
+import "moment/locale/ru";
+import MomentLocaleUtils, {
+    formatDate,
+    parseDate
+} from "react-day-picker/moment";
 
 class Register extends Component {
     constructor(props) {
@@ -17,6 +23,7 @@ class Register extends Component {
             lastName: "",
             firstName: "",
             passwordConfirm: "",
+            birthDate: new Date(),
             errors: {}
         };
     }
@@ -31,6 +38,16 @@ class Register extends Component {
             }
         });
     };
+
+    handleDateChange = value => {
+        this.setState({
+            birthDate: value,
+            errors: {
+                ...this.state.errors,
+                birthDate: ""
+            }
+        });
+    }
 
     handleSubmit = event => {
         event.preventDefault();
@@ -167,7 +184,7 @@ class Register extends Component {
     };
 
     personal = () => {
-        var { firstName, lastName, errors } = this.state;
+        var { firstName, lastName, errors, birthDate } = this.state;
         return (
             <>
                 <div
@@ -201,6 +218,22 @@ class Register extends Component {
                         value={lastName}
                     />
                     <span className="warning" />
+                </div>
+                <div
+                    data-validate={errors.birthDate}
+                    className={classnames("input-wrapper", {
+                        error: errors.birthDate
+                    })}
+                >
+                    <DayPickerInput
+                        value={birthDate}
+                        onDayChange={this.handleDateChange}
+                        placeholder={`${formatDate(new Date(), "LL", "ru")}`}
+                        dayPickerProps={{
+                            locale: "ru",
+                            localeUtils: MomentLocaleUtils
+                        }}
+                    />
                 </div>
             </>
         );

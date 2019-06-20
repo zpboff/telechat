@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import LeftMenu from "./leftMenu/LeftMenu";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import UserList from "../users/UserList";
 
 class Layout extends Component {
     render() {
@@ -29,6 +30,7 @@ class Layout extends Component {
                             <Route exact path="/profile" component={Profile} />
                             <Route exact path="/chats" component={Profile} />
                             <Route exact path="/friends" component={Profile} />
+                            <Route exact path="/users" component={UserList} />
                             <Route exact path="/settings" component={Profile} />
                             <Route exact path="/calendar" component={Profile} />
                         </Switch>

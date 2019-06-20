@@ -231,6 +231,10 @@ section.layout section.main .container .form-wrapper form .input-wrapper.error:h
   display: block;
 }
 
+section.layout section.main .container .form-wrapper form .input-wrapper .DayPickerInput {
+  width: 100%;
+}
+
 section.layout section.main .container .form-wrapper form .input-wrapper.error::before {
   content: attr(data-validate);
   display: none;
@@ -267,9 +271,7 @@ section.layout section.main .container .form-wrapper form .input-wrapper.error::
   right: 18px;
 }
 
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="text"],
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="password"],
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="email"] {
+section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]) {
   color: #ff6659;
   line-height: 1.2;
   font-size: 18px;
@@ -284,17 +286,11 @@ section.layout section.main .container .form-wrapper form .input-wrapper input[t
           box-shadow: 0 0 2px #ff6659;
 }
 
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="text"]:-webkit-autofill,
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="password"]:-webkit-autofill,
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="email"]:-webkit-autofill {
+section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]):-webkit-autofill {
   -webkit-box-shadow: inset 0 0 0px 9999px white, 0 0 2px #ff6659;
 }
 
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="text"]:focus, section.layout section.main .container .form-wrapper form .input-wrapper input[type="text"]:-webkit-autofill:focus,
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="password"]:focus,
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="password"]:-webkit-autofill:focus,
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="email"]:focus,
-section.layout section.main .container .form-wrapper form .input-wrapper input[type="email"]:-webkit-autofill:focus {
+section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]):focus, section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]):-webkit-autofill:focus {
   -webkit-box-shadow: inset 0 0 0px 9999px white, 0 0 2px #ff6659;
 }
 

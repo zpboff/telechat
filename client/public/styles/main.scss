@@ -208,6 +208,10 @@ section.layout {
                             display: block;
                         }
 
+                        .DayPickerInput {
+                            width: 100%;
+                        }
+
                         &.error::before {
                             @include mobile {
                                 display: block;
@@ -241,9 +245,7 @@ section.layout {
                             right: 18px;
                         }
 
-                        input[type="text"],
-                        input[type="password"],
-                        input[type="email"] {
+                        input:not([type="checkbox"]) {
                             color: getColor(secondary);
                             line-height: 1.2;
                             font-size: 18px;

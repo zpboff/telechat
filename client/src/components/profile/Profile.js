@@ -12,6 +12,14 @@ class Profile extends Component {
 			avatarPreview: ''
 		};
 	}
+
+	render() {
+		return (
+			<div>
+				{this.props.birthDate}
+			</div>
+		);
+	}
 }
 
 Profile.propTypes = {
@@ -19,7 +27,8 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated
+	isAuthenticated: state.auth.isAuthenticated,
+	birthDate: state.auth.user.birthDate
 });
 
 export default connect(mapStateToProps)(withAuth(Profile));
