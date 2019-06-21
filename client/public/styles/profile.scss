@@ -1,11 +1,21 @@
+@import './mixins.scss', './color.scss';
+
 .profile-page {
-    display: flex;
-    
-	canvas {
-		height: 600px;
-		width: 600px;
-		background-color: #ffffff;
-		cursor: default;
-		border: 1px solid black;
-	}
+	display: flex;
+	flex-direction: column;
+	
+	.avatar-wrapper {
+		display: flex;
+		width: 400px;
+		height: 400px;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}	
+
+	button {
+		@include button
+	}	
 }

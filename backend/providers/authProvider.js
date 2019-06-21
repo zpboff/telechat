@@ -7,6 +7,7 @@ const authenticate = (user, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         avatar: user.avatar,
+        photo: user.photo,
         initials: user.initials,
         birthDate: user.birthDate
     };

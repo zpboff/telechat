@@ -8,18 +8,18 @@ const UserSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     birthDate: { type: Date, required: true },
-    registeredAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
+    registrationDate: { type: Date, default: Date.now },
     initials: { type: String },
-    avatar: { type: String }
+    avatar: { type: String },
+    photo: { type: String }
 });
 
-UserSchema.pre("save", function(next) {
+UserSchema.pre("save", function (next) {
     if (this.isNew || this.isModified("password")) {
         const document = this;
         document.initials = document.firstName[0] + document.lastName[0];
         const salt = bcrypt.genSaltSync(AppSettings.SaltRounds);
-        bcrypt.hash(document.password, salt, function(err, hashedPassword) {
+        bcrypt.hash(document.password, salt, function (err, hashedPassword) {
             if (err) {
                 next(err);
                 return;
@@ -31,19 +31,5 @@ UserSchema.pre("save", function(next) {
     }
     next();
 });
-
-UserSchema.methods.isCorrectPassword = function(
-    password,
-    successAction,
-    errorAction
-) {
-    bcrypt.compare(password, this.password, (err, same) => {
-        if (err) {
-            callback(err);
-        } else {
-            callback(err, same);
-        }
-    });
-};
 
 module.exports = mongoose.model("users", UserSchema);

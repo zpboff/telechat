@@ -324,25 +324,10 @@ section.layout section.main .container .form-wrapper form .btn-wrapper {
 
 section.layout section.main .container .form-wrapper form .btn-wrapper button {
   font-size: 18px;
-  color: #fff;
   line-height: 1.2;
-  text-transform: uppercase;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   padding: 0 20px;
   width: 100%;
   height: 62px;
-  background-color: #d32f2f;
-  border-radius: 3px;
-  -webkit-transition: all 0.4s;
-  transition: all 0.4s;
 }
 
 section.layout section.main .container .form-wrapper form .additional {
