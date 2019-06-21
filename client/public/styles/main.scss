@@ -1,4 +1,4 @@
-@import './mixins.scss', './color.scss';
+@import "./mixins.scss", "./color.scss";
 
 $deskton-width: 840px;
 
@@ -63,7 +63,7 @@ input:-webkit-autofill {
 header {
     display: flex;
     height: 60px;
-    background-color: getColor(primary);
+    background-color: getColor(dark);
 
     .hamburger {
         position: relative;
@@ -102,7 +102,7 @@ header {
 
                     &:hover {
                         background-color: darken(
-                            $color: getColor(primary),
+                            $color: getColor(dark),
                             $amount: 10
                         );
                     }
@@ -143,7 +143,7 @@ section.layout {
 
                     .form-title {
                         font-size: 30px;
-                        color: getColor(secondary);
+                        color: getColor(dark);
                         padding-bottom: 41px;
                         line-height: 1.2;
                         text-transform: uppercase;
@@ -162,13 +162,13 @@ section.layout {
                             height: 15px;
                             width: 15px;
                             margin: 0 2px;
-                            background-color: getColor(secondary);
+                            background-color: getColor(dark);
                             border: none;
                             border-radius: 50%;
                             display: inline-block;
 
                             &.current {
-                                background-color: getColor(primary);
+                                background-color: getColor(dark);
                             }
                         }
                     }
@@ -202,7 +202,7 @@ section.layout {
                             content: attr(data-validate);
                             display: none;
                             width: 240px;
-                            background-color: getColor(secondary);
+                            background-color: getColor(dark);
                             color: #fff;
                             text-align: center;
                             padding: 5px 0;
@@ -218,7 +218,7 @@ section.layout {
                             content: "\0021";
                             display: block;
                             position: absolute;
-                            color: #c80000;
+                            color: getColor(dark);
                             font-size: 20px;
                             font-weight: bold;
                             top: 50%;
@@ -227,7 +227,7 @@ section.layout {
                         }
 
                         input:not([type="checkbox"]) {
-                            color: getColor(secondary);
+                            color: getColor(dark);
                             line-height: 1.2;
                             font-size: 18px;
                             display: block;
@@ -237,17 +237,17 @@ section.layout {
                             height: 52px;
                             padding: 0 20px 0 38px;
                             border: none;
-                            box-shadow: 0 0 2px getColor(secondary);
+                            box-shadow: 0 0 2px getColor(dark);
 
                             &:-webkit-autofill {
                                 -webkit-box-shadow: inset 0 0 0px 9999px white,
-                                    0 0 2px getColor(secondary);
+                                    0 0 2px getColor(dark);
                             }
 
                             &:focus,
                             &:-webkit-autofill:focus {
                                 -webkit-box-shadow: inset 0 0 0px 9999px white,
-                                    0 0 2px getColor(secondary);
+                                    0 0 2px getColor(dark);
                             }
                         }
 
@@ -259,7 +259,7 @@ section.layout {
                             top: -1px;
                             left: -1px;
                             pointer-events: none;
-                            border: 1px solid getColor(primary);
+                            border: 1px solid getColor(dark);
                             border-radius: 3px;
                             visibility: hidden;
                             opacity: 0;
@@ -275,7 +275,7 @@ section.layout {
                         margin-top: 17px;
 
                         button {
-
+                            @include buttons;
                             font-size: 18px;
                             line-height: 1.2;
                             padding: 0 20px;
@@ -293,12 +293,12 @@ section.layout {
                         padding-top: 3px;
 
                         input[type="checkbox"]:checked + label::before {
-                            color: getColor(secondary);
+                            color: getColor(dark);
                         }
 
                         label {
                             font-size: 16px;
-                            color: getColor(secondary);
+                            color: getColor(dark);
                             line-height: 1.2;
                             display: block;
                             position: relative;
@@ -318,7 +318,7 @@ section.layout {
                                 height: 18px;
                                 border-radius: 3px;
                                 background: #fff;
-                                border: 2px solid getColor(secondary);
+                                border: 2px solid getColor(dark);
                                 left: 0;
                                 top: 50%;
                                 transform: translateY(-50%);
@@ -327,7 +327,7 @@ section.layout {
 
                         a.notice {
                             font-size: 16px;
-                            color: getColor(secondary);
+                            color: getColor(dark);
                             line-height: 1.4;
                         }
                     }
@@ -337,7 +337,7 @@ section.layout {
     }
 
     nav {
-        background-color: getColor(secondary);
+        background-color: getColor(primary);
 
         ul {
             li {
@@ -350,7 +350,7 @@ section.layout {
                     position: relative;
 
                     &:hover {
-                        background-color: darken(getColor(secondary), 10);
+                        background-color: darken(getColor(primary), 10);
                         span {
                             @include mobile {
                                 display: block;
