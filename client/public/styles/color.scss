@@ -1,7 +1,8 @@
 $colors: (
-    primary: #d32f2f,
-    secondary: #ff6659,
-    tips: #42a5f5
+    primary: #f44336,
+    dark: #ba000d,
+    light: #ff7961,
+    tips: #424242
 );
 
 @function getColor($color-name) {

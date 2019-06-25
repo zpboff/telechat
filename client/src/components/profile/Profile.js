@@ -1,55 +1,87 @@
-import React, { Component } from 'react';
-import withAuth from '../shared/withAuth';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Croppie from 'croppie';
-import 'croppie/croppie.css';
-import { croppieOptions } from '../../constants/consts';
+import React, { Component } from "react";
+import withAuth from "../shared/withAuth";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Croppie from "croppie";
+import "croppie/croppie.css";
+import { croppieOptions, croppieArguments } from "../../constants/consts";
 
 class Profile extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			error: '',
-			avatar: '',
-			photo: ''
-		};
-		this.originalImage = React.createRef();
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            croppieWasInitialize: false,
+            error: "",
+            avatar: "",
+            photo: ""
+        };
+        this.originalImage = React.createRef();
+    }
 
-	componentDidMount() {
-		this.cropper = new Croppie(this.originalImage.current, croppieOptions);
-	}
+    componentDidUpdate() {
+        if (!this.state.croppieWasInitialize && this.originalImage.current) {
+            this.cropper = new Croppie(
+                this.originalImage.current,
+                croppieOptions
+            );
+        }
+    }
 
-	getCroppedImage = () => {
-		const args = { type: 'base64', size: 'viewport', format: 'webp', quality: 1, circle: true }
-		this.cropper.result(args).then(value => {
-			this.setState({ avatar: value })
-		});
-	}
+    getCroppedImage = () => {
+        this.cropper.result(croppieArguments).then(value => {
+            this.setState({ avatar: value });
+        });
+    };
 
-	render() {
-		return (
-			<div className='profile-page'>
-				<div className='avatar-wrapper'>
-					<img ref={this.originalImage} src='https://foliotek.github.io/Croppie/demo/demo-1.jpg' alt='preview' />
-				</div>
-				<div className='btn-wrapper'>
-					<button type='button' onClick={this.getCroppedImage}>Загрузить</button>
-					<button type='button' onClick={this.getCroppedImage}>Сохранить</button>
-				</div>
-			</div>
-		);
-	}
+    uploadImage = event => {
+        var { files } = event.target;
+        if (files && files[0]) {
+            this.setState({ photo: files[0] });
+        }
+    };
+
+    render() {
+        const { photo, avatar } = this.state;
+        return (
+            <div className="profile-page">
+                {photo && (
+                    <div className="avatar-wrapper">
+                        <img
+                            ref={this.originalImage}
+                            src={this.state.photo}
+                            alt="preview"
+                        />
+                    </div>
+                )}
+                <div className="btn-group">
+                    {photo && (
+                        <div className="btn-wrapper">
+                            <button
+                                type="button"
+                                onClick={this.getCroppedImage}
+                            >
+                                Сохранить
+                            </button>
+                        </div>
+                    )}
+                    <div className="file-input">
+                        <input type="file" onChange={this.uploadImage} />
+                        Загрузить
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
 Profile.propTypes = {
-	isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool
 };
 
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-	birthDate: state.auth.user.birthDate
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    birthDate: state.auth.user.birthDate,
+    photo: state.auth.user.photo
 });
 
 export default connect(mapStateToProps)(withAuth(Profile));

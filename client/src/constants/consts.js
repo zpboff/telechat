@@ -6,3 +6,11 @@ export const croppieOptions = {
         type: 'circle'
     }
 }
+
+export const croppieArguments = {
+    type: "base64",
+    size: "viewport",
+    format: "webp",
+    quality: 1,
+    circle: true
+};

@@ -10,12 +10,12 @@
     }
 }
 
-@mixin button {
+@mixin buttons {
     color: #fff;
     display: flex;
     text-transform: uppercase;
     justify-content: center;
-    background-color: getColor(primary);
+    background-color: getColor(dark);
     transition: all 0.4s;                            
     border-radius: 3px;
     align-items: center;
