@@ -63,7 +63,6 @@ header {
   display: -ms-flexbox;
   display: flex;
   height: 60px;
-  background-color: #ba000d;
 }
 
 header .hamburger {
@@ -113,10 +112,6 @@ header nav ul li a {
           align-items: center;
   padding: 1em;
   height: 100%;
-}
-
-header nav ul li a:hover {
-  background-color: #870009;
 }
 
 section.layout {
@@ -177,7 +172,6 @@ section.layout section.main .container .form-wrapper form {
 
 section.layout section.main .container .form-wrapper form .form-title {
   font-size: 30px;
-  color: #ba000d;
   padding-bottom: 41px;
   line-height: 1.2;
   text-transform: uppercase;
@@ -204,14 +198,9 @@ section.layout section.main .container .form-wrapper form .steps-wrapper .step {
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #ba000d;
   border: none;
   border-radius: 50%;
   display: inline-block;
-}
-
-section.layout section.main .container .form-wrapper form .steps-wrapper .step.current {
-  background-color: #ba000d;
 }
 
 section.layout section.main .container .form-wrapper form .input-wrapper {
@@ -239,7 +228,6 @@ section.layout section.main .container .form-wrapper form .input-wrapper.error::
   content: attr(data-validate);
   display: none;
   width: 240px;
-  background-color: #ba000d;
   color: #fff;
   text-align: center;
   padding: 5px 0;
@@ -262,7 +250,6 @@ section.layout section.main .container .form-wrapper form .input-wrapper.error::
   content: "\0021";
   display: block;
   position: absolute;
-  color: #ba000d;
   font-size: 20px;
   font-weight: bold;
   top: 50%;
@@ -272,7 +259,6 @@ section.layout section.main .container .form-wrapper form .input-wrapper.error::
 }
 
 section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]) {
-  color: #ba000d;
   line-height: 1.2;
   font-size: 18px;
   display: block;
@@ -282,16 +268,16 @@ section.layout section.main .container .form-wrapper form .input-wrapper input:n
   height: 52px;
   padding: 0 20px 0 38px;
   border: none;
-  -webkit-box-shadow: 0 0 2px #ba000d;
-          box-shadow: 0 0 2px #ba000d;
+  -webkit-box-shadow: 0 0 2px;
+          box-shadow: 0 0 2px;
 }
 
 section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]):-webkit-autofill {
-  -webkit-box-shadow: inset 0 0 0px 9999px white, 0 0 2px #ba000d;
+  -webkit-box-shadow: inset 0 0 0px 9999px white, 0 0 2px;
 }
 
 section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]):focus, section.layout section.main .container .form-wrapper form .input-wrapper input:not([type="checkbox"]):-webkit-autofill:focus {
-  -webkit-box-shadow: inset 0 0 0px 9999px white, 0 0 2px #ba000d;
+  -webkit-box-shadow: inset 0 0 0px 9999px white, 0 0 2px;
 }
 
 section.layout section.main .container .form-wrapper form .input-wrapper .warning {
@@ -302,7 +288,7 @@ section.layout section.main .container .form-wrapper form .input-wrapper .warnin
   top: -1px;
   left: -1px;
   pointer-events: none;
-  border: 1px solid #ba000d;
+  border: 1px solid;
   border-radius: 3px;
   visibility: hidden;
   opacity: 0;
@@ -331,7 +317,6 @@ section.layout section.main .container .form-wrapper form .btn-wrapper button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: #ba000d;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
   border-radius: 3px;
@@ -360,13 +345,8 @@ section.layout section.main .container .form-wrapper form .additional {
   padding-top: 3px;
 }
 
-section.layout section.main .container .form-wrapper form .additional input[type="checkbox"]:checked + label::before {
-  color: #ba000d;
-}
-
 section.layout section.main .container .form-wrapper form .additional label {
   font-size: 16px;
-  color: #ba000d;
   line-height: 1.2;
   display: block;
   position: relative;
@@ -393,7 +373,7 @@ section.layout section.main .container .form-wrapper form .additional label::bef
   height: 18px;
   border-radius: 3px;
   background: #fff;
-  border: 2px solid #ba000d;
+  border: 2px solid;
   left: 0;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -402,12 +382,11 @@ section.layout section.main .container .form-wrapper form .additional label::bef
 
 section.layout section.main .container .form-wrapper form .additional a.notice {
   font-size: 16px;
-  color: #ba000d;
   line-height: 1.4;
 }
 
 section.layout nav {
-  background-color: #f44336;
+  background-color: #ef5350;
   height: 100%;
   position: fixed;
   z-index: 1;
@@ -427,7 +406,7 @@ section.layout nav ul li a {
 }
 
 section.layout nav ul li a:hover {
-  background-color: #ea1c0d;
+  background-color: #ef5350;
 }
 
 @media (max-width: 840px) {
@@ -447,7 +426,7 @@ section.layout nav ul li a span {
   section.layout nav ul li a span {
     display: none;
     width: 120px;
-    background-color: #424242;
+    background-color: #ffb74d;
     color: #fff;
     text-align: center;
     padding: 5px 0;
@@ -465,7 +444,7 @@ section.layout nav ul li a span {
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent #424242 transparent transparent;
+    border-color: transparent transparent transparent;
   }
 }
 /*# sourceMappingURL=main.css.map */

@@ -101,10 +101,7 @@ header {
                     height: 100%;
 
                     &:hover {
-                        background-color: darken(
-                            $color: getColor(dark),
-                            $amount: 10
-                        );
+                        background-color: getColor(dark);
                     }
                 }
             }
@@ -353,7 +350,7 @@ section.layout {
                     position: relative;
 
                     &:hover {
-                        background-color: darken(getColor(primary), 10);
+                        background-color: getColor(primary);
                         span {
                             @include mobile {
                                 display: block;
@@ -370,7 +367,7 @@ section.layout {
                         @include mobile {
                             display: none;
                             width: 120px;
-                            background-color: getColor(tips);
+                            background-color: getColor(secondary);
                             color: #fff;
                             text-align: center;
                             padding: 5px 0;
