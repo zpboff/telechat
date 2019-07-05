@@ -127,7 +127,7 @@ section.layout {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  height: calc(100% - 60px);
+  height: 100%;
 }
 
 section.layout section.main {
@@ -408,6 +408,9 @@ section.layout section.main .container .form-wrapper form .additional a.notice {
 
 section.layout nav {
   background-color: #f44336;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
 }
 
 section.layout nav ul li a {

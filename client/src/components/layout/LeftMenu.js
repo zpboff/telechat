@@ -9,7 +9,7 @@ class LeftMenu extends Component {
                     <li>
                         <NavLink to="/profile">
                             <img
-                                src={require("../../../images/icons/baseline-account_box-24px.svg")}
+                                src={require("../../images/icons/baseline-account_box-24px.svg")}
                                 alt="Профиль"
                             />
                             <span>Профиль</span>
@@ -18,7 +18,7 @@ class LeftMenu extends Component {
                     <li>
                         <NavLink to="/chats">
                             <img
-                                src={require("../../../images/icons/baseline-chat-24px.svg")}
+                                src={require("../../images/icons/baseline-chat-24px.svg")}
                                 alt="Диалоги"
                             />
                             <span>Диалоги</span>
@@ -27,7 +27,7 @@ class LeftMenu extends Component {
                     <li>
                         <NavLink to="/friends">
                             <img
-                                src={require("../../../images/icons/baseline-supervisor_account-24px.svg")}
+                                src={require("../../images/icons/baseline-supervisor_account-24px.svg")}
                                 alt="Друзья"
                             />
                             <span>Друзья</span>
@@ -36,7 +36,7 @@ class LeftMenu extends Component {
                     <li>
                         <NavLink to="/users">
                             <img
-                                src={require("../../../images/icons/baseline-supervisor_account-24px.svg")}
+                                src={require("../../images/icons/baseline-supervisor_account-24px.svg")}
                                 alt="Все пользователи"
                             />
                             <span>Все пользователи</span>
@@ -45,7 +45,7 @@ class LeftMenu extends Component {
                     <li>
                         <NavLink to="/calendar">
                             <img
-                                src={require("../../../images/icons/baseline-calendar_today-24px.svg")}
+                                src={require("../../images/icons/baseline-calendar_today-24px.svg")}
                                 alt="Календарь"
                             />
                             <span>Календарь</span>
@@ -54,7 +54,7 @@ class LeftMenu extends Component {
                     <li>
                         <NavLink to="/settings">
                             <img
-                                src={require("../../../images/icons/baseline-settings-20px.svg")}
+                                src={require("../../images/icons/baseline-settings-20px.svg")}
                                 alt="Настройки"
                             />
                             <span>Настройки</span>

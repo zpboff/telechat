@@ -1,8 +1,10 @@
 $colors: (
-    primary: #f44336,
-    dark: #ba000d,
-    light: #ff7961,
-    tips: #424242
+    primary: #ef5350,
+    primary-dark: #b61827,
+    primary-light: #ff867c,
+    secondary: #ffb74d,
+    secondary-dark: #c88719,
+    secondary-light: #ffe97d
 );
 
 @function getColor($color-name) {

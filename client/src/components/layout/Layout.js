@@ -4,8 +4,7 @@ import Login from "../auth/Login";
 import Home from "../home/Home";
 import Profile from "../profile/Profile";
 import Register from "../auth/Register";
-import Navbar from "./Navbar";
-import LeftMenu from "./leftMenu/LeftMenu";
+import LeftMenu from "./LeftMenu";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UserList from "../users/UserList";
@@ -15,7 +14,6 @@ class Layout extends Component {
         const { isAuthenticated } = this.props;
         return (
             <BrowserRouter>
-                <Navbar />
                 <section className="layout">
                     {isAuthenticated && <LeftMenu />}
                     <section className="main">

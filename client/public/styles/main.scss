@@ -115,7 +115,7 @@ header {
 section.layout {
     display: flex;
     flex-direction: row;
-    height: calc(100% - 60px);
+    height: 100%;
 
     section.main {
         flex-grow: 1;
@@ -338,6 +338,9 @@ section.layout {
 
     nav {
         background-color: getColor(primary);
+        height: 100%;
+        position: fixed;
+        z-index: 1;
 
         ul {
             li {
