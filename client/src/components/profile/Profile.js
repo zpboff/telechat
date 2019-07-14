@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import withAuth from "../shared/withAuth";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import Croppie from "croppie";
 import "croppie/croppie.css";
 import { croppieOptions, croppieArguments } from "../../constants/consts";
@@ -74,14 +71,4 @@ class Profile extends Component {
     }
 }
 
-Profile.propTypes = {
-    isAuthenticated: PropTypes.bool
-};
-
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    birthDate: state.auth.user.birthDate,
-    photo: state.auth.user.photo
-});
-
-export default connect(mapStateToProps)(withAuth(Profile));
+export default Profile;

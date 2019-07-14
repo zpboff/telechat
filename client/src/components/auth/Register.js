@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import withoutAuth from "../shared/withoutAuth";
 import classnames from "classnames";
 import Enums from "../../constants/enums";
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -14,44 +11,15 @@ import MomentLocaleUtils, {
 } from "react-day-picker/moment";
 
 class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            step: Enums.RegisterStep.Credentials,
-            email: "",
-            password: "",
-            lastName: "",
-            firstName: "",
-            passwordConfirm: "",
-            birthDate: new Date(),
-            errors: {}
-        };
-    }
-
     handleInputChange = event => {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value,
-            errors: {
-                ...this.state.errors,
-                [name]: ""
-            }
-        });
+        const { name, value } = event.target;        
     };
 
     handleDateChange = value => {
-        this.setState({
-            birthDate: value,
-            errors: {
-                ...this.state.errors,
-                birthDate: ""
-            }
-        });
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.register({ ...this.state }, this.props.history);
     };
 
     componentWillReceiveProps(nextProps) {
@@ -69,7 +37,7 @@ class Register extends Component {
         }
     }
 
-    swithStep = step => this.setState({ step });
+    swithStep = step => {};
 
     renderButton = () => {
         const {
@@ -80,7 +48,7 @@ class Register extends Component {
             lastName,
             firstName,
             errors
-        } = this.state;
+        } = {};
         var disabled = false;
 
         switch (step) {
@@ -133,7 +101,7 @@ class Register extends Component {
     credentials = () => {
         var { email, password, passwordConfirm, errors } = this.state;
         return (
-            <>
+            <React.Fragment>
                 <div
                     data-validate={errors.email}
                     className={classnames("input-wrapper", {
@@ -179,14 +147,14 @@ class Register extends Component {
                         value={passwordConfirm}
                     />
                 </div>
-            </>
+            </React.Fragment>
         );
     };
 
     personal = () => {
         var { firstName, lastName, errors, birthDate } = this.state;
         return (
-            <>
+            <React.Fragment>
                 <div
                     data-validate={errors.firstName}
                     className={classnames("input-wrapper", {
@@ -235,7 +203,7 @@ class Register extends Component {
                         }}
                     />
                 </div>
-            </>
+            </React.Fragment>
         );
     };
 
@@ -271,16 +239,4 @@ Register.propTypes = {
     isAuthenticated: PropTypes.bool
 };
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    errors: state.auth.errors
-});
-
-const mapDispatchToProps = dispatch => ({
-    register: (user, history) => dispatch(register(user, history))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withoutAuth(Register));
+export default Register;

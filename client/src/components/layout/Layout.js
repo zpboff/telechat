@@ -6,7 +6,6 @@ import Profile from "../profile/Profile";
 import Register from "../auth/Register";
 import LeftMenu from "./LeftMenu";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import UserList from "../users/UserList";
 
 class Layout extends Component {
@@ -39,12 +38,4 @@ class Layout extends Component {
     }
 }
 
-Layout.propTypes = {
-    isAuthenticated: PropTypes.bool
-};
-
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps)(Layout);
+export default Layout;
