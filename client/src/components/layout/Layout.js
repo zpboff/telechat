@@ -1,41 +1,23 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from "../auth/Login";
-import Home from "../home/Home";
-import Profile from "../profile/Profile";
-import Register from "../auth/Register";
-import LeftMenu from "./LeftMenu";
-import PropTypes from "prop-types";
-import UserList from "../users/UserList";
+import { observer, inject } from "mobx-react";
+import { user } from '../../helpers/propTypesHelper'
 
+@inject(stores => {
+    return {
+        user: stores.rootStore.user
+    };
+})
+@observer
 class Layout extends Component {
     render() {
-        const { isAuthenticated } = this.props;
-        return (
-            <BrowserRouter>
-                <section className="layout">
-                    {isAuthenticated && <LeftMenu />}
-                    <section className="main">
-                        <Switch>
-                            <Route exact path="/" component={Home} />
-                            <Route exact path="/login" component={Login} />
-                            <Route
-                                exact
-                                path="/register"
-                                component={Register}
-                            />
-                            <Route exact path="/profile" component={Profile} />
-                            <Route exact path="/chats" component={Profile} />
-                            <Route exact path="/friends" component={Profile} />
-                            <Route exact path="/users" component={UserList} />
-                            <Route exact path="/settings" component={Profile} />
-                            <Route exact path="/calendar" component={Profile} />
-                        </Switch>
-                    </section>
-                </section>
-            </BrowserRouter>
-        );
+        const { user } = this.props;
+        const isAuthenticated = user.isAuthenticated;
+        return <div>User is authenticated: {isAuthenticated.toString()}</div>;
     }
 }
+
+Layout.propTypes = {
+    user: user
+};
 
 export default Layout;
