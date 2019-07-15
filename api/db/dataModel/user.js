@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 import * as argon2 from 'argon2';
 
 const UserSchema = new mongoose.Schema({
+    _id: {type: mongoose.Types.ObjectId, required: true, unique: true},
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     firstName: { type: String, required: true },
