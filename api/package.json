@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.24.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.13",
     "nodemon": "^1.19.1"
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { userType } from '../../helpers/propTypesHelper';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Signin from '../auth/Signin';
 import Signup from '../auth/Signup';
@@ -16,20 +15,18 @@ import Home from '../Home';
 class Layout extends Component {
 	render() {
 		return (
-			<BrowserRouter>
-				<Switch>
-					<Route path="/" exact component={Home} />
-					<Route path="/signin" component={Signin} />
-					<Route path="/signup" component={Signup} />
-					<Route component={NotFound} />
-				</Switch>
-			</BrowserRouter>
+			<div>
+				<BrowserRouter>
+					<Switch>
+						<Route path="/" exact component={Home} />
+						<Route path="/signin" component={Signin} />
+						<Route path="/signup" component={Signup} />
+						<Route component={NotFound} />
+					</Switch>
+				</BrowserRouter>
+			</div>
 		);
 	}
 }
-
-Layout.propTypes = {
-	user: userType,
-};
 
 export default Layout;

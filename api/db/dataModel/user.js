@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const AppSettings = require("../../constants/appSettings");
+import * as argon2 from 'argon2';
 
 const UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
@@ -16,6 +16,8 @@ UserSchema.pre("save", function (next) {
     if (this.isNew || this.isModified("password")) {
         const document = this;
         document.initials = document.firstName[0] + document.lastName[0];        
+        const passwordHashed = await argon2.hash(user.password);
+        document.password = passwordHashed;
     }
     next();
 });
