@@ -1,6 +1,6 @@
 import UserStore from "../stores/userStore";
 
-export function user(props, propName, componentName) {
+export function userType(props, propName, componentName) {
     if (props[propName]) {
         let value = props[propName];
         if (typeof value === typeof UserStore) {
