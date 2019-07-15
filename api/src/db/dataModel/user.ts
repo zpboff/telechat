@@ -13,14 +13,14 @@ const UserSchema = new mongoose.Schema({
     avatar: { type: String }
 });
 
-UserSchema.pre("save", function (next) {
+UserSchema.pre("save", async function (next) {
     if (this.isNew || this.isModified("password")) {
         const document = this;
         document.initials = document.firstName[0] + document.lastName[0];        
-        const passwordHashed = await argon2.hash(user.password);
+        const passwordHashed = await argon2.hash(document.password);
         document.password = passwordHashed;
     }
     next();
 });
 
-module.exports = mongoose.model("users", UserSchema);
+export default mongoose.model("users", UserSchema);

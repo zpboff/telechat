@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const ConnectionStrings = require('../constants/conStrings')
+import mongoose from 'mongoose';
+import ConnectionStrings from '../constants/conStrings';
 
 function initializeDbConnection() {
    mongoose.connect(

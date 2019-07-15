@@ -4,7 +4,7 @@ import AppSettings from '../constants/appSettings';
 import * as jwt from 'jsonwebtoken'
 
 export const signup = async user => {
-	const userRecord = await UserModel.findOne({ email: user.email });
+	var userRecord = await UserModel.findOne({ email: user.email });
 	if (userRecord) {
 		throw new Error('Email занят');
 	}
@@ -27,7 +27,8 @@ export const signin = async user => {
 		throw new Error('Пользователь не найден');
 	}
 
-	const correctPassword = await argon2.verify(userRecord.password, password);
+	const correctPassword = await argon2.verify(userRecord.password, user.password);
+	
 	if (!correctPassword) {
 		throw new Error('Неверный пароль');
 	}
