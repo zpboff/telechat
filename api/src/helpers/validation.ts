@@ -10,7 +10,7 @@ const isEmpty = (value) => {
 }
 
 const validateRegister = (data) => {
-    let errors = {};
+    var errors = {};
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
     data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
     data.email = !isEmpty(data.email) ? data.email : '';

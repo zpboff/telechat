@@ -1,4 +1,4 @@
-module.exports =  {
+export default {
     MainPort: 3001,
     SocketPort: 3002,
     Secret: 'T3l34aT_53Cr3t',
