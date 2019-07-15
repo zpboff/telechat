@@ -21,7 +21,19 @@ const Signup = observer(() => (
 			<input type="password" name="password" onChange={handleInputChange} value={signupModel.password} />
 		</div>
 		<div>
-			<button type="submit">Войти</button>
+			<input type="password" name="passwordConfirmation" onChange={handleInputChange} value={signupModel.passwordConfirmation} />
+		</div>
+		<div>
+			<input type="text" name="firstName" onChange={handleInputChange} value={signupModel.firstName} />
+		</div>
+		<div>
+			<input type="text" name="lastName" onChange={handleInputChange} value={signupModel.lastName} />
+		</div>
+		<div>
+			<input type="text" name="birthDate" onChange={handleInputChange} value={signupModel.birthdate} />
+		</div>
+		<div>
+			<button type="submit">Зарегистрироваться</button>
 		</div>
 	</form>
 ));
