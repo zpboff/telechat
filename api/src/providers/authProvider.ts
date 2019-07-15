@@ -1,8 +1,7 @@
 import UserModel from '../db/dataModel/user';
 import * as argon2 from 'argon2';
 import AppSettings from '../constants/appSettings';
-import * as jwt from 'jsonwebtoken'
-import { User } from 'src/types/user';
+import * as jwt from 'jsonwebtoken';
 
 export const signup = async user => {
 	var userRecord = <any>await UserModel.findOne({ email: user.email });
