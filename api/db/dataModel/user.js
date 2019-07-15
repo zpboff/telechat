@@ -13,9 +13,9 @@ const UserSchema = new mongoose.Schema({
     avatar: { type: String }
 });
 
-UserSchema.pre("save", async function (next: Function) {
+UserSchema.pre("save", async function (next) {
     if (this.isNew || this.isModified("password")) {
-        const document = <any>this;
+        const document = this;
         document.initials = document.firstName[0] + document.lastName[0];        
         const passwordHashed = await argon2.hash(document.password);
         document.password = passwordHashed;

@@ -1,10 +1,10 @@
-import UserModel from '../db/dataModel/user';
+import UserModel from '../../backend/db/dataModel/user';
 import * as argon2 from 'argon2';
 import AppSettings from '../constants/appSettings';
 import * as jwt from 'jsonwebtoken';
 
 export const signup = async user => {
-	var userRecord = <any>await UserModel.findOne({ email: user.email });
+	var userRecord = await UserModel.findOne({ email: user.email });
 	if (userRecord) {
 		throw new Error('Email занят');
 	}
@@ -22,7 +22,7 @@ export const signup = async user => {
 };
 
 export const signin = async user => {
-	const userRecord = <any>await UserModel.findOne({ email: user.email });
+	const userRecord = await UserModel.findOne({ email: user.email });
 	if (!userRecord) {
 		throw new Error('Пользователь не найден');
 	}
@@ -45,7 +45,7 @@ export const signin = async user => {
 	};
 };
 
-const generateToken = user => {
+export const generateToken = user => {
 	const data = {
 		_id: user._id,
 		firstName: user.firstName,

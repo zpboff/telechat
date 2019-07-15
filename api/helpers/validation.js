@@ -1,10 +1,6 @@
-import { ErrorsModel } from "src/types/error";
-import { RegistrationModel } from "src/types/registrationModel";
-import { LoginModel } from "src/types/loginModel";
+import Validator from 'validator';
 
-const Validator = require('validator');
-
-const isEmpty = (value: any) => {
+const isEmpty = (value) => {
     return (
         value === undefined ||
         value === null ||
@@ -13,8 +9,8 @@ const isEmpty = (value: any) => {
     );
 }
 
-const validateRegister = (data: RegistrationModel) => {
-    var errors = new ErrorsModel();
+export const validateRegister = (data) => {
+    var errors = {};
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
     data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
     data.email = !isEmpty(data.email) ? data.email : '';
@@ -76,7 +72,7 @@ const validateRegister = (data: RegistrationModel) => {
     }
 }
 
-const validateLogin = (data: LoginModel) => {
+export const validateLogin = (data) => {
     let errors = new ErrorsModel();
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
@@ -102,8 +98,3 @@ const validateLogin = (data: LoginModel) => {
         isValid: isEmpty(errors)
     }
 }
-
-module.exports = {
-    validateLogin,
-    validateRegister
-} 
