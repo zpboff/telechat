@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import * as mongoose from 'mongoose';
 import * as argon2 from 'argon2';
 
 const UserSchema = new mongoose.Schema({
@@ -13,9 +13,9 @@ const UserSchema = new mongoose.Schema({
     avatar: { type: String }
 });
 
-UserSchema.pre("save", async function (next) {
+UserSchema.pre("save", async function (next: Function) {
     if (this.isNew || this.isModified("password")) {
-        const document = this;
+        const document = <any>this;
         document.initials = document.firstName[0] + document.lastName[0];        
         const passwordHashed = await argon2.hash(document.password);
         document.password = passwordHashed;

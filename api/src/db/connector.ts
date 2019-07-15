@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
 import ConnectionStrings from '../constants/conStrings';
+import * as mongoose from 'mongoose';
 
 function initializeDbConnection() {
    mongoose.connect(

@@ -2,9 +2,10 @@ import UserModel from '../db/dataModel/user';
 import * as argon2 from 'argon2';
 import AppSettings from '../constants/appSettings';
 import * as jwt from 'jsonwebtoken'
+import { User } from 'src/types/user';
 
 export const signup = async user => {
-	var userRecord = await UserModel.findOne({ email: user.email });
+	var userRecord = <any>await UserModel.findOne({ email: user.email });
 	if (userRecord) {
 		throw new Error('Email занят');
 	}
@@ -22,7 +23,7 @@ export const signup = async user => {
 };
 
 export const signin = async user => {
-	const userRecord = await UserModel.findOne({ email: user.email });
+	const userRecord = <any>await UserModel.findOne({ email: user.email });
 	if (!userRecord) {
 		throw new Error('Пользователь не найден');
 	}

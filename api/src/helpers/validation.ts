@@ -4,7 +4,7 @@ import { LoginModel } from "src/types/loginModel";
 
 const Validator = require('validator');
 
-const isEmpty = (value) => {
+const isEmpty = (value: any) => {
     return (
         value === undefined ||
         value === null ||
