@@ -1,3 +1,7 @@
+import { ErrorsModel } from "src/types/error";
+import { RegistrationModel } from "src/types/registrationModel";
+import { LoginModel } from "src/types/loginModel";
+
 const Validator = require('validator');
 
 const isEmpty = (value) => {
@@ -9,14 +13,14 @@ const isEmpty = (value) => {
     );
 }
 
-const validateRegister = (data) => {
-    var errors = {};
+const validateRegister = (data: RegistrationModel) => {
+    var errors = new ErrorsModel();
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
     data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
-    data.passwordConfirm = !isEmpty(data.passwordConfirm) ? data.passwordConfirm : '';
-    data.birthDate = !isEmpty(data.birthDate) ? data.birthDate : '';
+    data.passwordConfirmation = !isEmpty(data.passwordConfirmation) ? data.passwordConfirmation : '';
+    data.birthDate = !isEmpty(data.birthDate) ? data.birthDate : null;
 
     if(!Validator.isLength(data.firstName, { min: 2, max: 30 })) {
         errors.firstName = 'Имя должно содержать не менее 2 символов';
@@ -50,16 +54,16 @@ const validateRegister = (data) => {
         errors.password = 'Необходимо ввести пароль';
     }
 
-    if(!Validator.isLength(data.passwordConfirm, {min: 6, max: 30})) {
-        errors.passwordConfirm = 'Пароль должен содержать не менее 6 символов';
+    if(!Validator.isLength(data.passwordConfirmation, {min: 6, max: 30})) {
+        errors.passwordConfirmation = 'Пароль должен содержать не менее 6 символов';
     }
 
-    if(!Validator.equals(data.password, data.passwordConfirm)) {
-        errors.passwordConfirm = 'Пароли должны совпадать';
+    if(!Validator.equals(data.password, data.passwordConfirmation)) {
+        errors.passwordConfirmation = 'Пароли должны совпадать';
     }
 
-    if(Validator.isEmpty(data.passwordConfirm)) {
-        errors.passwordConfirm = 'Необходимо ввести подтвердить пароль';
+    if(Validator.isEmpty(data.passwordConfirmation)) {
+        errors.passwordConfirmation = 'Необходимо ввести подтвердить пароль';
     }
 
     if(Validator.isEmpty(data.birthDate)) {
@@ -72,8 +76,8 @@ const validateRegister = (data) => {
     }
 }
 
-const validateLogin = (data) => {
-    let errors = {};
+const validateLogin = (data: LoginModel) => {
+    let errors = new ErrorsModel();
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
 
