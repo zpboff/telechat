@@ -1,7 +1,7 @@
-import ConnectionStrings from '../constants/conStrings';
-import * as mongoose from 'mongoose';
+const ConnectionStrings = require('../constants/conStrings');
+const mongoose = require('mongoose');
 
-function initializeDbConnection() {
+const initializeDbConnection = () => {
    mongoose.connect(
       ConnectionStrings.DbRoute,
       {
@@ -15,4 +15,4 @@ function initializeDbConnection() {
    db.on("error", console.error.bind(console, "MongoDB connection error:"));
 }
 
-module.exports = initializeDbConnection
+ module.exports = initializeDbConnection

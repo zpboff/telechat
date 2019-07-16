@@ -1,6 +1,6 @@
-import UserModel from "../db/dataModel/user";
+const UserModel = require("../db/dataModel/user");
 
-export default async (req, res, next) => {
+const withUser = async (req, res, next) => {
     const decodedTokenData = req.tokenData;
     const userRecord = await UserModel.findOne({ _id: decodedTokenData._id });
 
@@ -12,3 +12,5 @@ export default async (req, res, next) => {
         return next();
     }
 };
+
+module.exports = withUser

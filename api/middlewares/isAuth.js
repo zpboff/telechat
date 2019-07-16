@@ -1,4 +1,5 @@
-import appSettings from "../constants/appSettings";
+const appSettings = require("../constants/appSettings");
+const jwt = require('express-jwt');
 
 const getTokenFromHeader = req => {
     if (
@@ -9,7 +10,7 @@ const getTokenFromHeader = req => {
     }
 };
 
-export default jwt({
+module.exports = jwt({
     secret: appSettings.Secret,
     userProperty: "token",
     getToken: getTokenFromHeader

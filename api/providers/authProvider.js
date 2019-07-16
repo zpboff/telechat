@@ -1,9 +1,9 @@
-import UserModel from '../../backend/db/dataModel/user';
-import * as argon2 from 'argon2';
-import AppSettings from '../constants/appSettings';
-import * as jwt from 'jsonwebtoken';
+const UserModel = require('../db/dataModel/user');
+const argon2 = require('argon2');
+const AppSettings = require('../constants/appSettings');
+const jwt = require('jsonwebtoken');
 
-export const signup = async user => {
+const signup = async user => {
 	var userRecord = await UserModel.findOne({ email: user.email });
 	if (userRecord) {
 		throw new Error('Email занят');
@@ -21,7 +21,7 @@ export const signup = async user => {
 	};
 };
 
-export const signin = async user => {
+const signin = async user => {
 	const userRecord = await UserModel.findOne({ email: user.email });
 	if (!userRecord) {
 		throw new Error('Пользователь не найден');
@@ -45,7 +45,7 @@ export const signin = async user => {
 	};
 };
 
-export const generateToken = user => {
+const generateToken = user => {
 	const data = {
 		_id: user._id,
 		firstName: user.firstName,
@@ -57,3 +57,9 @@ export const generateToken = user => {
 
 	return jwt.sign({ data }, signature, { expiresIn: expiration });
 };
+
+module.exports = {
+	signin,
+	signup,
+	generateToken
+}

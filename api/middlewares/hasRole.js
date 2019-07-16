@@ -1,4 +1,4 @@
-export default requiredRole => {
+const hasRole = requiredRole => {
     return (req, res, next) => {
         if (req.currentUser.role === requiredRole) {
             return next();
@@ -7,3 +7,5 @@ export default requiredRole => {
         }
     };
 };
+
+module.exports = hasRole
