@@ -9,7 +9,7 @@ const isEmpty = (value) => {
     );
 }
 
-export const validateRegister = (data) => {
+const validateSignup = (data) => {
     var errors = {};
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
     data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
@@ -72,7 +72,7 @@ export const validateRegister = (data) => {
     }
 }
 
-export const validateLogin = (data) => {
+const validateSignin = (data) => {
     let errors = new ErrorsModel();
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
@@ -97,4 +97,10 @@ export const validateLogin = (data) => {
         errors,
         isValid: isEmpty(errors)
     }
+}
+
+module.exports = {
+    validateSignin,
+    validateSignup,
+    isEmpty
 }

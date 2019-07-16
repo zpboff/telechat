@@ -11,13 +11,14 @@ const signup = async user => {
 	userRecord = await new UserModel({ ...user }).save();
 
 	return {
-		user: {
-			email: userRecord.email,
-			firstName: userRecord.firstName,
-			lastName: userRecord.lastName,
-			birthDate: userRecord.birthDate,
-			avatar: userRecord.avatar,
-		},
+		_id: userRecord._id,
+		email: userRecord.email,
+		firstName: userRecord.firstName,
+		lastName: userRecord.lastName,
+		initials: userRecord.initials,
+		birthDate: userRecord.birthDate,
+		avatar: userRecord.avatar,
+		token: generateToken(userRecord),
 	};
 };
 
@@ -28,29 +29,51 @@ const signin = async user => {
 	}
 
 	const correctPassword = await argon2.verify(userRecord.password, user.password);
-	
+
 	if (!correctPassword) {
 		throw new Error('Неверный пароль');
 	}
 
 	return {
-		user: {
-			email: userRecord.email,
-			firstName: userRecord.firstName,
-			lastName: userRecord.lastName,
-			birthDate: userRecord.birthDate,
-            avatar: userRecord.avatar,
-            token: generateToken(userRecord)
-		},
+		_id: userRecord._id,
+		email: userRecord.email,
+		firstName: userRecord.firstName,
+		lastName: userRecord.lastName,
+		initials: userRecord.initials,
+		birthDate: userRecord.birthDate,
+		avatar: userRecord.avatar,
+		token: generateToken(userRecord),
+	};
+};
+
+const signinAsUser = async email => {
+	const userRecord = await UserModel.findOne({ email });
+
+	if (!userRecord) {
+		throw new Error('Пользователь не найден');
+	}
+
+	return {
+		_id: userRecord._id,
+		email: userRecord.email,
+		firstName: userRecord.firstName,
+		lastName: userRecord.lastName,
+		initials: userRecord.initials,
+		birthDate: userRecord.birthDate,
+		avatar: userRecord.avatar,
+		token: generateToken(userRecord),
 	};
 };
 
 const generateToken = user => {
 	const data = {
 		_id: user._id,
-		firstName: user.firstName,
-		lastName: user.lastName,
-		email: user.email,
+		email: userRecord.email,
+		firstName: userRecord.firstName,
+		lastName: userRecord.lastName,
+		initials: userRecord.initials,
+		birthDate: userRecord.birthDate,
+		avatar: userRecord.avatar,
 	};
 	const signature = AppSettings.Secret;
 	const expiration = AppSettings.TokenExpiresIn;
@@ -61,5 +84,5 @@ const generateToken = user => {
 module.exports = {
 	signin,
 	signup,
-	generateToken
-}
+	signinAsUser,
+};
