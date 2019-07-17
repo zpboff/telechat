@@ -1,25 +1,25 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import loginModel from '../../models/signinModel';
+import signinModel from '../../models/signinModel';
 import AuthProvider from '../../providers/authProvider';
 
 const handelSubmit = event => {
 	event.preventDefault();
-	AuthProvider.Signin(loginModel);
+	AuthProvider.Signin(signinModel);
 };
 
 const handleInputChange = event => {
 	const { name, value } = event.target;
-	loginModel.setField(name, value);
+	signinModel.setField(name, value);
 };
 
 const Signin = observer(() => (
 	<form noValidate onSubmit={handelSubmit}>
 		<div>
-			<input type="text" name="email" onChange={handleInputChange} value={loginModel.email} />
+			<input type="text" name="email" onChange={handleInputChange} value={signinModel.email} />
 		</div>
 		<div>
-			<input type="password" name="password" onChange={handleInputChange} value={loginModel.password} />
+			<input type="password" name="password" onChange={handleInputChange} value={signinModel.password} />
 		</div>
 		<div>
 			<button type="submit">Войти</button>

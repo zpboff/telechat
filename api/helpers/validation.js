@@ -16,7 +16,7 @@ const validateSignup = (data) => {
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.passwordConfirmation = !isEmpty(data.passwordConfirmation) ? data.passwordConfirmation : '';
-    data.birthDate = !isEmpty(data.birthDate) ? data.birthDate : null;
+    //data.birthDate = !isEmpty(data.birthDate) ? data.birthDate : null;
 
     if(!Validator.isLength(data.firstName, { min: 2, max: 30 })) {
         errors.firstName = 'Имя должно содержать не менее 2 символов';
@@ -62,9 +62,9 @@ const validateSignup = (data) => {
         errors.passwordConfirmation = 'Необходимо ввести подтвердить пароль';
     }
 
-    if(Validator.isEmpty(data.birthDate)) {
-        errors.birthDate = 'Необходимо выбрать день рождения';
-    }
+    // if(Validator.isEmpty(data.birthDate)) {
+    //     errors.birthDate = 'Необходимо выбрать день рождения';
+    // }
 
     return {
         errors,

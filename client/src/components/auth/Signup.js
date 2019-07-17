@@ -1,10 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import signupModel from '../../models/signupModel';
+import AuthProvider from '../../providers/authProvider';
 
 const handelSubmit = event => {
     event.preventDefault();
-    console.log(event);
+	AuthProvider.Signup(signupModel);
 };
 
 const handleInputChange = event => {
@@ -29,9 +30,9 @@ const Signup = observer(() => (
 		<div>
 			<input type="text" name="lastName" onChange={handleInputChange} value={signupModel.lastName} />
 		</div>
-		<div>
+		{/* <div>
 			<input type="text" name="birthDate" onChange={handleInputChange} value={signupModel.birthdate} />
-		</div>
+		</div> */}
 		<div>
 			<button type="submit">Зарегистрироваться</button>
 		</div>

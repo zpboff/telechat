@@ -8,7 +8,8 @@ const signup = async user => {
 	if (userRecord) {
 		throw new Error('Email занят');
 	}
-	userRecord = await new UserModel({ ...user }).save();
+	var userModel = new UserModel({ ...user });
+	userRecord = await userModel.save();
 
 	return {
 		_id: userRecord._id,
@@ -28,7 +29,8 @@ const signin = async user => {
 		throw new Error('Пользователь не найден');
 	}
 
-	if (await argon2.verify(userRecord.password, user.password)) {
+	const passwordsIsEquals = await argon2.verify(userRecord.password, user.password);
+	if (passwordsIsEquals) {
 		return {
 			_id: userRecord._id,
 			email: userRecord.email,
@@ -40,7 +42,6 @@ const signin = async user => {
 			token: generateToken(userRecord),
 		};
 	}
-	
 	throw new Error('Неверный пароль');
 };
 
@@ -66,12 +67,12 @@ const signinAsUser = async email => {
 const generateToken = user => {
 	const data = {
 		_id: user._id,
-		email: userRecord.email,
-		firstName: userRecord.firstName,
-		lastName: userRecord.lastName,
-		initials: userRecord.initials,
-		birthDate: userRecord.birthDate,
-		avatar: userRecord.avatar,
+		email: user.email,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		initials: user.initials,
+		birthDate: user.birthDate,
+		avatar: user.avatar,
 	};
 	const signature = AppSettings.Secret;
 	const expiration = AppSettings.TokenExpiresIn;
