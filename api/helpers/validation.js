@@ -1,4 +1,4 @@
-import Validator from 'validator';
+const Validator = require('validator');
 
 const isEmpty = (value) => {
     return (
@@ -73,7 +73,7 @@ const validateSignup = (data) => {
 }
 
 const validateSignin = (data) => {
-    let errors = new ErrorsModel();
+    let errors = {};
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
 

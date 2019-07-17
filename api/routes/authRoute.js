@@ -8,14 +8,14 @@ const { signin, signup, signinAsUser } = require('../providers/authProvider');
 const router = express.Router();
 
 router.post('/auth/signup', async (req, res) => {
-	var errors = validateSignup({ ...req.body });
+	var { errors, isValid } = validateSignup({ ...req.body });
 
-	if (!isEmpty(errors)) {
+	if (!isValid) {
 		return res.status(500).json({ errors });
 	}
 
 	try {
-		var user = await signin(req.body);
+		var user = await signup(req.body);
 		return res.status(200).json({ user });
 	} catch (e) {
 		return res.status(500).json({ error: e });
@@ -23,14 +23,14 @@ router.post('/auth/signup', async (req, res) => {
 });
 
 router.post('/auth/signin', async (req, res) => {
-	var errors = validateSignin({ ...req.body });
+	var { errors, isValid } = validateSignin({ ...req.body });
 
-	if (!isEmpty(errors)) {
+	if (!isValid) {
 		return res.status(500).json({ errors });
 	}
 
 	try {
-		var user = await signup(req.body);
+		var user = await signin(req.body);
 		return res.status(200).json({ user });
 	} catch (e) {
 		return res.status(500).json({ error: e });

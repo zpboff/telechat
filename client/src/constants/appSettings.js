@@ -1,2 +1,3 @@
-export default {
-}
+const AppSettings = {};
+
+export default AppSettings;

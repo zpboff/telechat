@@ -1,10 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import loginModel from '../../models/signinModel';
+import AuthProvider from '../../providers/authProvider';
 
 const handelSubmit = event => {
-    event.preventDefault();
-    console.log(event);
+	event.preventDefault();
+	AuthProvider.Signin(loginModel);
 };
 
 const handleInputChange = event => {

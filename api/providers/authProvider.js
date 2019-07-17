@@ -28,22 +28,20 @@ const signin = async user => {
 		throw new Error('Пользователь не найден');
 	}
 
-	const correctPassword = await argon2.verify(userRecord.password, user.password);
-
-	if (!correctPassword) {
-		throw new Error('Неверный пароль');
+	if (await argon2.verify(userRecord.password, user.password)) {
+		return {
+			_id: userRecord._id,
+			email: userRecord.email,
+			firstName: userRecord.firstName,
+			lastName: userRecord.lastName,
+			initials: userRecord.initials,
+			birthDate: userRecord.birthDate,
+			avatar: userRecord.avatar,
+			token: generateToken(userRecord),
+		};
 	}
-
-	return {
-		_id: userRecord._id,
-		email: userRecord.email,
-		firstName: userRecord.firstName,
-		lastName: userRecord.lastName,
-		initials: userRecord.initials,
-		birthDate: userRecord.birthDate,
-		avatar: userRecord.avatar,
-		token: generateToken(userRecord),
-	};
+	
+	throw new Error('Неверный пароль');
 };
 
 const signinAsUser = async email => {
