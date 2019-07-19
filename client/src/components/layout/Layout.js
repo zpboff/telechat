@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch  } from 'react-router';
+import { NavLink  } from 'react-router-dom';
+import { createBrowserHistory } from 'history'
 import Signin from '../auth/Signin';
 import Signup from '../auth/Signup';
 import NotFound from '../shared/NotFound';
@@ -16,14 +18,17 @@ class Layout extends Component {
 	render() {
 		return (
 			<div>
-				<BrowserRouter>
+				<Router history={createBrowserHistory()}>
 					<Switch>
 						<Route path="/" exact component={Home} />
 						<Route path="/signin" component={Signin} />
 						<Route path="/signup" component={Signup} />
 						<Route component={NotFound} />
 					</Switch>
-				</BrowserRouter>
+                    <NavLink to="/" activeClassName="active">Главная</NavLink>  
+                    <NavLink to="/signin" activeClassName="active">Вход</NavLink>  
+                    <NavLink to="/signup" activeClassName="active">Регистрация</NavLink>
+				</Router>
 			</div>
 		);
 	}

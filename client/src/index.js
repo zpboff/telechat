@@ -6,6 +6,7 @@ import RootStore from './stores/rootStore';
 import Layout from './components/layout/Layout';
 
 const rootStore = new RootStore();
+window.rootStore = rootStore;
 
 ReactDOM.render(
 	<Provider rootStore={rootStore} user={rootStore.user}>

@@ -30,6 +30,7 @@ class UserStore {
         this.lastName = user.lastName;
         this.initials = user.initials;
         this.avatar = user.avatar;
+        sessionStorage.token = user.token;
     }
 }
 

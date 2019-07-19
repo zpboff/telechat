@@ -6,6 +6,7 @@ import { inject } from 'mobx-react';
 import WithoutAuth from '../shared/WithoutAuth';
 
 @inject('user')
+@WithoutAuth
 @observer
 class Signin extends React.Component {
 	constructor(props) {
@@ -48,4 +49,4 @@ class Signin extends React.Component {
 	}
 }
 
-export default WithoutAuth(Signin);
+export default Signin;

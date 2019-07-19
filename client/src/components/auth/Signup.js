@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import signupModel from '../../models/signupModel';
 import AuthProvider from '../../providers/authProvider';
+import WithoutAuth from '../shared/WithoutAuth';
 
 const handelSubmit = event => {
     event.preventDefault();
@@ -39,4 +40,4 @@ const Signup = observer(() => (
 	</form>
 ));
 
-export default Signup;
+export default WithoutAuth(Signup);
