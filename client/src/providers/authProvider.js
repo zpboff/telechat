@@ -11,21 +11,24 @@ export default class AuthProvider {
 		delete axios.defaults.headers.common['Authorization'];
 	};
 
-	static Signin = model => {
+	static Signin = (model, callback) => {
 		ApiProvider.Post(`${ConnectionStrings.AuthApiUrl}/signin`, model, res => {
-			console.log(res);
+			AuthProvider.SetAuthToken(res.data.user.token);
+			callback(res.data.user);
 		});
 	};
 
-	static Signup = model => {
+	static Signup = (model, callback) => {
 		ApiProvider.Post(`${ConnectionStrings.AuthApiUrl}/signup`, model, res => {
-			console.log(res);
+			AuthProvider.SetAuthToken(res.data.user.token);
+			callback(res.data.user);
 		});
 	};
 
-	static SigninAsUser = email => {
+	static SigninAsUser = (email, callback) => {
 		ApiProvider.Post(`${ConnectionStrings.AuthApiUrl}/signin-as-user`, { email }, res => {
-			console.log(res);
+			AuthProvider.SetAuthToken(res.data.user.token);
+			callback(res.data.user);
 		});
 	};
 }

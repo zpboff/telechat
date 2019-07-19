@@ -24,8 +24,12 @@ class UserStore {
         return !!this.token;
     }
 
-    @action login() {
-        console.log("TODO Login");
+    @action signin(user) {
+        this.token = user.token;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.initials = user.initials;
+        this.avatar = user.avatar;
     }
 }
 
