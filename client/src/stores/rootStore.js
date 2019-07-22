@@ -1,7 +1,7 @@
-import UserStore from "./userStore";
+import AuthStore from "./authStore";
 
 export default class RootStore {
     constructor() {
-        this.user = new UserStore(this);
+        this.user = new AuthStore(this);
     }
 }

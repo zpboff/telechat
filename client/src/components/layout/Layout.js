@@ -7,14 +7,18 @@ import Signin from '../auth/Signin';
 import Signup from '../auth/Signup';
 import NotFound from '../shared/NotFound';
 import Home from '../Home';
+import AuthProvider from '../../providers/authProvider';
 
-@inject(stores => {
-	return {
-		user: stores.rootStore.user,
-	};
-})
+@inject('user')
 @observer
 class Layout extends Component {
+
+	componentDidMount() {
+		if(AuthProvider.GetAuthToken()){
+			this.props.user.signin();
+		}
+	}
+
 	render() {
 		return (
 			<div>

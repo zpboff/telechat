@@ -11,16 +11,7 @@ const signup = async user => {
 	var userModel = new UserModel({ ...user });
 	userRecord = await userModel.save();
 
-	return {
-		_id: userRecord._id,
-		email: userRecord.email,
-		firstName: userRecord.firstName,
-		lastName: userRecord.lastName,
-		initials: userRecord.initials,
-		birthDate: userRecord.birthDate,
-		avatar: userRecord.avatar,
-		token: generateToken(userRecord),
-	};
+	return generateToken(userRecord);
 };
 
 const signin = async user => {
@@ -31,16 +22,7 @@ const signin = async user => {
 
 	const passwordsIsEquals = await argon2.verify(userRecord.password, user.password);
 	if (passwordsIsEquals) {
-		return {
-			_id: userRecord._id,
-			email: userRecord.email,
-			firstName: userRecord.firstName,
-			lastName: userRecord.lastName,
-			initials: userRecord.initials,
-			birthDate: userRecord.birthDate,
-			avatar: userRecord.avatar,
-			token: generateToken(userRecord),
-		};
+		return generateToken(userRecord);
 	}
 	throw new Error('Неверный пароль');
 };
@@ -52,16 +34,7 @@ const signinAsUser = async email => {
 		throw new Error('Пользователь не найден');
 	}
 
-	return {
-		_id: userRecord._id,
-		email: userRecord.email,
-		firstName: userRecord.firstName,
-		lastName: userRecord.lastName,
-		initials: userRecord.initials,
-		birthDate: userRecord.birthDate,
-		avatar: userRecord.avatar,
-		token: generateToken(userRecord),
-	};
+	return generateToken(userRecord);
 };
 
 const generateToken = user => {

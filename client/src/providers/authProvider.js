@@ -5,30 +5,43 @@ import axios from 'axios';
 export default class AuthProvider {
 	static SetAuthToken = token => {
 		if (token) {
+            sessionStorage.setItem('token', token);
 			axios.defaults.headers.common['Authorization'] = token;
 			return;
 		}
 		delete axios.defaults.headers.common['Authorization'];
 	};
 
+	static GetAuthToken = () => {
+		return sessionStorage.getItem('token');
+	}
+
 	static Signin = (model, callback) => {
-		ApiProvider.Post(`${ConnectionStrings.AuthApiUrl}/signin`, model, res => {
-			AuthProvider.SetAuthToken(res.data.user.token);
-			callback(res.data.user);
-		});
+		var existedToken = AuthProvider.GetAuthToken();
+		if (!existedToken) {
+			ApiProvider.Post(`${ConnectionStrings.AuthApiUrl}/signin`, model, res => {
+				const { token } = res.data;
+				AuthProvider.SetAuthToken(token);
+				callback(token);
+			});
+		} else {
+			callback(existedToken);
+		}
 	};
 
 	static Signup = (model, callback) => {
 		ApiProvider.Post(`${ConnectionStrings.AuthApiUrl}/signup`, model, res => {
-			AuthProvider.SetAuthToken(res.data.user.token);
-			callback(res.data.user);
+			const { token } = res.data;
+			AuthProvider.SetAuthToken(token);
+			callback(token);
 		});
 	};
 
 	static SigninAsUser = (email, callback) => {
 		ApiProvider.Post(`${ConnectionStrings.AuthApiUrl}/signin-as-user`, { email }, res => {
-			AuthProvider.SetAuthToken(res.data.user.token);
-			callback(res.data.user);
+			const { token } = res.data;
+			AuthProvider.SetAuthToken(token);
+			callback(token);
 		});
 	};
 }
