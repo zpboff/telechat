@@ -1,50 +1,41 @@
-import React, { Component } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from "../auth/Login";
-import Home from "../home/Home";
-import Profile from "../profile/Profile";
-import Register from "../auth/Register";
-import LeftMenu from "./LeftMenu";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import UserList from "../users/UserList";
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
+import { Router, Route, Switch  } from 'react-router';
+import { NavLink  } from 'react-router-dom';
+import { createBrowserHistory } from 'history'
+import Signin from '../auth/Signin';
+import Signup from '../auth/Signup';
+import NotFound from '../shared/NotFound';
+import Home from '../Home';
+import AuthProvider from '../../providers/authProvider';
 
+@inject('user')
+@observer
 class Layout extends Component {
-    render() {
-        const { isAuthenticated } = this.props;
-        return (
-            <BrowserRouter>
-                <section className="layout">
-                    {isAuthenticated && <LeftMenu />}
-                    <section className="main">
-                        <Switch>
-                            <Route exact path="/" component={Home} />
-                            <Route exact path="/login" component={Login} />
-                            <Route
-                                exact
-                                path="/register"
-                                component={Register}
-                            />
-                            <Route exact path="/profile" component={Profile} />
-                            <Route exact path="/chats" component={Profile} />
-                            <Route exact path="/friends" component={Profile} />
-                            <Route exact path="/users" component={UserList} />
-                            <Route exact path="/settings" component={Profile} />
-                            <Route exact path="/calendar" component={Profile} />
-                        </Switch>
-                    </section>
-                </section>
-            </BrowserRouter>
-        );
-    }
+
+	componentDidMount() {
+		if(AuthProvider.GetAuthToken()){
+			this.props.user.signin();
+		}
+	}
+
+	render() {
+		return (
+			<div>
+				<Router history={createBrowserHistory()}>
+					<Switch>
+						<Route path="/" exact component={Home} />
+						<Route path="/signin" component={Signin} />
+						<Route path="/signup" component={Signup} />
+						<Route component={NotFound} />
+					</Switch>
+                    <NavLink to="/" activeClassName="active">Главная</NavLink>  
+                    <NavLink to="/signin" activeClassName="active">Вход</NavLink>  
+                    <NavLink to="/signup" activeClassName="active">Регистрация</NavLink>
+				</Router>
+			</div>
+		);
+	}
 }
 
-Layout.propTypes = {
-    isAuthenticated: PropTypes.bool
-};
-
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps)(Layout);
+export default Layout;
