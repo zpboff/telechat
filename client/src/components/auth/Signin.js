@@ -4,7 +4,7 @@ import signinModel from '../../models/signinModel';
 import { inject } from 'mobx-react';
 import WithoutAuth from '../shared/WithoutAuth';
 
-@inject('user')
+@inject('auth')
 @WithoutAuth
 @observer
 class Signin extends React.Component {
@@ -16,7 +16,7 @@ class Signin extends React.Component {
 
 	handelSubmit(event) {
 		event.preventDefault();
-		this.props.user.signin(signinModel);
+		this.props.auth.signin(signinModel);
 	}
 
 	handleInputChange(event) {

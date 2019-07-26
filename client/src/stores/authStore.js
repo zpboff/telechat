@@ -24,7 +24,7 @@ class AuthStore {
 	@action signin(user) {
 		AuthProvider.Signin(user, token => {
 			const decodedIdentity = jwt_decode(token).data;
-			this.setUser(decodedIdentity);
+			this.setUser({ ...decodedIdentity, token });
 		});
 	}
 

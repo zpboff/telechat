@@ -9,13 +9,13 @@ import NotFound from '../shared/NotFound';
 import Home from '../Home';
 import AuthProvider from '../../providers/authProvider';
 
-@inject('user')
+@inject('auth')
 @observer
 class Layout extends Component {
 
 	componentDidMount() {
 		if(AuthProvider.GetAuthToken()){
-			this.props.user.signin();
+			this.props.auth.signin();
 		}
 	}
 
