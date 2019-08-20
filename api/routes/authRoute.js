@@ -33,7 +33,7 @@ router.post('/auth/signin', async (req, res) => {
 		var token = await signin(req.body);
 		return res.status(200).json({ token });
 	} catch (e) {
-		return res.status(500).json({ error: e });
+		return res.status(500).json({ error: e.message });
 	}
 });
 

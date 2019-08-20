@@ -8,8 +8,8 @@ const WithoutAuth = WrappedComponent => {
 	@observer
 	class WithoutAuth extends Component {
 		render() {
-			var existedToken = AuthProvider.GetAuthToken();
-			return existedToken ? <Redirect to="/" /> : <WrappedComponent {...this.props} />;
+			var isAuthenticated = this.props.user.isAuthenticated;
+			return isAuthenticated ? <Redirect to="/" /> : <WrappedComponent {...this.props} />;
 		}
 	}
 	return WithoutAuth;
