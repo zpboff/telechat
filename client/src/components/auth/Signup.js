@@ -1,24 +1,13 @@
-import React from 'react';
-import { observer } from 'mobx-react-lite';
+import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import signupModel from '../../models/signupModel';
-import AuthProvider from '../../providers/authProvider';
 import WithoutAuth from '../shared/WithoutAuth';
 import { inject } from 'mobx-react';
-
-const handelSubmit = event => {
-	event.preventDefault();
-	AuthProvider.Signup(signupModel);
-};
-
-const handleInputChange = event => {
-	const { name, value } = event.target;
-	signupModel.setField(name, value);
-};
 
 @inject('auth')
 @WithoutAuth
 @observer
-class Signup extends React.Component {
+class Signup extends Component {
 	constructor(props) {
 		super(props);
 		this.handelSubmit = this.handelSubmit.bind(this);
@@ -37,26 +26,26 @@ class Signup extends React.Component {
 
 	render() {
 		return (
-			<form noValidate onSubmit={handelSubmit}>
+			<form noValidate onSubmit={this.handelSubmit}>
 				<div>
-					<input type="text" name="email" onChange={handleInputChange} value={signupModel.email} />
+					<input type="text" name="email" onChange={this.handleInputChange} value={signupModel.email} />
 				</div>
 				<div>
-					<input type="password" name="password" onChange={handleInputChange} value={signupModel.password} />
+					<input type="password" name="password" onChange={this.handleInputChange} value={signupModel.password} />
 				</div>
 				<div>
 					<input
 						type="password"
 						name="passwordConfirmation"
-						onChange={handleInputChange}
+						onChange={this.handleInputChange}
 						value={signupModel.passwordConfirmation}
 					/>
 				</div>
 				<div>
-					<input type="text" name="firstName" onChange={handleInputChange} value={signupModel.firstName} />
+					<input type="text" name="firstName" onChange={this.handleInputChange} value={signupModel.firstName} />
 				</div>
 				<div>
-					<input type="text" name="lastName" onChange={handleInputChange} value={signupModel.lastName} />
+					<input type="text" name="lastName" onChange={this.handleInputChange} value={signupModel.lastName} />
 				</div>
 				<div>
 					<button type="submit">Зарегистрироваться</button>

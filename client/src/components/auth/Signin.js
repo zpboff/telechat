@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import signinModel from '../../models/signinModel';
-import { inject } from 'mobx-react';
 import WithoutAuth from '../shared/WithoutAuth';
+import { inject } from 'mobx-react';
 
 @inject('auth')
 @WithoutAuth
 @observer
-class Signin extends React.Component {
+class Signin extends Component {
 	constructor(props) {
 		super(props);
 		this.handelSubmit = this.handelSubmit.bind(this);
