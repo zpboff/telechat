@@ -27,6 +27,12 @@ class AuthStore {
         });
     }
 
+    @action logout(){
+        AuthProvider.SetAuthToken();
+        this.setUser({});
+        this.token = '';
+    }
+
     @action setToken(token) {
         this.token = token;
         const decodedIdentity = jwt_decode(token).data;

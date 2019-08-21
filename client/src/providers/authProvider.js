@@ -10,6 +10,7 @@ export default class AuthProvider {
 			return;
 		}
 		delete axios.defaults.headers.common['Authorization'];
+		sessionStorage.removeItem('token');
 	};
 
 	static GetAuthToken = () => {

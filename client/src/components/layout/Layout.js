@@ -19,6 +19,10 @@ class Layout extends Component {
 		}
 	}
 
+	logout = () => {
+		this.props.auth.logout();
+	}
+
 	render() {
 		return (
 			<div>
@@ -32,6 +36,7 @@ class Layout extends Component {
                     <NavLink to="/" activeClassName="active">Главная</NavLink>  
                     <NavLink to="/signin" activeClassName="active">Вход</NavLink>  
                     <NavLink to="/signup" activeClassName="active">Регистрация</NavLink>
+					<button onClick={this.logout}>Выйти</button>
 				</Router>
 			</div>
 		);
