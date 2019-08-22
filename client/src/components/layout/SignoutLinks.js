@@ -5,9 +5,6 @@ import { NavLink } from 'react-router-dom';
 @inject('auth')
 @observer
 class SignoutLinks extends Component {
-	logout = () => {
-		this.props.auth.logout();
-	};
 	render() {
 		return (
 			<Fragment>
