@@ -1,22 +1,61 @@
 @import "./colors.scss";
 
-* {
-  margin: 0px;
-  outline: none;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: "Hind", sans-serif;
+    box-sizing: border-box;
 }
 
-.btn {
-  background-image: $base-gradient;
+a {
+    color: #fff;
+    text-decoration: none;
 }
 
-.header {
-  display: flex;
-  background-image: $base-gradient;
-  flex-direction: row;
-  height: 50px;
-  .filler {
-    flex-grow: 1;
-  }
-  .links {
-  }
+.icon {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    i {
+        font-size: 2em;
+    }
+}
+
+header {
+    display: flex;
+    background-color: $base-color;
+    flex-direction: row;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    .logo-container {
+        flex-grow: 1;
+        a {
+            padding-left: 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
+    nav {
+        ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            li {
+                list-style: none;
+                a {
+                    padding-right: 20px;
+                    display: flex;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    height: 100%;
+                    align-items: center;
+                }
+            }
+        }
+    }
 }
