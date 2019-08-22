@@ -5,7 +5,7 @@ import WithAuth from '../shared/WithAuth';
 @inject('auth')
 @WithAuth
 @observer
-export default class Logout extends Component {
+class Logout extends Component {
 	componentDidMount() {
 		this.props.auth.logout();
 	}
@@ -13,3 +13,5 @@ export default class Logout extends Component {
 		return null;
 	}
 }
+
+export default Logout;
