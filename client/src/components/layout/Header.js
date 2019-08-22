@@ -14,7 +14,12 @@ class Header extends Component {
 	};
 
 	render() {
-		return this.getLinks();
+		return (
+			<div className="header">
+				<div className="filler" />
+				<div className="links">{this.getLinks()}</div>
+			</div>
+		);
 	}
 }
 export default Header;

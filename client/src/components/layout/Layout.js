@@ -8,6 +8,7 @@ import NotFound from '../shared/NotFound';
 import Home from '../Home';
 import AuthProvider from '../../providers/authProvider';
 import Header from './Header';
+import Logout from '../auth/Logout';
 
 @inject('auth')
 @observer
@@ -22,13 +23,14 @@ class Layout extends Component {
 		return (
 			<div>
 				<Router history={createBrowserHistory()}>
+					<Header />
 					<Switch>
 						<Route path="/" exact component={Home} />
 						<Route path="/signin" component={Signin} />
 						<Route path="/signup" component={Signup} />
+						<Route path="/logout" component={Logout} />
 						<Route component={NotFound} />
 					</Switch>
-					<Header />
 				</Router>
 			</div>
 		);

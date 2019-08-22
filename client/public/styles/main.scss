@@ -1,0 +1,22 @@
+@import "./colors.scss";
+
+* {
+  margin: 0px;
+  outline: none;
+}
+
+.btn {
+  background-image: $base-gradient;
+}
+
+.header {
+  display: flex;
+  background-image: $base-gradient;
+  flex-direction: row;
+  height: 50px;
+  .filler {
+    flex-grow: 1;
+  }
+  .links {
+  }
+}

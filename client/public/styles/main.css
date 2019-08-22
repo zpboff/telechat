@@ -1,0 +1,29 @@
+* {
+  margin: 0px;
+  outline: none;
+}
+
+.btn {
+  background-image: -webkit-gradient(linear, left bottom, right top, from(#051937), color-stop(#004d7a), color-stop(#008793), color-stop(#00bf72), to(#a8eb12));
+  background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-image: -webkit-gradient(linear, left bottom, right top, from(#051937), color-stop(#004d7a), color-stop(#008793), color-stop(#00bf72), to(#a8eb12));
+  background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 50px;
+}
+
+.header .filler {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+/*# sourceMappingURL=main.css.map */

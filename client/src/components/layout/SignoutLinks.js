@@ -14,7 +14,9 @@ class SignoutLinks extends Component {
 				<NavLink to="/" activeClassName="active">
 					Главная
 				</NavLink>
-				<button onClick={this.logout}>Выйти</button>
+				<NavLink to="/logout" activeClassName="active">
+					Выход
+				</NavLink>
 			</Fragment>
 		);
 	}
