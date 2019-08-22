@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Router, Route, Switch  } from 'react-router';
-import { NavLink  } from 'react-router-dom';
-import { createBrowserHistory } from 'history'
+import { Router, Route, Switch } from 'react-router';
+import { createBrowserHistory } from 'history';
 import Signin from '../auth/Signin';
 import Signup from '../auth/Signup';
 import NotFound from '../shared/NotFound';
 import Home from '../Home';
 import AuthProvider from '../../providers/authProvider';
+import Header from './Header';
 
 @inject('auth')
 @observer
 class Layout extends Component {
-
 	componentDidMount() {
-		if(AuthProvider.GetAuthToken()){
+		if (AuthProvider.GetAuthToken()) {
 			this.props.auth.signin();
 		}
-	}
-
-	logout = () => {
-		this.props.auth.logout();
 	}
 
 	render() {
@@ -33,10 +28,7 @@ class Layout extends Component {
 						<Route path="/signup" component={Signup} />
 						<Route component={NotFound} />
 					</Switch>
-                    <NavLink to="/" activeClassName="active">Главная</NavLink>  
-                    <NavLink to="/signin" activeClassName="active">Вход</NavLink>  
-                    <NavLink to="/signup" activeClassName="active">Регистрация</NavLink>
-					<button onClick={this.logout}>Выйти</button>
+					<Header />
 				</Router>
 			</div>
 		);
