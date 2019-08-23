@@ -9,6 +9,7 @@ import Home from '../Home';
 import AuthProvider from '../../providers/authProvider';
 import Header from './Header';
 import Logout from '../auth/Logout';
+import Error from '../shared/Error';
 
 @inject('auth')
 @observer
@@ -29,6 +30,7 @@ class Layout extends Component {
 						<Route path="/signin" component={Signin} />
 						<Route path="/signup" component={Signup} />
 						<Route path="/logout" component={Logout} />
+						<Route path="/error" component={Error} />
 						<Route component={NotFound} />
 					</Switch>
 				</Router>
