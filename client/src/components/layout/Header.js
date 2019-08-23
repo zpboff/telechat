@@ -18,8 +18,8 @@ class Header extends Component {
 		return (
 			<header>
 				<section className="logo-container">
-					<NavLink to="/" activeClassName="active" className="icon">
-						t
+					<NavLink to="/" exact className="icon">
+						telechat
 					</NavLink>
 					<div className="logo-filler" />
 				</section>

@@ -13,6 +13,10 @@ a {
   text-decoration: none;
 }
 
+.active {
+  background-color: #f55649;
+}
+
 .icon {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -53,16 +57,24 @@ header .logo-container {
 
 header .logo-container a {
   height: 100%;
-  width: 50px;
+  padding-left: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column;
-          flex-flow: column;
   font-family: "Fugaz One", cursive;
   font-size: 2em;
+  background-color: #f55649;
+}
+
+header .logo-container a::after {
+  content: "";
+  padding-right: 5px;
+  width: 0;
+  height: 0;
+  border-top: 25px solid #F88379;
+  border-bottom: 25px solid #F88379;
+  border-left: 10px solid #f55649;
+  margin-left: 10px;
 }
 
 header .logo-container .logo-filler {
@@ -85,7 +97,7 @@ header nav ul li {
 }
 
 header nav ul li a {
-  padding-right: 20px;
+  padding: 0 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
