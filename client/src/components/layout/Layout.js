@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { observer, inject } from "mobx-react";
 import { Route, Switch } from "react-router";
 import Signin from "../auth/Signin";
@@ -23,20 +23,22 @@ class Layout extends Component {
     render() {
         var isAuth = this.props.auth.isAuthenticated;
         return (
-            <div>
+            <Fragment>
                 <Header />
                 <section className="layout">
                     {isAuth && <LeftMenu />}
-                    <Switch>
-                        <Route path="/" exact component={Home} />
-                        <Route path="/signin" component={Signin} />
-                        <Route path="/signup" component={Signup} />
-                        <Route path="/logout" component={Logout} />
-                        <Route path="/error" component={Error} />
-                        <Route component={NotFound} />
-                    </Switch>
+                    <div className="page-content">
+                        <Switch>
+                            <Route path="/" exact component={Home} />
+                            <Route path="/signin" component={Signin} />
+                            <Route path="/signup" component={Signup} />
+                            <Route path="/logout" component={Logout} />
+                            <Route path="/error" component={Error} />
+                            <Route component={NotFound} />
+                        </Switch>
+                    </div>
                 </section>
-            </div>
+            </Fragment>
         );
     }
 }

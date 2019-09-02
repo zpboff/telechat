@@ -120,4 +120,54 @@ a {
       -ms-flex-direction: row;
           flex-direction: row;
 }
+
+#root section.layout .left-menu {
+  width: 50px;
+  background: #fdf543;
+}
+
+#root section.layout .left-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#root section.layout .left-menu ul li {
+  width: 50px;
+  height: 50px;
+}
+
+#root section.layout .left-menu ul li a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#root section.layout .left-menu ul li a:hover {
+  background: #000;
+}
+
+#root section.layout .left-menu ul li a i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#root section.layout .page-content {
+  overflow-x: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
 /*# sourceMappingURL=main.css.map */

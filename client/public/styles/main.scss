@@ -77,5 +77,41 @@ a {
         height: calc(100% - 50px);
         display: flex;
         flex-direction: row;
+
+        .left-menu {
+            width: 50px;
+            background: #fdf543;
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                li {
+                    width: 50px;
+                    height: 50px;
+                    a {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        &:hover {
+                            background: #000;
+                        }
+                        i {
+                            display: flex;
+                            width: 100%;
+                            height: 100%;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .page-content {
+            overflow-x: auto;
+            display: flex;
+            flex-grow: 1;
+        }
     }
 }

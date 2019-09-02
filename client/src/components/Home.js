@@ -11,7 +11,7 @@ import { withRouter } from "react-router";
 class Home extends React.Component {
 	render() {
 		return (
-            <div>Home</div>
+            'Home'
 		);
 	}
 }
