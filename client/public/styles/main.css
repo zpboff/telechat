@@ -274,4 +274,16 @@ a {
   -webkit-box-shadow: 0px 0px 3px red;
           box-shadow: 0px 0px 3px red;
 }
+
+#root .login-form form a {
+  color: #F88379;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  width: 100%;
+}
+
+#root .login-form form a:hover {
+  color: #fdf543;
+}
 /*# sourceMappingURL=main.css.map */
