@@ -2,66 +2,80 @@
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  font-family: "Hind", sans-serif;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: "Hind", sans-serif;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 a {
-  color: #fff;
-  text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 .icon {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  i {
-    font-size: 2em;
-  }
+    display: flex;
+    height: 100%;
+    align-items: center;
+    i {
+        font-size: 2em;
+    }
 }
 
-header {
-  display: flex;
-  background-color: $base-color;
-  flex-direction: row;
-  height: 50px;
-  position: sticky;
-  top: 0;
-  .logo-container {
-    flex-grow: 1;
+#root {
+    height: 100%;
+    width: 100%;
     display: flex;
-    a {
-      height: 100%;
-      width: 50px;
-      display: flex;
-      flex-flow: column;
-      font-family: "Fugaz One", cursive;
-      font-size: 2em;
-    }
-    .logo-filler {
-      flex-grow: 1;
-    }
-  }
-  nav {
-    ul {
-      display: flex;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      li {
-        list-style: none;
-        a {
-          padding-right: 20px;
-          display: flex;
-          text-transform: uppercase;
-          font-weight: 600;
-          height: 100%;
-          align-items: center;
+    flex-direction: column;
+
+    header {
+        display: flex;
+        background-color: $base-color;
+        flex-direction: row;
+        height: 50px;
+        position: sticky;
+        top: 0;
+        .logo-container {
+            flex-grow: 1;
+            display: flex;
+            a {
+                height: 100%;
+                width: 50px;
+                display: flex;
+                flex-flow: column;
+                font-family: "Fugaz One", cursive;
+                font-size: 2em;
+            }
+            .logo-filler {
+                flex-grow: 1;
+            }
         }
-      }
+        nav {
+            ul {
+                display: flex;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                li {
+                    list-style: none;
+                    a {
+                        padding-right: 20px;
+                        display: flex;
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        height: 100%;
+                        align-items: center;
+                    }
+                }
+            }
+        }
     }
-  }
+
+    section.layout {
+        height: calc(100% - 50px);
+        display: flex;
+        flex-direction: row;
+    }
 }
