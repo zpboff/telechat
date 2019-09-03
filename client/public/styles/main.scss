@@ -2,16 +2,34 @@
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  font-family: "Hind", sans-serif;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: "Roboto Mono", monospace;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+input {
+    font-family: "Roboto Mono", monospace !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+input:-webkit-autofill:valid,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-transition-delay: 99999s;
+    -webkit-text-fill-color: #000;
+    font-family: "Roboto Mono", monospace !important;
 }
 
 a {
-  color: #fff;
-  text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 .active {
@@ -19,63 +37,177 @@ a {
 }
 
 .icon {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  i {
-    font-size: 2em;
-  }
+    display: flex;
+    height: 100%;
+    align-items: center;
+    i {
+        font-size: 2em;
+    }
 }
 
-header {
-  display: flex;
-  background-color: $base-color;
-  flex-direction: row;
-  height: 50px;
-  position: sticky;
-  top: 0;
-  .logo-container {
-    flex-grow: 1;
+#root {
+    height: 100%;
+    width: 100%;
     display: flex;
-    a {
-      height: 100%;
-      padding-left: 15px;
-      display: flex;
-      font-family: "Fugaz One", cursive;
-      font-size: 2em;
-      background-color: $base-dark-color;
-      &::after {
-        content: "";
-        padding-right: 5px;
-        width: 0;
-        height: 0;
-        border-top: 25px solid $base-color;
-        border-bottom: 25px solid $base-color;
-        border-left: 10px solid $base-dark-color;
-        margin-left: 10px;
-      }
-    }
-    .logo-filler {
-      flex-grow: 1;
-    }
-  }
-  nav {
-    ul {
-      display: flex;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      li {
-        list-style: none;
-        a {
-          padding: 0 10px;
-          display: flex;
-          text-transform: uppercase;
-          font-weight: 600;
-          height: 100%;
-          align-items: center;
+    flex-direction: column;
+
+    header {
+        display: flex;
+        background-color: $base-color;
+        flex-direction: row;
+        height: 50px;
+        position: sticky;
+        top: 0;
+        .logo-container {
+            flex-grow: 1;
+            display: flex;
+            a {
+                height: 100%;
+                width: 50px;
+                display: flex;
+                flex-flow: column;
+                font-family: "Fugaz One", cursive;
+                font-size: 2em;
+            }
+            .logo-filler {
+                flex-grow: 1;
+            }
         }
-      }
+        nav {
+            ul {
+                display: flex;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                li {
+                    list-style: none;
+                    a {
+                        padding-right: 20px;
+                        display: flex;
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        height: 100%;
+                        align-items: center;
+                    }
+                }
+            }
+        }
     }
-  }
+
+    section.layout {
+        height: calc(100% - 50px);
+        display: flex;
+        flex-direction: row;
+
+        .left-menu {
+            width: 50px;
+            background: #fdf543;
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                li {
+                    width: 50px;
+                    height: 50px;
+                    a {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        &:hover {
+                            background: #000;
+                        }
+                        i {
+                            display: flex;
+                            width: 100%;
+                            height: 100%;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .page-content {
+            overflow-x: auto;
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .login-form {
+        width: 320px;
+        height: 420px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        h1 {
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            p {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                font-weight: bold;
+            }
+
+            input {
+                width: 100%;
+                margin-bottom: 20px;
+                &[type="text"],
+                &[type="password"] {
+                    border: none;
+                    border-bottom: 1px solid $base-color;
+                    background: transparent;
+                    outline: none;
+                    height: 40px;
+                    font-size: 16px;
+                }
+            }
+
+            button {
+                width: 100%;
+                margin-bottom: 20px;
+                border: none;
+                outline: none;
+                height: 40px;
+                background-color: $base-color;
+                font-size: 18px;
+                border-radius: 20px;
+                filter: contrast(1);
+                font-family: "Roboto Mono", monospace;
+                font-weight: bold;
+
+                &:hover {
+                    cursor: pointer;
+                    box-shadow: 0px 0px 3px red;
+                }
+            }
+
+            a {
+                color: $base-color;
+                text-decoration: none;
+                font-size: 12px;
+                line-height: 20px;
+                width: 100%;
+            }
+
+            a:hover {
+                color: #fdf543;
+            }
+        }
+    }
 }
