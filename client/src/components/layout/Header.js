@@ -19,7 +19,7 @@ class Header extends Component {
 			<header>
 				<section className="logo-container">
 					<NavLink to="/" exact className="icon">
-						telechat
+						t
 					</NavLink>
 					<div className="logo-filler" />
 				</section>
