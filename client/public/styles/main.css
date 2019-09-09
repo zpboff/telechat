@@ -31,10 +31,6 @@ a {
   text-decoration: none;
 }
 
-.active {
-  background-color: #f55649;
-}
-
 .icon {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -86,6 +82,7 @@ a {
 }
 
 #root header .logo-container a {
+  border-radius: 0 50% 50% 0;
   height: 100%;
   width: 50px;
   display: -webkit-box;
@@ -97,6 +94,10 @@ a {
           flex-flow: column;
   font-family: "Fugaz One", cursive;
   font-size: 2em;
+}
+
+#root header .logo-container a:hover {
+  background-color: #f55649;
 }
 
 #root header .logo-container .logo-filler {
@@ -165,7 +166,7 @@ a {
 }
 
 #root section.layout .left-menu ul li a:hover {
-  background: #000;
+  background: #f55649;
 }
 
 #root section.layout .left-menu ul li a i {
@@ -275,8 +276,8 @@ a {
 
 #root .login-form form button:hover {
   cursor: pointer;
-  -webkit-box-shadow: 0px 0px 3px red;
-          box-shadow: 0px 0px 3px red;
+  -webkit-box-shadow: 0px 0px 3px #f55649;
+          box-shadow: 0px 0px 3px #f55649;
 }
 
 #root .login-form form a {
