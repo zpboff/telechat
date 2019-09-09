@@ -61,7 +61,7 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #F88379;
+  background-color: #f88379;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -145,7 +145,7 @@ a {
 
 #root section.layout .left-menu {
   width: 50px;
-  background: #fdf543;
+  background: #F8D076;
 }
 
 #root section.layout .left-menu ul {
@@ -252,7 +252,7 @@ a {
 
 #root .login-form form input[type="text"], #root .login-form form input[type="password"] {
   border: none;
-  border-bottom: 1px solid #F88379;
+  border-bottom: 1px solid #f88379;
   background: transparent;
   outline: none;
   height: 40px;
@@ -265,7 +265,7 @@ a {
   border: none;
   outline: none;
   height: 40px;
-  background-color: #F88379;
+  background-color: #f88379;
   font-size: 18px;
   border-radius: 20px;
   -webkit-filter: contrast(1);
@@ -281,7 +281,7 @@ a {
 }
 
 #root .login-form form a {
-  color: #F88379;
+  color: #f88379;
   text-decoration: none;
   font-size: 12px;
   line-height: 20px;
@@ -289,6 +289,6 @@ a {
 }
 
 #root .login-form form a:hover {
-  color: #fdf543;
+  color: #F8D076;
 }
 /*# sourceMappingURL=main.css.map */
