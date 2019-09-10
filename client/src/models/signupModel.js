@@ -1,6 +1,7 @@
-import { observable, action, configure } from 'mobx';
+import { observable, action, configure, computed } from 'mobx';
+import { signupStep } from '../components/auth/signup/signupLogic';
 
-configure({enforceActions: 'always'});
+configure({ enforceActions: 'always' });
 
 class RegistrationModel {
 	@observable email;
@@ -9,13 +10,23 @@ class RegistrationModel {
 	@observable birthdate;
 	@observable firstName;
 	@observable lastName;
+	@observable step = signupStep.Credentials;
 
 	@action
 	setField = (field, value) => {
 		this[field] = value;
 	};
+
+	@computed get isFistStep() {
+		return this.step === signupStep.Credentials;
+	}
+
+	@action
+	goTo = step => {
+		this.step = step;
+	};
 }
 
-const registrationModel = new RegistrationModel()
+const registrationModel = new RegistrationModel();
 
 export default registrationModel;

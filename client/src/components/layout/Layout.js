@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Route, Switch } from 'react-router';
 import Signin from '../auth/Signin';
-import Signup from '../auth/Signup';
+import Signup from '../auth/signup/Signup';
 import NotFound from '../shared/NotFound';
 import Home from '../Home';
 import AuthProvider from '../../providers/authProvider';

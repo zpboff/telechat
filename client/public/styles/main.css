@@ -200,7 +200,6 @@ a {
 }
 
 #root .login-form {
-  width: 320px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
