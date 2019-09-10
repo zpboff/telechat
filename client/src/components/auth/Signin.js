@@ -49,8 +49,8 @@ class Signin extends Component {
 						onChange={this.handleInputChange}
 					/>
 					<button type="submit">Войти</button>
-					<a href="/login">Забыли пароль?</a>
-					<a href="/login">Нет учетной записи?</a>
+					<a href="/restore">Забыли пароль?</a>
+					<a href="/signup">Нет учетной записи?</a>
 				</form>
 			</div>
 		);

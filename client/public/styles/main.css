@@ -145,7 +145,7 @@ a {
 
 #root section.layout .left-menu {
   width: 50px;
-  background: #F8D076;
+  background: #f8d076;
 }
 
 #root section.layout .left-menu ul {
@@ -201,7 +201,6 @@ a {
 
 #root .login-form {
   width: 320px;
-  height: 420px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -289,6 +288,6 @@ a {
 }
 
 #root .login-form form a:hover {
-  color: #F8D076;
+  color: #f8d076;
 }
 /*# sourceMappingURL=main.css.map */

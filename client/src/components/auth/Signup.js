@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import signupModel from '../../models/signupModel';
 import WithoutAuth from '../shared/WithoutAuth';
 import { inject } from 'mobx-react';
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
 
 @inject('auth')
 @WithoutAuth
@@ -28,31 +28,54 @@ class Signup extends Component {
 
 	render() {
 		return (
-			<form noValidate onSubmit={this.handelSubmit}>
-				<div>
-					<input type="text" name="email" onChange={this.handleInputChange} value={signupModel.email} />
-				</div>
-				<div>
-					<input type="password" name="password" onChange={this.handleInputChange} value={signupModel.password} />
-				</div>
-				<div>
+			<div className="login-form">
+				<form noValidate onSubmit={this.handelSubmit}>
+					<img src="./images/avatar.svg" alt="Аватар" />
+					<h1>Вход</h1>
+					<p>Email</p>
+					<input
+						type="text"
+						name="email"
+						placeholder="Введите email"
+						value={signupModel.email}
+						onChange={this.handleInputChange}
+					/>
+					<p>Пароль</p>
+					<input
+						type="password"
+						name="password"
+						placeholder="Введите пароль"
+						value={signupModel.password}
+						onChange={this.handleInputChange}
+					/>
+					<p>Подтверждение пароля</p>
 					<input
 						type="password"
 						name="passwordConfirmation"
+						placeholder="Подтвердите пароль"
 						onChange={this.handleInputChange}
 						value={signupModel.passwordConfirmation}
 					/>
-				</div>
-				<div>
-					<input type="text" name="firstName" onChange={this.handleInputChange} value={signupModel.firstName} />
-				</div>
-				<div>
-					<input type="text" name="lastName" onChange={this.handleInputChange} value={signupModel.lastName} />
-				</div>
-				<div>
+					<p>Имя</p>
+					<input
+						type="text"
+						name="firstName"
+						placeholder="Введите имя"
+						onChange={this.handleInputChange}
+						value={signupModel.firstName}
+					/>
+					<p>Фамилия</p>
+					<input
+						type="text"
+						name="lastName"
+						placeholder="Введите фамилию"
+						onChange={this.handleInputChange}
+						value={signupModel.lastName}
+					/>
 					<button type="submit">Зарегистрироваться</button>
-				</div>
-			</form>
+					<a href="/signin">Уже есть учетная запись?</a>
+				</form>
+			</div>
 		);
 	}
 }
