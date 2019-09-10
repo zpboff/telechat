@@ -7,7 +7,7 @@ const { signin, signup, signinAsUser } = require('../providers/authProvider');
 
 const router = express.Router();
 
-router.post('/auth/signup', async (req, res) => {
+router.post('/signup', async (req, res) => {
 	var { errors, isValid } = validateSignup({ ...req.body });
 
 	if (!isValid) {
@@ -22,7 +22,7 @@ router.post('/auth/signup', async (req, res) => {
 	}
 });
 
-router.post('/auth/signin', async (req, res) => {
+router.post('/signin', async (req, res) => {
 	var { errors, isValid } = validateSignin({ ...req.body });
 
 	if (!isValid) {
@@ -37,7 +37,7 @@ router.post('/auth/signin', async (req, res) => {
 	}
 });
 
-router.post('/auth/signin-as-user', isAuth, withUser, hasRole('admin'), async (req, res) => {
+router.post('/signin-as-user', isAuth, withUser, hasRole('admin'), async (req, res) => {
 	const email = req.body.email;
 	try {
 		var token = await signinAsUser(email);

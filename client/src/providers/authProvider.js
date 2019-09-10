@@ -5,8 +5,8 @@ import axios from 'axios';
 export default class AuthProvider {
 	static SetAuthToken = token => {
 		if (token) {
-            sessionStorage.setItem('token', token);
-			axios.defaults.headers.common['Authorization'] = token;
+			sessionStorage.setItem('token', token);
+			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 			return;
 		}
 		delete axios.defaults.headers.common['Authorization'];
@@ -15,7 +15,7 @@ export default class AuthProvider {
 
 	static GetAuthToken = () => {
 		return sessionStorage.getItem('token');
-	}
+	};
 
 	static Signin = (model, callback) => {
 		var existedToken = AuthProvider.GetAuthToken();
