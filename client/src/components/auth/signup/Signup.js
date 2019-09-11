@@ -12,15 +12,16 @@ import Credentials from './Credentials';
 @withRouter
 @observer
 class Signup extends Component {
-	handelSubmit(event) {
+    
+	handelSubmit = event => {
 		event.preventDefault();
 		this.props.auth.signup(signupModel);
-	}
+	};
 
-	handleInputChange(event) {
+	handleInputChange = event => {
 		const { name, value } = event.target;
 		signupModel.setField(name, value);
-	}
+	};
 
 	get body() {
 		const props = Object.assign(getProps(signupModel.step, signupModel), { onChange: this.handleInputChange });
@@ -29,7 +30,7 @@ class Signup extends Component {
 	}
 
 	switchStep = event => {
-        event.preventDefault();
+		event.preventDefault();
 		if (signupModel.isFistStep) {
 			signupModel.goTo(signupStep.Personal);
 			return;

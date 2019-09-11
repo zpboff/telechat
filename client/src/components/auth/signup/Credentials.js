@@ -1,12 +1,32 @@
 import React, { Fragment } from 'react';
 
-export default function Credentials({ firstName, lastName, onChange }) {
+export default function Credentials({ email, password, passwordConfirmation, onChange }) {
 	return (
 		<Fragment>
-			<p>Имя</p>
-			<input type="text" name="firstName" placeholder="Введите имя" onChange={onChange} value={firstName} />
-			<p>Фамилия</p>
-			<input type="text" name="lastName" placeholder="Введите фамилию" onChange={onChange} value={lastName} />
+			<p>Email</p>
+            <input 
+                type="text" 
+                name="email" 
+                placeholder="Введите email" 
+                value={email} 
+                onChange={onChange} 
+            />
+			<p>Пароль</p>
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Введите пароль" 
+                value={password} 
+                onChange={onChange} 
+            />
+			<p>Подтверждение пароля</p>
+			<input
+				type="password"
+				name="passwordConfirmation"
+				placeholder="Подтвердите пароль"
+				value={passwordConfirmation}
+				onChange={onChange}
+			/>
 		</Fragment>
 	);
 }

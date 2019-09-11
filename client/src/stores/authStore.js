@@ -27,6 +27,12 @@ class AuthStore {
 		});
 	}
 
+	@action signup(user) {
+		AuthProvider.Signup(user, token => {
+			this.setToken(token);
+		});
+	}
+
 	@action logout() {
 		AuthProvider.SetAuthToken();
 		this.setUser({});
