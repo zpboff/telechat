@@ -6,6 +6,7 @@ body {
   font-family: "Roboto Mono", monospace;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  width: 100%;
   height: 100%;
 }
 
@@ -46,8 +47,8 @@ a {
 }
 
 #root {
-  height: 100%;
   width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -67,8 +68,10 @@ a {
       -ms-flex-direction: row;
           flex-direction: row;
   height: 50px;
-  position: -webkit-sticky;
-  position: sticky;
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
   top: 0;
 }
 
@@ -141,6 +144,8 @@ a {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  position: relative;
+  overflow: hidden;
 }
 
 #root section.layout .left-menu {
@@ -184,19 +189,10 @@ a {
 }
 
 #root section.layout .page-content {
-  overflow-x: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #root .login-form {
@@ -288,5 +284,151 @@ a {
 
 #root .login-form form a:hover {
   color: #f8d076;
+}
+
+.friends-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.friends-list .card {
+  margin-right: 50px;
+  height: 250px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 1px black;
+          box-shadow: 0 0 1px black;
+  width: 450px;
+  overflow: hidden;
+  position: relative;
+  margin: 50px;
+}
+
+.friends-list .card h1 {
+  text-align: center;
+}
+
+.friends-list .card:hover .main {
+  width: 100%;
+  border-radius: 0 5px 5px 0;
+}
+
+.friends-list .card .main {
+  position: absolute;
+  width: 150px;
+  height: 100%;
+  background: #f88379;
+  -webkit-transition: width 0.4s;
+  transition: width 0.4s;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.friends-list .card .main .user-card {
+  width: 150px;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+
+.friends-list .card .main .user-card::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10%;
+  right: -2px;
+  height: 80%;
+  border-left: 2px solid rgba(0, 0, 0, 0.025);
+}
+
+.friends-list .card .main .user-card .status {
+  top: 15%;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 0.125rem 0.75rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.friends-list .card .main .more-info {
+  width: 300px;
+  float: left;
+  position: absolute;
+  left: 150px;
+  height: 100%;
+}
+
+.friends-list .card .main .more-info h1 {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.friends-list .card .main .coords {
+  margin: 0 1rem;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.friends-list .card .main .coords span + span {
+  float: right;
+}
+
+.friends-list .card .main .stats {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  top: auto;
+  color: #fff;
+}
+
+.friends-list .card .main .stats > div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center;
+}
+
+.friends-list .card .main .stats div.title {
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.friends-list .card .main .stats div.value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.5rem;
+}
+
+.friends-list .card .main .stats div.value.infinity {
+  font-size: 2.5rem;
+}
+
+.friends-list .card .general {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.friends-list .card .general .more {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 0.9em;
 }
 /*# sourceMappingURL=main.css.map */

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AuthProvider from './authProvider';
 
 const logError = (error) => {
     console.log(`%c ${error}`, 'background: #222; color: #bada55');

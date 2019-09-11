@@ -15,8 +15,8 @@ router.post('/signup', async (req, res) => {
 	}
 
 	try {
-		var token = await signup(req.body);
-		return res.status(200).json({ token });
+		var tokens = await signup(req.body);
+		return res.status(200).json(tokens);
 	} catch (e) {
 		return res.status(500).json({ error: e });
 	}
@@ -30,8 +30,8 @@ router.post('/signin', async (req, res) => {
 	}
 
 	try {
-		var token = await signin(req.body);
-		return res.status(200).json({ token });
+		var tokens = await signin(req.body);
+		return res.status(200).json(tokens);
 	} catch (e) {
 		return res.status(500).json({ error: e.message });
 	}
@@ -40,8 +40,8 @@ router.post('/signin', async (req, res) => {
 router.post('/signin-as-user', isAuth, withUser, hasRole('admin'), async (req, res) => {
 	const email = req.body.email;
 	try {
-		var token = await signinAsUser(email);
-		return res.status(200).json({ token });
+		var tokens = await signinAsUser(email);
+		return res.status(200).json(tokens);
 	} catch (e) {
 		return res.status(500).json({ error: e });
 	}

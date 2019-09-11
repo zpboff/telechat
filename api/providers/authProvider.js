@@ -1,7 +1,9 @@
 const UserModel = require('../db/dataModel/user');
+const TokenModel = require('../db/dataModel/token');
 const argon2 = require('argon2');
 const AppSettings = require('../constants/appSettings');
 const jwt = require('jsonwebtoken');
+const { uuidv4 } = require('../helpers/idHelper');
 
 const signup = async user => {
 	var userRecord = await UserModel.findOne({ email: user.email });
@@ -11,7 +13,7 @@ const signup = async user => {
 	var userModel = new UserModel({ ...user });
 	userRecord = await userModel.save();
 
-	return generateToken(userRecord);
+	return await generateToken(userRecord);
 };
 
 const signin = async user => {
@@ -22,7 +24,7 @@ const signin = async user => {
 
 	const passwordsIsEquals = await argon2.verify(userRecord.password, user.password);
 	if (passwordsIsEquals) {
-		return generateToken(userRecord);
+		return await generateToken(userRecord);
 	}
 	throw new Error('Неверный пароль');
 };
@@ -34,10 +36,10 @@ const signinAsUser = async email => {
 		throw new Error('Пользователь не найден');
 	}
 
-	return generateToken(userRecord);
+	return await generateToken(userRecord);
 };
 
-const generateToken = user => {
+const generateToken = async user => {
 	const data = {
 		_id: user._id,
 		email: user.email,
@@ -50,7 +52,18 @@ const generateToken = user => {
 	const signature = AppSettings.Secret;
 	const expiration = AppSettings.TokenExpiresIn;
 
-	return jwt.sign({ data }, signature, { expiresIn: expiration });
+	var token = jwt.sign({ data }, signature, { expiresIn: expiration });
+	var refreshToken = uuidv4();
+	var tokenModel = new TokenModel({
+		email: user.email,
+		refreshToken,
+		expirationDate: new Date(Date.now() + expiration * 1000),
+	});
+	await tokenModel.save();
+	return {
+		token,
+		refreshToken,
+	};
 };
 
 module.exports = {
