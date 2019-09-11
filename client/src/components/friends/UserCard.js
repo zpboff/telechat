@@ -5,8 +5,8 @@ export default function UserCard({ user }) {
 		<div className="card">
 			<div className="main">
 				<div className="user-card">
+					<img src="./images/avatar.svg" alt="Аватар" />
 					<div className="status">Онлайн</div>
-					<div className="avatar">Заглушка для аватара</div>
 				</div>
 				<div className="more-info">
 					<h1>{`${user.firstName}`}</h1>
