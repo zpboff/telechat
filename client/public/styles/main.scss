@@ -220,7 +220,7 @@ a {
   display: flex;
   .card {
     margin-right: 50px;
-    height: 250px;
+    height: 170px;
     border-radius: 5px;
     box-shadow: 0 0 1px black;
     width: 450px;
@@ -232,9 +232,18 @@ a {
       text-align: center;
     }
 
-    &:hover .main {
+    // &:not(.card-active) .main:hover {
+    //   width: 160px;
+    // }
+
+    &.active .main,
+    &.active .main:hover {
       width: 100%;
       border-radius: 0 5px 5px 0;
+
+      .user-card {
+        background: #fff;
+      }
     }
 
     .main {
@@ -255,6 +264,7 @@ a {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
 
         &::after {
           content: "";
@@ -272,7 +282,7 @@ a {
           text-transform: uppercase;
           font-size: 0.75em;
           font-weight: bold;
-          background: rgba(0, 0, 0, 0.15);
+          background: $base-dark;
           padding: 0.125rem 0.75rem;
           border-radius: 100px;
           white-space: nowrap;
@@ -304,6 +314,10 @@ a {
         color: #fff;
         font-size: 1rem;
 
+        span:first-child {
+          color: $advanced;
+        }
+
         span + span {
           float: right;
         }
@@ -311,6 +325,7 @@ a {
 
       .stats {
         font-size: 2rem;
+        justify-content: flex-start;
         display: flex;
         position: absolute;
         bottom: 1rem;
@@ -335,10 +350,6 @@ a {
           font-weight: bold;
           line-height: 1.5rem;
         }
-
-        div.value.infinity {
-          font-size: 2.5rem;
-        }
       }
     }
 
@@ -352,6 +363,14 @@ a {
       box-sizing: border-box;
       padding: 1rem;
       padding-top: 0;
+
+      h1 {
+        margin-bottom: 0;
+      }
+
+      p {
+        margin: 0;
+      }
 
       .more {
         position: absolute;
