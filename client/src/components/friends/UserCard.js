@@ -20,7 +20,7 @@ export default function UserCard({ user }) {
 					<img src="./images/avatar.svg" alt="Аватар" />
 					<div className="status">Онлайн</div>
 				</div>
-				<div className="more-info" onClick={toggleFlag}>
+				<div className="more-info">
 					<h1>{`${user.firstName}`}</h1>
 					<div className="coords title">
 						<span>Дата рождения</span>

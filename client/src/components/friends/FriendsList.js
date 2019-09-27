@@ -12,8 +12,6 @@ export default class FriendsList extends Component {
 
 	render() {
 		var { userList } = this.props.users;
-		// userList = userList.concat(userList);
-		// userList = userList.concat(userList);
 		return (
 			<div className="friends-list">
 				{userList.map(x => (

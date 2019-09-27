@@ -11,6 +11,7 @@ import Logout from '../auth/Logout';
 import Error from '../shared/Error';
 import LeftMenu from './LeftMenu/LeftMenu';
 import FriendsList from '../friends/FriendsList';
+import Profile from '../profile/Profile';
 
 @inject('auth')
 @observer
@@ -36,11 +37,12 @@ class Layout extends Component {
 			<Fragment>
 				<Header />
 				<section className="layout">
-					{isAuth && <LeftMenu />}
+					<LeftMenu isAuth={isAuth} />
 					<div className="page-content">
 						<Switch>
 							<Route path="/" exact component={Home} />
 							<Route path="/signin" component={Signin} />
+							<Route path="/profile" component={Profile} />
 							<Route path="/friends" component={FriendsList} />
 							<Route path="/signup" component={Signup} />
 							<Route path="/logout" component={Logout} />

@@ -148,6 +148,8 @@ a {
     display: flex;
     align-items: center;
     flex-direction: column;
+    @include full-size;
+    justify-content: center;
     img {
       width: 100px;
       height: 100px;
