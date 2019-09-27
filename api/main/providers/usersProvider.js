@@ -1,4 +1,4 @@
-const UserModel = require('../db/dataModel/user');
+const UserModel = require('../../db/dataModel/user');
 const { getMappedUser } = require('../mappers/userMapper');
 
 const getAll = async id => {

@@ -4,7 +4,7 @@
   "description": "telechat",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd api && nodemon --inspect index.js\" \"cd client && npm start\""
+    "start": "concurrently \"cd api/main && nodemon --inspect index.js\" \"cd api/chats && node index.js\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/zpboff/telechat#readme",
   "dependencies": {
+    "argon2": "^0.24.1",
     "concurrently": "^4.1.0",
     "mobx-devtools-mst": "^0.9.21",
     "mobx-react": "^6.1.1",
+    "mongoose": "^5.7.1",
     "nodemon": "^1.19.1",
     "uuid": "^3.3.2"
   }

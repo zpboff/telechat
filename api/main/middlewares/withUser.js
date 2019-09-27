@@ -1,4 +1,4 @@
-const UserModel = require("../db/dataModel/user");
+const UserModel = require("../../db/dataModel/user");
 
 const withUser = async (req, res, next) => {
     const decodedTokenData = req.token.data;

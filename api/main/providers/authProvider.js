@@ -1,7 +1,7 @@
-const UserModel = require('../db/dataModel/user');
-const TokenModel = require('../db/dataModel/token');
+const UserModel = require('../../db/dataModel/user');
+const TokenModel = require('../../db/dataModel/token');
 const argon2 = require('argon2');
-const AppSettings = require('../constants/appSettings');
+const AppSettings = require('../../constants/appSettings');
 const jwt = require('jsonwebtoken');
 const { uuidv4 } = require('../helpers/idHelper');
 

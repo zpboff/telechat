@@ -1,10 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const initializeDbConnection = require('./db/connector');
+const initializeDbConnection = require('../db/connector');
 const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
-const appSettings = require('./constants/appSettings');
+const appSettings = require('../constants/appSettings');
 
 initializeDbConnection();
 
