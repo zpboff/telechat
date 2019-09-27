@@ -15,4 +15,8 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
 
+app.get('/', function(req, res) {
+	res.sendStatus(200);
+});
+
 app.listen(appSettings.MainPort, () => console.log(`LISTENING ON PORT ${appSettings.MainPort}`));

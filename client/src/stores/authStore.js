@@ -1,6 +1,8 @@
 import { observable, configure, action, computed } from 'mobx';
 import AuthProvider from '../providers/authProvider';
 import jwt_decode from 'jwt-decode';
+import io from 'socket.io-client';
+import ConnectionStrings from '../constants/conStrings';
 
 configure({ enforceActions: 'always' });
 
@@ -14,6 +16,7 @@ class AuthStore {
 	@observable firstName = '';
 	@observable lastName = '';
 	@observable initials = '';
+	@observable socket = null;
 	@observable avatar = '';
 	@observable birthDate = new Date();
 
@@ -41,6 +44,7 @@ class AuthStore {
 
 	@action setToken(token) {
 		this.token = token;
+		this.socket = io(ConnectionStrings.ChatApiUrl);
 		const decodedIdentity = jwt_decode(token).data;
 		AuthProvider.SetAuthToken(token);
 		this.setUser(decodedIdentity);
