@@ -7,14 +7,21 @@ export default function UserInfo({ match }) {
 	const [user, setUser] = useState({});
 
 	useEffect(() => {
-        let isMounted = true
+		let isMounted = true;
 		UsersProvider.GetUserInfo(id, user => {
-            if(isMounted) {
-                setUser(user);
-            }
+			if (isMounted) {
+				setUser(user);
+			}
 		});
-        return () => isMounted = false
+		return () => (isMounted = false);
 	}, []);
 
-	return <div>{JSON.stringify(user)}</div>;
+	return (
+		<div>
+			{JSON.stringify(user)}
+			<button onClick={() => {}} type="button">
+				Написать сообщение
+			</button>
+		</div>
+	);
 }
