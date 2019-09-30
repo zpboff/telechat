@@ -41,7 +41,7 @@ const signinAsUser = async email => {
 
 const generateToken = async user => {
 	const data = {
-		_id: user._id,
+		id: user._id,
 		email: user.email,
 		firstName: user.firstName,
 		lastName: user.lastName,

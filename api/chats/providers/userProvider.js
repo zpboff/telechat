@@ -1,7 +1,7 @@
-var { updateByEmail } = require('../../db/repositories/userRepository');
+var { updateById } = require('../../db/repositories/userRepository');
 
-const updateStatus = async (email, isOnline) => {
-	await updateByEmail(email, { isOnline });
+const updateStatus = async (id, isOnline) => {
+	await updateById(id, { isOnline });
 };
 
 module.exports = {

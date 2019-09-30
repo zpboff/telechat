@@ -45,13 +45,14 @@ class AuthStore {
 	@action setToken(token) {
 		this.token = token;
 		const decodedIdentity = jwt_decode(token).data;
-		this.socket = io(ConnectionStrings.ChatApiUrl, { query: `email=${decodedIdentity.email}` });
+		this.socket = io(ConnectionStrings.ChatApiUrl, { query: `id=${decodedIdentity.id}` });
 		AuthProvider.SetAuthToken(token);
 		this.setUser(decodedIdentity);
 	}
 
 	@action setUser(user) {
 		this.firstName = user.firstName;
+		this.id = user.id;
 		this.lastName = user.lastName;
 		this.initials = user.initials;
 		this.avatar = user.avatar;

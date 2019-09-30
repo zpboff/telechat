@@ -9,12 +9,12 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', async socket => {
-	const email = socket.handshake.query['email'];
-	console.log(`a user ${email} connected`);
-	await userProvider.updateStatus(email, true);
+	const id = socket.handshake.query['id'];
+	console.log(`a user ${id} connected`);
+	await userProvider.updateStatus(id, true);
 	socket.on('disconnect', async () => {
-		console.log(`a user disconnected`);
-		await userProvider.updateStatus(email, false);
+		console.log(`a user ${id} disconnected`);
+		await userProvider.updateStatus(id, false);
 	});
 });
 

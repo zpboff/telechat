@@ -16,18 +16,8 @@ const updateById = async (id, changes) => {
 	await updatedUser.save();
 };
 
-const updateByEmail = async (email, changes) => {
-	// UserModel.model('hello', UserModel.schema)
-	var prom = UserModel.findByEmail(email)
-	console.log(prom instanceof Promise)
-	var user = await prom;
-	var updatedUser = Object.assign(user, changes);
-	await updatedUser.save();
-};
-
 module.exports = {
 	getUsers,
 	getById,
 	updateById,
-	updateByEmail,
 };
