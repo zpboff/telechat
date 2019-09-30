@@ -313,14 +313,14 @@ a {
   text-align: center;
 }
 
-.friends-list .card.active .main,
-.friends-list .card.active .main:hover {
+.friends-list .card:hover .main,
+.friends-list .card:hover .main:hover {
   width: 100%;
   border-radius: 0 5px 5px 0;
 }
 
-.friends-list .card.active .main .user-card,
-.friends-list .card.active .main:hover .user-card {
+.friends-list .card:hover .main .user-card,
+.friends-list .card:hover .main:hover .user-card {
   background: #fff;
 }
 

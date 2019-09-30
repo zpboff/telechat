@@ -12,6 +12,7 @@ import Error from '../shared/Error';
 import LeftMenu from './LeftMenu/LeftMenu';
 import FriendsList from '../friends/FriendsList';
 import Profile from '../profile/Profile';
+import UserInfo from '../profile/UserInfo';
 
 @inject('auth')
 @observer
@@ -46,6 +47,7 @@ class Layout extends Component {
 							<Route path="/friends" component={FriendsList} />
 							<Route path="/signup" component={Signup} />
 							<Route path="/logout" component={Logout} />
+							<Route path="/userinfo/:id" component={UserInfo} />
 							<Route path="/error" component={Error} />
 							<Route component={NotFound} />
 						</Switch>

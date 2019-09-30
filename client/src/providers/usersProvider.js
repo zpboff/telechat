@@ -8,4 +8,10 @@ export default class UsersProvider {
 			callback(users);
 		});
 	};
+	static GetUserInfo =(id, callback) => {		
+		ApiProvider.Get(`${ConnectionStrings.UsersApiUrl}/getuserinfo/${id}`, res => {
+			const { user } = res.data;
+			callback(user);
+		});
+	}
 }

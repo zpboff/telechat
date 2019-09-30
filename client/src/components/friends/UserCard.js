@@ -1,25 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import Icon from '../shared/Icon';
+import { NavLink } from 'react-router-dom';
 
 export default function UserCard({ user }) {
-	const [isActive, setActive] = useState(false);
-
-	const toggleFlag = () => {
-		setActive(!isActive);
-	};
-
 	return (
-		<div
-			className={cn('card', {
-				active: isActive,
-			})}
-		>
+		<div className={cn('card')}>
 			<div className="main">
-				<div className="user-card" onClick={toggleFlag}>
-					<img src="./images/avatar.svg" alt="Аватар" />
-					<div className="status">Онлайн</div>
-				</div>
+				<NavLink to={`/userinfo/${user.id}`}>
+					<div className="user-card">
+						<img src="./images/avatar.svg" alt="Аватар" />
+						<div className="status">Онлайн</div>
+					</div>
+				</NavLink>
 				<div className="more-info">
 					<h1>{`${user.firstName}`}</h1>
 					<div className="coords title">

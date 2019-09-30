@@ -234,12 +234,8 @@ a {
       text-align: center;
     }
 
-    // &:not(.card-active) .main:hover {
-    //   width: 160px;
-    // }
-
-    &.active .main,
-    &.active .main:hover {
+    &:hover .main,
+    &:hover .main:hover {
       width: 100%;
       border-radius: 0 5px 5px 0;
 

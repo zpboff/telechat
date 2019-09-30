@@ -12,4 +12,14 @@ router.get('/getall', isAuth, withUser, async (req, res) => {
 	}
 });
 
+router.get('/getuserinfo/:id', isAuth, async (req, res) => {
+	try {
+		var { id } = req.params
+		var user = await usersProvider.getUserById(id);
+		return res.status(200).json({ user });
+	} catch (e) {
+		return res.status(500).json({ error: e });
+	}
+})
+
 module.exports = router;

@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
 	initials: { type: String },
 	avatar: { type: String },
 	chats: { type: Array },
+	isOnline: { type: Boolean, default: false },
 });
 
 UserSchema.pre('save', async function(next) {
@@ -21,6 +22,11 @@ UserSchema.pre('save', async function(next) {
 		document.password = passwordHashed;
 	}
 	next();
+});
+
+UserSchema.static('findByEmail', function(email) {
+	var result = this.find({ email });
+	return result;
 });
 
 module.exports = mongoose.model('users', UserSchema);

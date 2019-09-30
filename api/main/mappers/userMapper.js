@@ -1,7 +1,9 @@
 var getMappedUser = userFromDb => {
-	const { firstName } = userFromDb;
+	const { firstName, email, id } = userFromDb;
 	return {
 		firstName,
+		email,
+		id
 	};
 };
 
