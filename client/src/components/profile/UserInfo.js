@@ -7,10 +7,14 @@ export default function UserInfo({ match }) {
 	const [user, setUser] = useState({});
 
 	useEffect(() => {
+        let isMounted = true
 		UsersProvider.GetUserInfo(id, user => {
-			setUser(user);
+            if(isMounted) {
+                setUser(user);
+            }
 		});
-	});
+        return () => isMounted = false
+	}, []);
 
 	return <div>{JSON.stringify(user)}</div>;
 }
