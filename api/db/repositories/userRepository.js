@@ -11,9 +11,7 @@ const getById = async id => {
 };
 
 const updateById = async (id, changes) => {
-	var user = await getById(id);
-	var updatedUser = Object.assign(user, changes);
-	await updatedUser.save();
+	await UserModel.findByIdAndUpdate(id, { $set: changes });
 };
 
 module.exports = {
