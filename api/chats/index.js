@@ -1,17 +1,24 @@
-var app = require('express')();
-var http = require('http').createServer(app);
-var { SocketPort } = require('../constants/appSettings');
-var io = require('socket.io')(http);
+const app = require('express')();
+const http = require('http').createServer(app);
+const { SocketPort } = require('../constants/appSettings');
+const io = require('socket.io')(http);
+const initializeDbConnection = require('../db/connector');
+const UserModel = require('../db/dataModel/user');
+
+initializeDbConnection();
 
 app.get('/', function(req, res) {
 	res.sendStatus(200);
 });
 
-io.on('connection', socket => {
+io.on('connection', async socket => {
 	const id = socket.handshake.query['id'];
 	console.log(`a user ${id} connected`);
+	await UserModel.findByIdAndUpdate(id, { $set: { isOnline: true }})
+
 	socket.on('disconnect', async () => {
 		console.log(`a user ${id} disconnected`);
+		await UserModel.findByIdAndUpdate(id, { $set: { isOnline: false }})
 	});
 });
 
