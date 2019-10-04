@@ -3,7 +3,7 @@ const http = require('http').createServer(app);
 const { SocketPort } = require('../constants/appSettings');
 const io = require('socket.io')(http);
 const initializeDbConnection = require('../db/connector');
-const UserModel = require('../db/dataModel/user');
+const userProvider = require('./providers/userProvider');
 
 initializeDbConnection();
 
@@ -13,12 +13,12 @@ app.get('/', function(req, res) {
 
 io.on('connection', async socket => {
 	const id = socket.handshake.query['id'];
+	await userProvider.updateStatus(id, true);
 	console.log(`a user ${id} connected`);
-	await UserModel.findByIdAndUpdate(id, { $set: { isOnline: true }})
 
 	socket.on('disconnect', async () => {
+		await userProvider.updateStatus(id, false);
 		console.log(`a user ${id} disconnected`);
-		await UserModel.findByIdAndUpdate(id, { $set: { isOnline: false }})
 	});
 });
 

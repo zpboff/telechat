@@ -10,7 +10,7 @@ export default function UserCard({ user }) {
 				<NavLink to={`/userinfo/${user.id}`}>
 					<div className="user-card">
 						<img src="./images/avatar.svg" alt="Аватар" />
-						<div className="status">Онлайн</div>
+						<div className="status">{user.isOnline ? "В сети" : "Не в сети"}</div>
 					</div>
 				</NavLink>
 				<div className="more-info">
