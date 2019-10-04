@@ -2,7 +2,7 @@ const isAuth = require('../middlewares/isAuth');
 const withUser = require('../middlewares/withUser');
 const hasRole = require('../middlewares/hasRole');
 const express = require('express');
-const { validateSignin, validateSignup, isEmpty } = require('../helpers/validation');
+const { validateSignin, validateSignup } = require('../helpers/validation');
 const { signin, signup, signinAsUser } = require('../providers/authProvider');
 
 const router = express.Router();

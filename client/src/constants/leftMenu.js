@@ -10,7 +10,7 @@ export const leftMenuItems = [
 		icon: 'people',
 	},
 	{
-		link: '/messages',
+		link: '/chat',
 		title: 'Сообщения',
 		icon: 'email',
 	},
