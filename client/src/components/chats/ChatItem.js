@@ -1,17 +1,15 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react';
+import { NavLink } from 'react-router-dom';
 
-function ChatItem({ chat, chats }) {
-	const setCurrentChat = () => {
-		chats.selectChat(chat.id);
-	};
-
+function ChatItem({ chat }) {
 	return (
-		<div onClick={setCurrentChat}>
-			{chat.title}
-			<p>{JSON.stringify(chat.members)}</p>
+		<div>
+			<NavLink to={`/chat/${chat.id}`} style={{ color: 'black' }} activeClassName="active" title={chat.title}>
+				{chat.title}
+				<p>{JSON.stringify(chat.members)}</p>
+			</NavLink>
 		</div>
 	);
 }
 
-export default inject('chats')(observer(ChatItem));
+export default ChatItem;

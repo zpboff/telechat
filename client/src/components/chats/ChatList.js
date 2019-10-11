@@ -3,10 +3,11 @@ import { inject, observer } from 'mobx-react';
 import ChatsProvider from '../../providers/chatProvider';
 import ChatItem from './ChatItem';
 import ChatArea from './ChatArea';
+import { withRouter } from 'react-router-dom';
 
-function ChatList({ chats }) {
+function ChatList({ chats, match }) {
 	useEffect(() => {
-		let isMounted = true;
+		var isMounted = true;
 		ChatsProvider.GetChatList(chatList => {
 			if (isMounted) {
 				chats.setChats(chatList);
@@ -19,10 +20,10 @@ function ChatList({ chats }) {
 
 	return (
 		<div>
-			{chatList && chatList.map(chat => <ChatItem key={chat.id} chat={chat} selectChat={chats.selectChat} />)}
-			<ChatArea />
+			{chatList && chatList.map(chat => <ChatItem key={chat.id} chat={chat} />)}
+			<ChatArea chatId={match.params.id} />
 		</div>
 	);
 }
 
-export default inject('chats')(observer(ChatList));
+export default withRouter(inject('chats')(observer(ChatList)));

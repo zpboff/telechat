@@ -3,8 +3,8 @@ import { observer, inject } from 'mobx-react';
 import MessageList from './MessageList';
 import ChatAreaFooter from './ChatAreaFooter';
 
-function ChatArea({ chats }) {
-	if (!chats.currentChat) {
+function ChatArea({ chats, chatId }) {
+	if (!chatId) {
 		return <div>Выберите беседу или создайте новую</div>;
 	}
 

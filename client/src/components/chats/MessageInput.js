@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-export default function MessageInput() {
-    return (
-        <div>
-            
-        </div>
-    )
+export default function MessageInput({ value, onChange }) {
+	const onMessageChange = event => {
+		const { value } = event.target;
+		onChange(value);
+	};
+
+	return (
+		<div>
+			<textarea value={value} onChange={onMessageChange} />
+		</div>
+	);
 }
