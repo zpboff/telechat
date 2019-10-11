@@ -13,6 +13,16 @@ router.get('/getlastmessages', isAuth, withUser, async (req, res) => {
 	}
 });
 
+router.get('/getchatlist', isAuth, withUser, async (req, res) => {
+	var userId = req.currentUser.id;
+	try {
+		const chatList = await chatProvider.getChatList(userId);
+		return res.status(200).json({ chatList });
+	} catch (error) {
+		return res.status(500).json({ chatList: [] });
+	}
+});
+
 router.post('/createprivatechat', isAuth, withUser, async (req, res) => {
 	var { errors, isValid } = validateChat({ ...req.body });
 
@@ -22,7 +32,7 @@ router.post('/createprivatechat', isAuth, withUser, async (req, res) => {
 
 	try {
 		req.body.members.push(req.currentUser.id);
-		const chatId = await chatProvider.createChat(req.body);
+		const chatId = await chatProvider.getOrCreateChat(req.body);
 		return res.status(200).json({ chatId });
 	} catch (error) {
 		return res.status(500).json({ error });

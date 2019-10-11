@@ -12,7 +12,7 @@ window.rootStore = rootStore;
 const browserHistory = createBrowserHistory();
 
 ReactDOM.render(
-	<Provider rootStore={rootStore} auth={rootStore.auth} users={rootStore.users}>
+	<Provider rootStore={rootStore} auth={rootStore.auth} users={rootStore.users} chats={rootStore.chats}>
 		<Router history={browserHistory}>
 			<Layout />
 		</Router>

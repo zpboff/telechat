@@ -11,8 +11,8 @@ function UserInfo({ match, history }) {
 
 	const createChat = () => {
 		ApiProvider.Post(
-			`${ConnectionStrings.ChatApi}/createprivatechat`,
-			{ members: [user.userId], title: user.initials },
+			`${ConnectionStrings.ChatApiUrl}/createprivatechat`,
+			{ members: [user.id], title: user.initials },
 			res => {
 				history.push(`/chat/${res.data.chatId}`);
 			}
@@ -31,7 +31,7 @@ function UserInfo({ match, history }) {
 
 	return (
 		<div>
-			{JSON.stringify(user)}
+			<p>{user.firstName} {user.lastName}</p>
 			<button onClick={createChat} type="button">
 				Написать сообщение
 			</button>

@@ -4,27 +4,22 @@ import signinModel from '../../models/signinModel';
 import WithoutAuth from '../shared/WithoutAuth';
 import { inject } from 'mobx-react';
 import { withRouter } from 'react-router';
+import Input from '../shared/Input';
 
 @inject('auth')
 @WithoutAuth
 @withRouter
 @observer
 class Signin extends Component {
-	constructor(props) {
-		super(props);
-		this.handelSubmit = this.handelSubmit.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
-	}
-
-	handelSubmit(event) {
+	handelSubmit = event => {
 		event.preventDefault();
 		this.props.auth.signin(signinModel);
-	}
+	};
 
-	handleInputChange(event) {
+	handleInputChange = event => {
 		const { name, value } = event.target;
 		signinModel.setField(name, value);
-	}
+	};
 
 	render() {
 		return (
@@ -33,7 +28,7 @@ class Signin extends Component {
 					<img src="./images/avatar.svg" alt="Аватар" />
 					<h1>Вход</h1>
 					<p>Email</p>
-					<input
+					<Input
 						type="text"
 						name="email"
 						placeholder="Введите email"
@@ -41,7 +36,7 @@ class Signin extends Component {
 						onChange={this.handleInputChange}
 					/>
 					<p>Пароль</p>
-					<input
+					<Input
 						type="password"
 						name="password"
 						placeholder="Введите пароль"

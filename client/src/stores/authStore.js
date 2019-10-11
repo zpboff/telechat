@@ -45,7 +45,7 @@ class AuthStore {
 	@action setToken(token) {
 		this.token = token;
 		const decodedIdentity = jwt_decode(token).data;
-		this.socket = io(ConnectionStrings.ChatApiUrl, { query: `id=${decodedIdentity.id}` });
+		this.socket = io(ConnectionStrings.ChatSocketsUrl, { query: `id=${decodedIdentity.id}` });
 		AuthProvider.SetAuthToken(token);
 		this.setUser(decodedIdentity);
 	}

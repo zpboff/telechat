@@ -1,4 +1,5 @@
 const chatRepository = require('../../db/repositories/chatRepository');
+const { getMappedChat } = require('../mappers/chatMapper');
 
 const getLastMessages = async chatId => {
 	const from = 0;
@@ -7,12 +8,22 @@ const getLastMessages = async chatId => {
 	return messages;
 };
 
-const createChat = async model => {
-	var chat = await chatRepository.createChat(model);
+const getOrCreateChat = async model => {
+	var chat = await chatRepository.getChat(model.members);
+	if (!chat.length) {
+		chat = await chatRepository.createChat(model);
+	}
 	return chat.id;
+};
+
+const getChatList = async userId => {
+	const chatList = await chatRepository.getChatList(userId);
+	const mappedChatList = chatList.map(getMappedChat);
+	return mappedChatList;
 };
 
 module.exports = {
 	getLastMessages,
-	createChat,
+	getOrCreateChat,
+	getChatList,
 };

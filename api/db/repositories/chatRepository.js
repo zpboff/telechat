@@ -11,6 +11,11 @@ const getChatList = async userId => {
 	return result;
 };
 
+const getChat = async members => {
+	var chat = await ChatModel.find({ members: { $eq: members } });
+	return chat;
+};
+
 const createChat = async model => {
 	var schemaModel = new ChatModel({ ...model });
 	var result = await schemaModel.save();
@@ -21,4 +26,5 @@ module.exports = {
 	getMessages,
 	getChatList,
 	createChat,
+	getChat,
 };
