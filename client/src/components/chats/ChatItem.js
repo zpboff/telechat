@@ -1,8 +1,9 @@
 import React from 'react';
+import { observer, inject } from 'mobx-react';
 
-function ChatItem({ chat, selectChat }) {
+function ChatItem({ chat, chats }) {
 	const setCurrentChat = () => {
-		selectChat(chat.id);
+		chats.selectChat(chat.id);
 	};
 
 	return (
@@ -13,4 +14,4 @@ function ChatItem({ chat, selectChat }) {
 	);
 }
 
-export default ChatItem;
+export default inject('chats')(observer(ChatItem));
