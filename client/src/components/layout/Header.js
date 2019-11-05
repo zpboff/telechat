@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
 	getLinks = () => {
-		if (this.props.auth.isAuthenticated) {
+		if (true) {
 			return <SignoutLinks />;
 		}
 		return <SigninLinks />;

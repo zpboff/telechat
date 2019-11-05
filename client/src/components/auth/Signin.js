@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import signinModel from '../../models/signinModel';
 import WithoutAuth from '../shared/WithoutAuth';
 import { withRouter } from 'react-router';
 import Input from '../shared/Input';
@@ -9,12 +8,12 @@ import Input from '../shared/Input';
 class Signin extends Component {
 	handelSubmit = event => {
 		event.preventDefault();
-		this.props.auth.signin(signinModel);
+		//this.props.auth.signin(signinModel);
 	};
 
 	handleInputChange = event => {
 		const { name, value } = event.target;
-		signinModel.setField(name, value);
+		//signinModel.setField(name, value);
 	};
 
 	render() {
@@ -28,7 +27,7 @@ class Signin extends Component {
 						type="text"
 						name="email"
 						placeholder="Введите email"
-						value={signinModel.email}
+						// value={signinModel.email}
 						onChange={this.handleInputChange}
 					/>
 					<p>Пароль</p>
@@ -36,7 +35,7 @@ class Signin extends Component {
 						type="password"
 						name="password"
 						placeholder="Введите пароль"
-						value={signinModel.password}
+						// value={signinModel.password}
 						onChange={this.handleInputChange}
 					/>
 					<button type="submit">Войти</button>

@@ -18,20 +18,20 @@ class Layout extends Component {
 	refreshToken = () => {
 		var token = AuthProvider.GetAuthToken();
 		if (token) {
-			this.props.auth.setToken(token);
+			//this.props.auth.setToken(token);
 		}
 	};
 
 	componentWillReceiveProps() {
-		this.refreshToken();
+		//this.refreshToken();
 	}
 
 	componentWillMount() {
-		this.refreshToken();
+		//this.refreshToken();
 	}
 
 	render() {
-		var isAuth = this.props.auth.isAuthenticated;
+		var isAuth = true;
 		return (
 			<Fragment>
 				<Header />

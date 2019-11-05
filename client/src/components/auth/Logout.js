@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import WithAuth from '../shared/WithAuth';
+import withAuth from '../shared/WithAuth';
 import { withRouter } from "react-router";
 
-@WithAuth
+@withAuth
 @withRouter
 class Logout extends Component {
 	componentDidMount() {
