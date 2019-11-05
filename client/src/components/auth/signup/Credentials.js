@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
+import EmailInput from '../../shared/forms/EmailInput';
+import PasswordInput from '../../shared/forms/PasswordInput';
 
 export default function Credentials({ email, password, onChange }) {
 	return (
 		<Fragment>
-			<p>Email</p>
-			<input type="text" name="email" placeholder="Введите email" value={email} onChange={onChange} />
-			<p>Пароль</p>
-			<input type="password" name="password" placeholder="Введите пароль" value={password} onChange={onChange} />
+			<EmailInput onChange={onChange} email={email} />
+			<PasswordInput onChange={onChange} password={password} />
 		</Fragment>
 	);
 }

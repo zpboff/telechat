@@ -1,12 +1,12 @@
 import React from 'react';
-import FormInput from '../../shared/FormInput';
+import FormInput from './FormInput';
 
 export default function EmailInput({ email, onChange }) {
 	return (
         <FormInput 
             type="text" 
             name="email" 
-            placeholder="Email" 
+            placeholder="Введите email"
             title="Email" 
             value={email} 
             onStateChange={onChange} 

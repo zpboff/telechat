@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import withoutAuth from '../../shared/wrappers/withoutAuth';
+import withoutAuth from '../shared/wrappers/withoutAuth';
 import { withRouter } from 'react-router';
-import EmailInput from './EmailInput';
-import PasswordInput from './PasswordInput';
+import EmailInput from '../shared/forms/EmailInput';
+import PasswordInput from '../shared/forms/PasswordInput';
 
 function Signin() {
 	const [email, setEmail] = useState('');

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router';
-import Signin from '../auth/signin/Signin';
+import Signin from '../auth/Signin';
 import Signup from '../auth/signup/Signup';
 import NotFound from '../shared/NotFound';
 import Home from '../Home';
