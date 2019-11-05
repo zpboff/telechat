@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import WithoutAuth from '../../shared/WithoutAuth';
+import withoutAuth from '../../shared/wrappers/withoutAuth';
 import SignupBody from './SignupBody';
 import SignupButton from './SignupButton';
 
-@WithoutAuth
+@withoutAuth
 @withRouter
 class Signup extends Component {
 	handelSubmit = event => {

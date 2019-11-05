@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import WithoutAuth from '../shared/WithoutAuth';
+import withoutAuth from '../shared/wrappers/withoutAuth';
 import { withRouter } from 'react-router';
 import Input from '../shared/Input';
 
-@WithoutAuth
+@withoutAuth
 @withRouter
 class Signin extends Component {
 	handelSubmit = event => {

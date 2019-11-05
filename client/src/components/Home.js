@@ -1,9 +1,9 @@
 import React from 'react';
-import WithAuth from './shared/WithAuth';
+import withAuth from './shared/wrappers/withAuth';
 import { withRouter } from "react-router";
 
 @withRouter
-@WithAuth
+@withAuth
 class Home extends React.Component {
 	render() {
 		return (

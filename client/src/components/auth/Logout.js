@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import withAuth from '../shared/WithAuth';
+import withAuth from '../shared/wrappers/withAuth';
 import { withRouter } from "react-router";
 
 @withAuth
