@@ -3,7 +3,7 @@ const withUser = require('../middlewares/withUser');
 const router = require('express').Router();
 const usersProvider = require('../providers/usersProvider');
 
-router.get('/getall', isAuth, withUser, async (req, res) => {
+router.get('/get-all', isAuth, withUser, async (req, res) => {
 	try {
 		var users = await usersProvider.getAll(req.currentUser.id);
 		return res.status(200).json({ users });
@@ -12,7 +12,7 @@ router.get('/getall', isAuth, withUser, async (req, res) => {
 	}
 });
 
-router.get('/getuserinfo/:id', isAuth, async (req, res) => {
+router.get('/get-user-info/:id', isAuth, async (req, res) => {
 	try {
 		var { id } = req.params
 		var user = await usersProvider.getUserById(id);
