@@ -1,10 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { inject, observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 import Icon from '../shared/Icon';
 
-@inject('auth')
-@observer
 class SignoutLinks extends Component {
 	render() {
 		return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { leftMenuItems } from '../../../constants/leftMenu';
+import { leftMenuItems } from '../../../constants/leftMenuItems';
 import LeftMenuItem from './LeftMenuItem';
 
 export default function LeftMenu({ isAuth }) {

@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
 import signinModel from '../../models/signinModel';
 import WithoutAuth from '../shared/WithoutAuth';
-import { inject } from 'mobx-react';
 import { withRouter } from 'react-router';
 import Input from '../shared/Input';
 
-@inject('auth')
 @WithoutAuth
 @withRouter
-@observer
 class Signin extends Component {
 	handelSubmit = event => {
 		event.preventDefault();

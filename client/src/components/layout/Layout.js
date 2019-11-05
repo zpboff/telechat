@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { observer, inject } from 'mobx-react';
 import { Route, Switch } from 'react-router';
 import Signin from '../auth/Signin';
 import Signup from '../auth/signup/Signup';
@@ -15,8 +14,6 @@ import Profile from '../profile/Profile';
 import UserInfo from '../profile/UserInfo';
 import ChatList from '../chats/ChatList';
 
-@inject('auth')
-@observer
 class Layout extends Component {
 	refreshToken = () => {
 		var token = AuthProvider.GetAuthToken();
@@ -49,8 +46,7 @@ class Layout extends Component {
 							<Route path="/signup" component={Signup} />
 							<Route path="/logout" component={Logout} />
 							<Route path="/userinfo/:id" component={UserInfo} />
-							<Route path="/chat" component={ChatList} />
-							<Route path="/chat/:chatId" component={ChatList} />
+							<Route path="/chat/:chatId?" component={ChatList} />
 							<Route path="/error" component={Error} />
 							<Route component={NotFound} />
 						</Switch>

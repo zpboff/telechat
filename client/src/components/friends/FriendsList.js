@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
 import UsersProvider from '../../providers/usersProvider';
 import UserCard from './UserCard';
 
-@inject('users')
-@observer
 export default class FriendsList extends Component {
 	componentDidMount() {
 		UsersProvider.GetAll(this.props.users.setUsers);

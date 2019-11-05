@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import SigninLinks from './SigninLinks';
 import SignoutLinks from './SignoutLinks';
-import { inject, observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 
-@inject('auth')
-@observer
 class Header extends Component {
 	getLinks = () => {
 		if (this.props.auth.isAuthenticated) {

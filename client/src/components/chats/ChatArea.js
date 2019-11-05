@@ -1,5 +1,4 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react';
 import MessageList from './MessageList';
 import ChatAreaFooter from './ChatAreaFooter';
 
@@ -16,5 +15,4 @@ function ChatArea({ chats, chatId }) {
 		</div>
 	);
 }
-
-export default inject('chats')(observer(ChatArea));
+export default ChatArea;

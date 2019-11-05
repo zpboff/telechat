@@ -4,13 +4,13 @@ export const signupStep = {
 };
 
 const signupBodyProps = {
-	[signupStep.Credentials]: ['email', 'password', 'passwordConfirmation'],
+	[signupStep.Credentials]: ['email', 'password'],
 	[signupStep.Personal]: ['firstName', 'lastName'],
 };
 
-export const getProps = (step, model) => {
+export const getProps = (model) => {
 	const props = {};
-	const propsList = signupBodyProps[step];
+	const propsList = signupBodyProps[model.step];
 	propsList.forEach(x => {
 		props[x] = model[x];
 	});

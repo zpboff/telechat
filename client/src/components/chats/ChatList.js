@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { inject, observer } from 'mobx-react';
 import ChatsProvider from '../../providers/chatProvider';
 import ChatItem from './ChatItem';
 import ChatArea from './ChatArea';
@@ -21,9 +20,9 @@ function ChatList({ chats, match }) {
 	return (
 		<div>
 			{chatList && chatList.map(chat => <ChatItem key={chat.id} chat={chat} />)}
-			<ChatArea chatId={match.params.id} />
+			<ChatArea chatId={match.params.chatId} />
 		</div>
 	);
 }
 
-export default withRouter(inject('chats')(observer(ChatList)));
+export default withRouter(ChatList);

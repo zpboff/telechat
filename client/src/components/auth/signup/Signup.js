@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { observer, inject } from 'mobx-react';
 import signupModel from '../../../models/signupModel';
 import WithoutAuth from '../../shared/WithoutAuth';
 import { getProps, signupStep } from './signupLogic';
 import Personal from './Personal';
 import Credentials from './Credentials';
 
-@inject('auth')
 @WithoutAuth
 @withRouter
-@observer
 class Signup extends Component {
     
 	handelSubmit = event => {
@@ -24,7 +21,7 @@ class Signup extends Component {
 	};
 
 	get body() {
-		const props = Object.assign(getProps(signupModel.step, signupModel), { onChange: this.handleInputChange });
+		const props = Object.assign(getProps(signupModel), { onChange: this.handleInputChange });
 		const Body = signupModel.isFistStep ? Credentials : Personal;
 		return <Body {...props} />;
 	}
