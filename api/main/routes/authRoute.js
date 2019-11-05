@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
 		var tokens = await signup(req.body);
 		return res.status(200).json(tokens);
 	} catch (e) {
-		return res.status(500).json({ errors: { internal: e.message } });
+		return res.status(500).json({ errors: { internal: e } });
 	}
 });
 
@@ -33,7 +33,7 @@ router.post('/signin', async (req, res) => {
 		var tokens = await signin(req.body);
 		return res.status(200).json(tokens);
 	} catch (e) {
-		return res.status(500).json({ errors: { internal: e.message } });
+		return res.status(500).json({ errors: { internal: e } });
 	}
 });
 
@@ -43,7 +43,7 @@ router.post('/signin-as-user', isAuth, withUser, hasRole('admin'), async (req, r
 		var tokens = await signinAsUser(email);
 		return res.status(200).json(tokens);
 	} catch (e) {
-		return res.status(500).json({ errors: { internal: e.message } });
+		return res.status(500).json({ errors: { internal: e } });
 	}
 });
 

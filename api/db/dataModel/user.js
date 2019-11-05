@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
 	avatar: { type: String },
 	chats: { type: Array },
 	isOnline: { type: Boolean, default: false },
+	friends: { type: Array, default: [] },
 });
 
 UserSchema.pre('save', async function(next) {
