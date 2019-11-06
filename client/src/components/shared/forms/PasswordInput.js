@@ -9,7 +9,7 @@ export default function PasswordInput({ password, onChange }) {
 			placeholder="Введите пароль"
 			title="Пароль"
 			value={password}
-			onStateChange={onChange}
+			onChange={onChange}
 		/>
 	);
 }

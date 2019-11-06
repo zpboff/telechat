@@ -3,14 +3,16 @@ import withoutAuth from '../shared/wrappers/withoutAuth';
 import { withRouter } from 'react-router';
 import EmailInput from '../shared/forms/EmailInput';
 import PasswordInput from '../shared/forms/PasswordInput';
+import { getInputChanger, getMappedHook } from '../shared/forms/inputLogic';
 
 function Signin() {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const { email, password, onChange } = getInputChanger(
+		getMappedHook('password', useState('')),
+		getMappedHook('email', useState(''))
+	);
 
 	const handleSubmit = event => {
 		event.preventDefault();
-		const payload = { email, password };
 	};
 
 	return (
@@ -18,8 +20,8 @@ function Signin() {
 			<form noValidate onSubmit={handleSubmit}>
 				<img src="./images/avatar.svg" alt="Аватар" />
 				<h1>Вход</h1>
-				<EmailInput email={email} onChange={setEmail} />
-				<PasswordInput password={password} onChange={setPassword} />
+				<EmailInput email={email} onChange={onChange} />
+				<PasswordInput password={password} onChange={onChange} />
 				<button type="submit">Войти</button>
 				<a href="/restore">Забыли пароль?</a>
 				<a href="/signup">Нет учетной записи?</a>

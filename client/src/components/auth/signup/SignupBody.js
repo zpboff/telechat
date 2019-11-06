@@ -1,10 +1,14 @@
 import React from 'react';
-import { getProps } from './signupLogic';
 import Credentials from './Credentials';
 import Personal from './Personal';
+import { signupStep } from './consts';
 
-export default function SignupBody({ onChange }) {
-	const props = Object.assign(getProps({}), { onChange });
-	const Body = true ? Credentials : Personal;
-	return <Body {...props} />;
+export default function SignupBody({ inputChanger, step }) {
+	const props = { inputChanger };
+	switch (step) {
+		case signupStep.Personal:
+			return <Personal {...props} />;
+		default:
+			return <Credentials {...props} />;
+	}
 }

@@ -9,7 +9,7 @@ export default function EmailInput({ email, onChange }) {
             placeholder="Введите email"
             title="Email" 
             value={email} 
-            onStateChange={onChange} 
+            onChange={onChange} 
         />
 	);
 }

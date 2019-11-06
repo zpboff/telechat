@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import Layout from './components/layout/Layout';
+import Layout from './components/Layout';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
 import { AuthProvider } from './context/Auth/context';

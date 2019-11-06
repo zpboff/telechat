@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react';
+import FirstNameInput from './FirstNameInput';
+import LastNameInput from './LastNameInput';
 
-export default function Personal({ firstName, lastName, onChange }) {
+export default function Personal({ inputChanger }) {
+
+	const { onChange, firstName, lastName } = inputChanger;
+
 	return (
 		<Fragment>
-			<p>Имя</p>
-			<input type="text" name="firstName" placeholder="Введите имя" onChange={onChange} value={firstName} />
-			<p>Фамилия</p>
-			<input type="text" name="lastName" placeholder="Введите фамилию" onChange={onChange} value={lastName} />
+			<FirstNameInput firstName={firstName} onChange={onChange} />
+			<LastNameInput lastName={lastName} onChange={onChange} />
 		</Fragment>
 	);
 }

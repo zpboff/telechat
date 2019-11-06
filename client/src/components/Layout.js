@@ -1,17 +1,17 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router';
-import Signin from '../auth/Signin';
-import Signup from '../auth/signup/Signup';
-import NotFound from '../shared/NotFound';
-import Home from '../Home';
-import Header from './Header';
-import Logout from '../auth/Logout';
-import Error from '../shared/Error';
-import LeftMenu from './LeftMenu/LeftMenu';
-import FriendsList from '../friends/FriendsList';
-import Profile from '../profile/Profile';
-import UserInfo from '../profile/UserInfo';
-import ChatList from '../chats/ChatList';
+import Signin from './auth/Signin';
+import Signup from './auth/Signup';
+import NotFound from './shared/NotFound';
+import Home from './Home';
+import Header from './layout/Header';
+import Logout from './auth/Logout';
+import Error from './shared/Error';
+import LeftMenu from './layout/LeftMenu/LeftMenu';
+import FriendsList from './friends/FriendsList';
+import Profile from './profile/Profile';
+import UserInfo from './profile/UserInfo';
+import ChatList from './chats/ChatList';
 
 export default function Layout() {
 	return (
