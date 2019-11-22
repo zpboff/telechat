@@ -4,15 +4,22 @@ import { withRouter } from 'react-router';
 import EmailInput from '../shared/forms/EmailInput';
 import PasswordInput from '../shared/forms/PasswordInput';
 import { getInputChanger, getMappedHook } from '../shared/forms/inputLogic';
+import { signin } from '../../providers/authProvider';
+import { useSignin } from '../../context/auth/context';
 
-function Signin() {
+function Signin() {	
+	const signinMethod = useSignin();
+
 	const { email, password, onChange } = getInputChanger(
 		getMappedHook('password', useState('')),
 		getMappedHook('email', useState(''))
 	);
 
+	const requestBody = { email, password };
+
 	const handleSubmit = event => {
 		event.preventDefault();
+		signin(requestBody, signinMethod);
 	};
 
 	return (

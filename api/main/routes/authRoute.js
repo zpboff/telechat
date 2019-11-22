@@ -7,6 +7,15 @@ const { signin, signup, signinAsUser } = require('../providers/authProvider');
 
 const router = express.Router();
 
+async function sendResponse(req, res, obtainFunciton) {
+	try {
+		var result = await obtainFunciton(req.body);
+		return res.status(200).json(result);
+	} catch (e) {
+		return res.status(500).json({ errors: { internal: e } });
+	}
+}
+
 router.post('/signup', async (req, res) => {
 	var { errors, isValid } = validateSignup({ ...req.body });
 
@@ -14,12 +23,7 @@ router.post('/signup', async (req, res) => {
 		return res.status(500).json({ errors });
 	}
 
-	try {
-		var tokens = await signup(req.body);
-		return res.status(200).json(tokens);
-	} catch (e) {
-		return res.status(500).json({ errors: { internal: e } });
-	}
+	sendResponse(req, res, signup);
 });
 
 router.post('/signin', async (req, res) => {
@@ -29,22 +33,11 @@ router.post('/signin', async (req, res) => {
 		return res.status(500).json({ errors });
 	}
 
-	try {
-		var tokens = await signin(req.body);
-		return res.status(200).json(tokens);
-	} catch (e) {
-		return res.status(500).json({ errors: { internal: e } });
-	}
+	sendResponse(req, res, signin);
 });
 
 router.post('/signin-as-user', isAuth, withUser, hasRole('admin'), async (req, res) => {
-	const email = req.body.email;
-	try {
-		var tokens = await signinAsUser(email);
-		return res.status(200).json(tokens);
-	} catch (e) {
-		return res.status(500).json({ errors: { internal: e } });
-	}
+	sendResponse(req, res, signinAsUser);
 });
 
 module.exports = router;

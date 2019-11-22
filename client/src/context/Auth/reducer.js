@@ -1,18 +1,17 @@
-import { Signin, SetToken } from './actions';
+import { signinAction } from './actions';
+import jwtDecode from 'jwt-decode';
 
 export const authReducer = (state, action) => {
 	switch (action.type) {
-		case SetToken:
+		case signinAction:
+			const { accessToken } = action;
+			const isAuthenticated = !!accessToken;
+			const user = isAuthenticated ? jwtDecode(accessToken) : {};
+
 			return {
-				...state,
-				token: action.token,
-			}
-		case Signin:
-			return {
-				isAuthenticated: !!action.token,
-				user: action.user,
-				token: action.token,
-			}
+				user,
+				accessToken,
+			};
 		default:
 			return state;
 	}

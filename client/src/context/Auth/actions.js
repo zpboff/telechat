@@ -1,2 +1,1 @@
-export const SetToken = 'SET_TOKEN';
-export const Signin = 'SIGNIN';
+export const signinAction = 'SIGNIN';

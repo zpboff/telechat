@@ -2,10 +2,10 @@ import React from 'react';
 import SigninLinks from './SigninLinks';
 import SignoutLinks from './SignoutLinks';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../context/Auth/context';
+import { useIsAuthenticate } from '../../context/auth/context';
 
 export default function Header() {
-	var [{ isAuthenticated }] = useAuth();
+	const isAuthenticated = useIsAuthenticate();
 
 	const Links = isAuthenticated ? SignoutLinks : SigninLinks;
 

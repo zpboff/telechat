@@ -1,5 +1,5 @@
 const UserModel = require('../../db/dataModel/user');
-const TokenModel = require('../../db/dataModel/token');
+const SessionModel = require('../../db/dataModel/session');
 const argon2 = require('argon2');
 const AppSettings = require('../../constants/appSettings');
 const jwt = require('jsonwebtoken');
@@ -18,18 +18,23 @@ const signup = async user => {
 
 const signin = async user => {
 	const userRecord = await UserModel.findOne({ email: user.email });
+
 	if (!userRecord) {
 		throw new Error('Пользователь не найден');
 	}
 
 	const passwordsIsEquals = await argon2.verify(userRecord.password, user.password);
+
 	if (passwordsIsEquals) {
 		return await generateToken(userRecord);
 	}
+
 	throw new Error('Неверный пароль');
 };
 
-const signinAsUser = async email => {
+const signinAsUser = async user => {
+	const { email } = user;
+
 	const userRecord = await UserModel.findOne({ email });
 
 	if (!userRecord) {
@@ -40,7 +45,7 @@ const signinAsUser = async email => {
 };
 
 const generateToken = async user => {
-	const data = {
+	const payload = {
 		id: user._id,
 		email: user.email,
 		firstName: user.firstName,
@@ -49,20 +54,24 @@ const generateToken = async user => {
 		birthDate: user.birthDate,
 		avatar: user.avatar,
 	};
-	const signature = AppSettings.Secret;
-	const expiration = AppSettings.TokenExpiresIn;
 
-	var token = jwt.sign({ data }, signature, { expiresIn: expiration });
+	const signature = AppSettings.Secret;
+	const expiresIn = AppSettings.AccessTokenExpiresIn;
+
+	var accessToken = jwt.sign({ payload }, signature, { expiresIn: accessTokenExpiresIn });
 	var refreshToken = uuidv4();
-	var tokenModel = new TokenModel({
-		email: user.email,
+
+	var sessionModel = new SessionModel({
+		userId: user._id,
 		refreshToken,
-		expirationDate: new Date(Date.now() + expiration * 1000),
 	});
-	await tokenModel.save();
+
+	await sessionModel.save();
+
 	return {
-		token,
+		accessToken,
 		refreshToken,
+		expiresIn,
 	};
 };
 

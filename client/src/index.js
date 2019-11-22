@@ -4,16 +4,16 @@ import * as serviceWorker from './serviceWorker';
 import Layout from './components/Layout';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
-import { AuthProvider } from './context/Auth/context';
+import { AuthContextProvider } from './context/auth/context';
 
 const browserHistory = createBrowserHistory();
 
 ReactDOM.render(
-	<AuthProvider>
+	<AuthContextProvider>
 		<Router history={browserHistory}>
 			<Layout />
 		</Router>
-	</AuthProvider>,
+	</AuthContextProvider>,
 	document.getElementById('root')
 );
 
