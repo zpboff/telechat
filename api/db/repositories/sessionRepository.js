@@ -1,12 +1,12 @@
 const SessionModel = require('../dataModel/session');
 
-const readSession = async ({ userId, refreshToken }) => {
-	var result = await SessionModel.find({ userId, refreshToken });
+const readSession = async refreshToken => {
+	var result = await SessionModel.findOne({ refreshToken });
 	return result;
 };
 
-const deleteSession = async ({ userId, refreshToken }) => {
-	await SessionModel.findOneAndRemove({ userId, refreshToken });
+const deleteSession = async refreshToken => {
+	await SessionModel.findOneAndRemove({ refreshToken });
 };
 
 const createSession = async model => {

@@ -13,12 +13,18 @@ const getUser = async condition => {
 	return mappedUser;
 };
 
+const getOriginUser = async condition => {
+	const user = await readOne(condition);
+	return user;
+};
+
 const createUser = async model => {
 	var user = await create(model);
 	return user;
 };
 
 module.exports = {
+	getOriginUser,
 	getUserById,
 	getUser,
 	createUser,

@@ -1,6 +1,4 @@
-const isAuth = require('../middlewares/isAuth');
 const withUser = require('../middlewares/withUser');
-const hasRole = require('../middlewares/hasRole');
 const express = require('express');
 const { validateSignin, validateSignup } = require('../helpers/validation');
 const { signin, signup, refreshToken } = require('../providers/authProvider');
@@ -9,10 +7,10 @@ const router = express.Router();
 
 async function sendResponse(req, res, obtainFunciton) {
 	try {
-		var result = await obtainFunciton(req.body);
+		var result = await obtainFunciton(req);
 		return res.status(200).json(result);
 	} catch (e) {
-		return res.status(500).json({ errors: { internal: e } });
+		return res.status(500).json({ errors: { internal: e.message } });
 	}
 }
 
@@ -23,7 +21,7 @@ router.post('/signup', async (req, res) => {
 		return res.status(500).json({ errors });
 	}
 
-	sendResponse(req, res, signup);
+	sendResponse(req, res, ({ body }) => signup(body));
 });
 
 router.post('/signin', async (req, res) => {
@@ -33,10 +31,10 @@ router.post('/signin', async (req, res) => {
 		return res.status(500).json({ errors });
 	}
 
-	sendResponse(req, res, refreshToken);
+	sendResponse(req, res, ({ body }) => signin(body));
 });
 
-router.post('/refresh-token', withUser,  async (req, res) => {
+router.post('/refresh-token', async (req, res) => {
 	sendResponse(req, res, refreshToken);
 });
 

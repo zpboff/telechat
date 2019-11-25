@@ -3,22 +3,22 @@ const AppSettings = require('../../constants/appSettings');
 const jwt = require('jsonwebtoken');
 const { uuidv4 } = require('../helpers/idHelper');
 const { upsertSession, getSession } = require('./sessionProvider');
-const { getUserById, createUser, getUser } = require('./usersProvider');
+const { getUserById, createUser, getUser, getOriginUser } = require('./usersProvider');
 
 const signup = async user => {
-	var userRecord = await getUser({ email: user.email });
+	const userRecord = await getUser({ email: user.email });
 
 	if (userRecord) {
 		throw new Error('Email занят');
 	}
 
-	var userRecord = await createUser({ ...user });
+	const userModel = await createUser({ ...user });
 
-	return await generateToken(userRecord);
+	return await generateToken(userModel);
 };
 
 const signin = async user => {
-	const userRecord = await getUser({ email: user.email });
+	const userRecord = await getOriginUser({ email: user.email });
 
 	if (!userRecord) {
 		throw new Error('Пользователь не найден');
@@ -33,20 +33,22 @@ const signin = async user => {
 	throw new Error('Неверный пароль');
 };
 
-const refreshToken = async ({ userId, refreshToken }) => {
-	const session = await getSession(userId, refreshToken);
+const refreshToken = async ({ body }) => {
+	const { refreshToken } = body;
+
+	const session = await getSession(refreshToken);
 
 	if (session) {
-		const user = await getUserById(userId);
-		return signin(user);
+		const user = await getUserById(session.userId);
+		return await generateToken(user, refreshToken);
 	}
 
 	throw new Error('Не возможно обновить сессию');
 };
 
-const generateToken = async user => {
+const generateToken = async (user, refreshToken = uuidv4()) => {
 	const payload = {
-		id: user._id,
+		id: user.id,
 		email: user.email,
 		firstName: user.firstName,
 		lastName: user.lastName,
@@ -57,15 +59,14 @@ const generateToken = async user => {
 
 	const signature = AppSettings.Secret;
 	const expiresIn = AppSettings.AccessTokenExpiresIn;
-	const expiresDate = Date.now() + expiresIn;
+	const expiresDate = new Date(Date.now() + expiresIn);
 
-	var accessToken = jwt.sign({ payload }, signature, { expiresIn });
-	var refreshToken = uuidv4();
+	const accessToken = jwt.sign({ payload }, signature, { expiresIn });
 
 	await upsertSession({
-		userId: user._id,
+		userId: user.id,
 		refreshToken,
-		expires: new Date(expiresDate),
+		expiresDate,
 	});
 
 	return {

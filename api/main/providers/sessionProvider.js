@@ -1,16 +1,18 @@
 const { readSession, deleteSession, createSession } = require('../../db/repositories/sessionRepository');
 
 async function upsertSession({ userId, refreshToken, expiresDate }) {
-	const currentSession = await readSession(userId, refreshToken);
+	const currentSession = await readSession(refreshToken);
+
 	if (currentSession) {
-		await deleteSession(userId, refreshToken);
+		await deleteSession(refreshToken);
 	}
-	const session = await createSession({ user, refreshToken, expiresDate });
+
+	const session = await createSession({ userId, refreshToken, expiresDate });
 	return session;
 }
 
-async function getSession(userId, refreshToken) {
-	const session = await readSession(userI, refreshToken);
+async function getSession(refreshToken) {
+	const session = await readSession(refreshToken);
 	return session;
 }
 
