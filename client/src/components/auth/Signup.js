@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router';
-import withoutAuth from '../shared/wrappers/withoutAuth';
+import { withoutAuth } from '../shared/wrappers/withoutAuth';
 import SignupBody from './signup/SignupBody';
 import SignupButton from './signup/SignupButton';
 import { signupStep } from './signup/consts';

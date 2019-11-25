@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import withoutAuth from '../shared/wrappers/withoutAuth';
+import { withoutAuth } from '../shared/wrappers/withoutAuth';
 import { withRouter } from 'react-router';
 import EmailInput from '../shared/forms/EmailInput';
 import PasswordInput from '../shared/forms/PasswordInput';

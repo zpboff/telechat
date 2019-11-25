@@ -1,15 +1,9 @@
-import React from 'react';
-import withAuth from './shared/wrappers/withAuth';
-import { withRouter } from "react-router";
+import React from 'react'
 
-@withRouter
-@withAuth
-class Home extends React.Component {
-	render() {
-		return (
-            'Home'
-		);
-	}
+export default function Home() {
+	return (
+		<div>
+			Home
+		</div>
+	)
 }
-
-export default Home;
