@@ -1,23 +1,24 @@
-const UserModel = require('../../db/dataModel/user');
-const SessionModel = require('../../db/dataModel/session');
 const argon2 = require('argon2');
 const AppSettings = require('../../constants/appSettings');
 const jwt = require('jsonwebtoken');
 const { uuidv4 } = require('../helpers/idHelper');
+const { upsertSession, getSession } = require('./sessionProvider');
+const { getUserById, createUser, getUser } = require('./usersProvider');
 
 const signup = async user => {
-	var userRecord = await UserModel.findOne({ email: user.email });
+	var userRecord = await getUser({ email: user.email });
+
 	if (userRecord) {
 		throw new Error('Email занят');
 	}
-	var userModel = new UserModel({ ...user });
-	userRecord = await userModel.save();
+
+	var userRecord = await createUser({ ...user });
 
 	return await generateToken(userRecord);
 };
 
 const signin = async user => {
-	const userRecord = await UserModel.findOne({ email: user.email });
+	const userRecord = await getUser({ email: user.email });
 
 	if (!userRecord) {
 		throw new Error('Пользователь не найден');
@@ -32,16 +33,15 @@ const signin = async user => {
 	throw new Error('Неверный пароль');
 };
 
-const signinAsUser = async user => {
-	const { email } = user;
+const refreshToken = async ({ userId, refreshToken }) => {
+	const session = await getSession(userId, refreshToken);
 
-	const userRecord = await UserModel.findOne({ email });
-
-	if (!userRecord) {
-		throw new Error('Пользователь не найден');
+	if (session) {
+		const user = await getUserById(userId);
+		return signin(user);
 	}
 
-	return await generateToken(userRecord);
+	throw new Error('Не возможно обновить сессию');
 };
 
 const generateToken = async user => {
@@ -57,26 +57,26 @@ const generateToken = async user => {
 
 	const signature = AppSettings.Secret;
 	const expiresIn = AppSettings.AccessTokenExpiresIn;
+	const expiresDate = Date.now() + expiresIn;
 
-	var accessToken = jwt.sign({ payload }, signature, { expiresIn: accessTokenExpiresIn });
+	var accessToken = jwt.sign({ payload }, signature, { expiresIn });
 	var refreshToken = uuidv4();
 
-	var sessionModel = new SessionModel({
+	await upsertSession({
 		userId: user._id,
 		refreshToken,
+		expires: new Date(expiresDate),
 	});
-
-	await sessionModel.save();
 
 	return {
 		accessToken,
 		refreshToken,
-		expiresIn,
+		expiresDate,
 	};
 };
 
 module.exports = {
 	signin,
 	signup,
-	signinAsUser,
+	refreshToken,
 };

@@ -3,7 +3,7 @@ const withUser = require('../middlewares/withUser');
 const hasRole = require('../middlewares/hasRole');
 const express = require('express');
 const { validateSignin, validateSignup } = require('../helpers/validation');
-const { signin, signup, signinAsUser } = require('../providers/authProvider');
+const { signin, signup, refreshToken } = require('../providers/authProvider');
 
 const router = express.Router();
 
@@ -33,11 +33,11 @@ router.post('/signin', async (req, res) => {
 		return res.status(500).json({ errors });
 	}
 
-	sendResponse(req, res, signin);
+	sendResponse(req, res, refreshToken);
 });
 
-router.post('/signin-as-user', isAuth, withUser, hasRole('admin'), async (req, res) => {
-	sendResponse(req, res, signinAsUser);
+router.post('/refresh-token', withUser,  async (req, res) => {
+	sendResponse(req, res, refreshToken);
 });
 
 module.exports = router;

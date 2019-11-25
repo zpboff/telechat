@@ -4,12 +4,12 @@ import jwtDecode from 'jwt-decode';
 export const authReducer = (state, action) => {
 	switch (action.type) {
 		case signinAction:
-			const { accessToken } = action;
+			const { accessToken } = action.payload;
 			const isAuthenticated = !!accessToken;
-			const user = isAuthenticated ? jwtDecode(accessToken) : {};
+			const { payload } = isAuthenticated ? jwtDecode(accessToken) : {};
 
 			return {
-				user,
+				user: payload,
 				accessToken,
 			};
 		default:
