@@ -1,16 +1,15 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import withAuth from '../shared/wrappers/withAuth';
-import { withRouter } from "react-router";
+import { logout } from '../../providers/authProvider';
+import { useSignin } from '../../context/auth/context';
 
-@withAuth
-@withRouter
-class Logout extends Component {
-	componentDidMount() {
-		this.props.auth.logout();
-	}
-	render() {
-		return null;
-	}
+function Logout() {
+	const signinMethod = useSignin();
+
+	useEffect(() => {
+		logout(signinMethod);
+	}, []);
+	return null;
 }
 
-export default Logout;
+export default withAuth(Logout);

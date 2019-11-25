@@ -40,6 +40,12 @@ export const signup = (model, hookCallback) => {
 	post(`${ConnectionStrings.AuthApiUrl}/signup`, model, signinWrapper(hookCallback));
 };
 
+export const logout = hookCallback => {
+	var emptyTokenData = {};
+	setAuthToken(emptyTokenData);
+	hookCallback(emptyTokenData);
+};
+
 export const refreshToken = hookCallback => {
 	const token = getRefreshToken();
 	const isExpired = tokenExpired();
@@ -47,5 +53,6 @@ export const refreshToken = hookCallback => {
 		post(`${ConnectionStrings.AuthApiUrl}/refresh-token`, { refreshToken: token }, signinWrapper(hookCallback));
 		return;
 	}
-	setAuthToken();
+	const emptyTokenData = {};
+	setAuthToken(emptyTokenData);
 };
