@@ -1,12 +1,12 @@
 import { signinAction } from './actions';
-import jwtDecode from 'jwt-decode';
+import { getPayload } from '../../providers/authProvider';
 
 export const authReducer = (state, action) => {
 	switch (action.type) {
 		case signinAction:
 			const { accessToken } = action.payload;
 			const isAuthenticated = !!accessToken;
-			const { payload } = isAuthenticated ? jwtDecode(accessToken) : {};
+			const { payload } = isAuthenticated ? getPayload(accessToken) : {};
 
 			return {
 				user: payload,

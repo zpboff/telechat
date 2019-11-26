@@ -6,8 +6,9 @@ import PasswordInput from '../shared/forms/PasswordInput';
 import { getInputChanger, getMappedHook } from '../shared/forms/inputLogic';
 import { signin } from '../../providers/authProvider';
 import { useSignin } from '../../context/auth/context';
+import { NavLink } from 'react-router-dom';
 
-function Signin() {	
+function Signin() {
 	const signinMethod = useSignin();
 
 	const { email, password, onChange } = getInputChanger(
@@ -30,8 +31,8 @@ function Signin() {
 				<EmailInput email={email} onChange={onChange} />
 				<PasswordInput password={password} onChange={onChange} />
 				<button type="submit">Войти</button>
-				<a href="/restore">Забыли пароль?</a>
-				<a href="/signup">Нет учетной записи?</a>
+				<NavLink to="/restore">Забыли пароль?</NavLink>
+				<NavLink to="/signup">Нет учетной записи?</NavLink>
 			</form>
 		</div>
 	);

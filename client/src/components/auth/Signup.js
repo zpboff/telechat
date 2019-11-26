@@ -4,6 +4,7 @@ import { withoutAuth } from '../shared/wrappers/withoutAuth';
 import SignupBody from './signup/SignupBody';
 import SignupButton from './signup/SignupButton';
 import { signupStep } from './signup/consts';
+import { NavLink } from 'react-router-dom';
 import { getInputChanger, getMappedHook } from '../shared/forms/inputLogic';
 
 function Signup() {
@@ -33,7 +34,7 @@ function Signup() {
 				<h1>Вход</h1>
 				<SignupBody inputChanger={inputChanger} step={step} />
 				<SignupButton switchStep={switchStep} step={step} />
-				<a href="/signin">Уже есть учетная запись?</a>
+				<NavLink to="/signin">Уже есть учетная запись?</NavLink>
 			</form>
 		</div>
 	);
