@@ -18,13 +18,12 @@
   },
   "homepage": "https://github.com/zpboff/telechat#readme",
   "dependencies": {
-    "argon2": "^0.24.1",
     "concurrently": "^4.1.0",
-    "jwt-decode": "^2.2.0",
-    "mobx-devtools-mst": "^0.9.21",
-    "mobx-react": "^6.1.1",
-    "mongoose": "^5.7.1",
-    "nodemon": "^1.19.1",
-    "uuid": "^3.3.2"
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.7.8",
+    "@types/node": "^13.11.0",
+    "typescript": "^3.8.3"
   }
 }

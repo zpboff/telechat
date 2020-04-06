@@ -1,0 +1,1 @@
+export const Salt: number = 10;
