@@ -1,11 +1,11 @@
-const withUser = require('../middlewares/withUser');
-const express = require('express');
-const { validateSignin, validateSignup } = require('../helpers/validation');
-const { signin, signup, refreshToken } = require('../providers/authProvider');
+import express, { Request, Response } from 'express';
+import withUser from '../middlewares/withUser';
+import { validateSignin, validateSignup } from '../helpers/validation';
+import { signin, signup } from '../providers/authProvider';
 
 const router = express.Router();
 
-async function sendResponse(req, res, obtainFunciton) {
+async function sendResponse(req: Request, res: Response, obtainFunciton: (req: Request) => any) {
 	try {
 		var result = await obtainFunciton(req);
 		return res.status(200).json(result);
@@ -32,10 +32,6 @@ router.post('/signin', async (req, res) => {
 	}
 
 	sendResponse(req, res, ({ body }) => signin(body));
-});
-
-router.post('/refresh-token', async (req, res) => {
-	sendResponse(req, res, refreshToken);
 });
 
 module.exports = router;

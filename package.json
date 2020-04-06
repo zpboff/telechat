@@ -1,29 +1,24 @@
 {
-  "name": "telechat",
-  "version": "1.0.0",
-  "description": "telechat",
-  "main": "index.js",
-  "scripts": {
-    "start": "concurrently \"cd api/main && nodemon --inspect index.js\" \"cd api/chats && nodemon --inspect=127.0.0.1:9230 index.js\" \"cd client && npm start\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zpboff/telechat.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zpboff/telechat/issues"
-  },
-  "homepage": "https://github.com/zpboff/telechat#readme",
-  "dependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.19.1"
-  },
-  "devDependencies": {
-    "@types/mongoose": "^5.7.8",
-    "@types/node": "^13.11.0",
-    "typescript": "^3.8.3"
-  }
+    "name": "telechat",
+    "version": "1.0.0",
+    "description": "telechat",
+    "main": "index.js",
+    "scripts": {
+        "start": "concurrently \"cd api/main && nodemon --inspect index.js\" \"cd api/chats && nodemon --inspect=127.0.0.1:9230 index.js\" \"cd client && npm start\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zpboff/telechat.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/zpboff/telechat/issues"
+    },
+    "homepage": "https://github.com/zpboff/telechat#readme",
+    "dependencies": {
+        "concurrently": "^4.1.0",
+        "nodemon": "^1.19.1"
+    }
 }

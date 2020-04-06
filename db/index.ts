@@ -10,7 +10,7 @@ const initializeDbConnection = async (connectionString: string) => {
 
     connection
         .once("open", () => console.log("connected to the database"))
-        .on("error", console.error.bind(console, "MongoDB connection error:"));
+        .on("error", () => console.error("MongoDB connection error"));
 };
 
 export { initializeDbConnection };
