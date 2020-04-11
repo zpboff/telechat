@@ -1,9 +1,8 @@
-const argon2 = require('argon2');
-const AppSettings = require('../constants/appSettings');
-const jwt = require('jsonwebtoken');
-const { uuidv4 } = require('../helpers/idHelper');
-const { upsertSession, getSession } = require('./sessionProvider');
-const { getUserById, createUser, getUser, getOriginUser } = require('./usersProvider');
+import { Secret, AccessTokenExpiresIn } from '../constants/appSettings';
+import { sign } from 'jsonwebtoken';
+import { uuidv4 } from '../helpers/idHelper';
+import { upsertSession, getSession } from './sessionProvider';
+import { getUserById, createUser, getUser, getOriginUser } from './usersProvider';
 
 const signup = async user => {
 	const userRecord = await getUser({ email: user.email });
@@ -33,19 +32,6 @@ const signin = async user => {
 	throw new Error('Неверный пароль');
 };
 
-const refreshToken = async ({ body }) => {
-	const { refreshToken } = body;
-
-	const session = await getSession(refreshToken);
-
-	if (session) {
-		const user = await getUserById(session.userId);
-		return await generateToken(user, refreshToken);
-	}
-
-	throw new Error('Не возможно обновить сессию');
-};
-
 const generateToken = async (user, refreshToken = uuidv4()) => {
 	const payload = {
 		id: user.id,
@@ -57,11 +43,11 @@ const generateToken = async (user, refreshToken = uuidv4()) => {
 		avatar: user.avatar,
 	};
 
-	const signature = AppSettings.Secret;
-	const expiresIn = AppSettings.AccessTokenExpiresIn;
+	const signature = Secret;
+	const expiresIn = AccessTokenExpiresIn;
 	const expiresDate = new Date(Date.now() + expiresIn);
 
-	const accessToken = jwt.sign({ payload }, signature, { expiresIn });
+	const accessToken = sign({ payload }, signature, { expiresIn });
 
 	await upsertSession({
 		userId: user.id,
@@ -76,7 +62,7 @@ const generateToken = async (user, refreshToken = uuidv4()) => {
 	};
 };
 
-module.exports = {
+export default {
 	signin,
 	signup,
 	refreshToken,

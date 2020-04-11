@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./app",
+        "removeComments": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "moduleResolution": "node",
+        "baseUrl": "./app",
+        "paths": {
+            "constants": ["./app/contants"],
+            "helpers": ["./app/helpers"],
+            "mappers": ["./app/mappers"],
+            "middlewares": ["./app/middlewares"],
+            "providers": ["./app/providers"],
+            "routes": ["./app/routes"]
+        },
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

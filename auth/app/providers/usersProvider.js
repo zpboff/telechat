@@ -1,5 +1,5 @@
 const { getMappedUser } = require('../mappers/userMapper');
-const { readOne, readById, create } = require('../../db/repositories/userRepository');
+const { readOne, readById, create } = require('../../../db/repositories/userRepository');
 
 const getUserById = async id => {
 	const user = await readById(id);

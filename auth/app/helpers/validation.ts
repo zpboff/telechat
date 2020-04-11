@@ -69,7 +69,7 @@ export const validateSignup = (data: SignupModel): ValidationResult<SignupErrorM
     }
 
     if (Validator.isEmpty(data.passwordConfirmation)) {
-        errors.passwordConfirmation = "Необходимо ввести подтвердить пароль";
+        errors.passwordConfirmation = "Необходимо подтвердить пароль";
     }
 
     return {

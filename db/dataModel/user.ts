@@ -1,9 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { IUser } from "./Types";
 import bcrypt from "bcryptjs";
 import { Salt } from "../consts";
 
 const UserSchema: Schema<IUser> = new Schema({
+    id: { type: Types.ObjectId },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     firstName: { type: String, required: true },
@@ -20,16 +21,16 @@ const UserSchema: Schema<IUser> = new Schema({
 UserSchema.pre<IUser>("save", async function (next) {
     if (this.isNew || this.isModified("password")) {
         const document = this;
-		document.initials = document.firstName[0] + document.lastName[0];
-		
+        document.initials = document.firstName[0] + document.lastName[0];
+
         var salt = bcrypt.genSaltSync(Salt);
         const passwordHashed = await bcrypt.hash(document.password, salt);
         document.password = passwordHashed;
-	}
-	
+    }
+
     next();
 });
 
 const UserModel = model<IUser>("users", UserSchema);
 
-export { UserModel }
+export { UserModel };

@@ -1,1 +1,1 @@
-export const Salt: number = 10;
+export const Salt = 10;
