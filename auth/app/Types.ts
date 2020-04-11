@@ -31,7 +31,7 @@ export type ValidationResult<T extends IErrorModel> = {
     isValid: boolean;
 };
 
-export type User = {
+export type UserPayload = {
     firstName: string;
     lastName: string;
     id: string;
@@ -39,3 +39,5 @@ export type User = {
     initials: string;
     isOnline: boolean;
 };
+
+export type Nullable<T> = T | null;

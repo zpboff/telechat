@@ -1,7 +1,11 @@
-import { IUser } from "../../../db/dataModel/Types";
-import { User } from "../Types";
+import { User } from "../../../db/Types";
+import { UserPayload, Nullable, SigninModel } from "../Types";
 
-export const getMappedUser = (userFromDb: IUser): User => {
+export const getUserPayload = (userFromDb: Nullable<User>): Nullable<UserPayload> => {
+    if (!userFromDb) {
+        return null;
+    }
+
     const { firstName, id, lastName, isOnline, birthDate, initials } = userFromDb;
 
     return {
@@ -13,3 +17,17 @@ export const getMappedUser = (userFromDb: IUser): User => {
         isOnline
     };
 };
+
+export const getUserFromSignin = (signinModel: SigninModel): User => {
+    return {
+        birthDate: new Date(),
+        email: '',
+        firstName: '',
+        id: '',
+        initials: '',
+        isOnline: true,
+        lastName: '',
+        password: '',
+        registrationDate: new Date()
+    }
+}

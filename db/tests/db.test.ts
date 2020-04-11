@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { initializeDbConnection } from "..";
 import { UserModel } from "../dataModel/user";
-import { IUser } from "../dataModel/Types";
 
 describe("User model", () => {
     beforeAll(async () => {
@@ -19,25 +18,33 @@ describe("User model", () => {
     });
 
     it("Should save a user", async () => {
-        expect.assertions(3);
-
-        const user: IUser = new UserModel({
+        const user = new UserModel({
             firstName: "Test first name",
             lastName: "Test last name",
-            email: "test@example.com"
+            email: "test@example.com",
+            password: "123"
         });
 
         const spy = jest.spyOn(user, "save");
-        user.save();
+        const savedUser = await user.save();
 
         expect(spy).toHaveBeenCalled();
 
-        expect(user).toMatchObject({
-            firstName: expect.any(String),
-            lastName: expect.any(String),
-            email: expect.any(String)
+        expect(savedUser).toMatchObject({
+            firstName: expect.stringMatching("Test first name"),
+            lastName: expect.stringMatching("Test last name"),
+            email: expect.stringMatching("test@example.com"),
+            password: expect.not.stringMatching("123"),
+            initials: expect.stringMatching("TT")
         });
+    });
 
-        expect(user.email).toBe("test@example.com");
+    it("Should delete test user", async () => {
+        const user = await UserModel.findOneAndDelete({ email: "test@example.com" });
+        expect(user).not.toBe(null);
+
+        const userAfterRemoving = await UserModel.findOne({ email: "test@example.com" });
+
+        expect(userAfterRemoving).toBe(null);
     });
 });

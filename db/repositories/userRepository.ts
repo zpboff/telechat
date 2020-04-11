@@ -1,27 +1,27 @@
 import { UserModel } from "../dataModel/user";
-import { IUser } from "../dataModel/Types";
+import { User } from "../Types";
 
 export const getUserById = async (id: string) => {
-    var result = await UserModel.findById(id);
+    var user = await UserModel.findById(id);
 
-    return result;
+    return user;
 };
 
-export const getByEmail = async (email: string) => {
-    var result = await UserModel.find({ email });
+export const getUserByEmail = async (email: string) => {
+    var user = await UserModel.findOne({ email });
 
-    return result;
+    return user;
 };
 
-export const updateUserById = async (id: string, changes: IUser) => {
-    var result = await UserModel.findByIdAndUpdate(id, { $set: changes });
+export const updateUserById = async (id: string, changes: User) => {
+    var user = await UserModel.findByIdAndUpdate(id, { $set: changes });
 
-    return result;
+    return user;
 };
 
-export const createUser = async (model: IUser) => {
+export const createUser = async (model: User) => {
     const userModel = new UserModel({ ...model });
-    var result = await userModel.save();
+    const user = await userModel.save();
 
-    return result;
+    return user;
 };

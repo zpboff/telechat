@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IUser } from "../../../db/dataModel/Types";
+import { IUser } from "../../../db/Types";
 
 export type RequestWithUser = Request & {
     currentUser: IUser | null;

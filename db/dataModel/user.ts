@@ -1,36 +1,31 @@
-import { Schema, model, Types } from "mongoose";
-import { IUser } from "./Types";
+import { Schema, Document, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import { Salt } from "../consts";
+import { User } from "../Types";
 
-const UserSchema: Schema<IUser> = new Schema({
-    id: { type: Types.ObjectId },
+interface IUserSchema extends Document, User {}
+
+const UserSchema: Schema<IUserSchema> = new Schema<IUserSchema>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    birthDate: { type: Date },
     registrationDate: { type: Date, default: Date.now },
-    initials: { type: String },
-    avatar: { type: String },
-    chats: { type: Array },
-    isOnline: { type: Boolean, default: false },
-    friends: { type: Array, default: [] }
+    isOnline: { type: Boolean, default: false }
 });
 
-UserSchema.pre<IUser>("save", async function (next) {
+UserSchema.pre<IUserSchema>("save", function (next) {
     if (this.isNew || this.isModified("password")) {
         const document = this;
-        document.initials = document.firstName[0] + document.lastName[0];
-
+        document.initials = this.firstName[0] + this.lastName[0];
         var salt = bcrypt.genSaltSync(Salt);
-        const passwordHashed = await bcrypt.hash(document.password, salt);
+        const passwordHashed = bcrypt.hashSync(document.password, salt);
         document.password = passwordHashed;
     }
 
     next();
 });
 
-const UserModel = model<IUser>("users", UserSchema);
+const UserModel = model<IUserSchema>("users", UserSchema);
 
 export { UserModel };
