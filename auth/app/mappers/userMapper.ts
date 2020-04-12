@@ -1,33 +1,29 @@
-import { User } from "../../../db/Types";
-import { UserPayload, Nullable, SigninModel } from "../Types";
+import { User } from "../../../db/types/User";
+import { UserPayload, Nullable, SignupModel } from "../Types";
 
 export const getUserPayload = (userFromDb: Nullable<User>): Nullable<UserPayload> => {
     if (!userFromDb) {
         return null;
     }
 
-    const { firstName, id, lastName, isOnline, birthDate, initials } = userFromDb;
+    const { firstName, id, lastName, isOnline, initials } = userFromDb;
 
     return {
-        id: id.toHexString(),
+        id,
         firstName,
         lastName,
-        birthDate,
-        initials,
-        isOnline
+        initials: initials ?? "",
+        isOnline: isOnline ?? false
     };
 };
 
-export const getUserFromSignin = (signinModel: SigninModel): User => {
+export const getUserFromSignup = (signinModel: SignupModel): User => {
+    const { email, password, firstName, lastName } = signinModel;
+
     return {
-        birthDate: new Date(),
-        email: '',
-        firstName: '',
-        id: '',
-        initials: '',
-        isOnline: true,
-        lastName: '',
-        password: '',
-        registrationDate: new Date()
-    }
-}
+        email,
+        firstName,
+        lastName,
+        password
+    };
+};

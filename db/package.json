@@ -1,11 +1,12 @@
 {
-  "name": "db",
+  "name": "@telechat/db",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "publish": "tsc && npm publish"
   },
   "author": "",
   "license": "ISC",

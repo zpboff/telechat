@@ -32,10 +32,9 @@ export type ValidationResult<T extends IErrorModel> = {
 };
 
 export type UserPayload = {
+    id: string;
     firstName: string;
     lastName: string;
-    id: string;
-    birthDate: Date;
     initials: string;
     isOnline: boolean;
 };

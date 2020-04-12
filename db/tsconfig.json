@@ -2,8 +2,29 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "declaration": true,
+        "removeComments": true,
         "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "moduleResolution": "node",
         "esModuleInterop": true,
+        "baseUrl": "./src",        
+        "paths": {
+            "dataModel": ["./src/dataModel"],
+            "repositories": ["./src/repositories"],
+            "types": ["./src/types"],
+        },
         "forceConsistentCasingInFileNames": true
     }
 }

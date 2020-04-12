@@ -1,9 +1,9 @@
 import { Schema, Document, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import { Salt } from "../consts";
-import { User } from "../Types";
+import { IUser } from "types/User";
 
-interface IUserSchema extends Document, User {}
+interface IUserSchema extends Document, IUser {}
 
 const UserSchema: Schema<IUserSchema> = new Schema<IUserSchema>({
     email: { type: String, required: true, unique: true },

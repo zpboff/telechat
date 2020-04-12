@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { initializeDbConnection } from "../../db/index";
+import { initializeDbConnection } from "../../db/src/index";
 import authRoute from "./routes/authRoute";
 import { mainPort } from "./constants/appSettings";
 import { dbRoute } from "./constants/conStrings";
