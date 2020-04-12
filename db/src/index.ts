@@ -1,4 +1,10 @@
 import { connect, connection } from "mongoose";
+import {
+    createUser,
+    getUserByEmail,
+    getUserById,
+    updateUserById
+} from "./repositories/userRepository";
 
 const initializeDbConnection = async (connectionString: string) => {
     await connect(connectionString, {
@@ -13,4 +19,11 @@ const initializeDbConnection = async (connectionString: string) => {
         .on("error", () => console.error("MongoDB connection error"));
 };
 
-export { initializeDbConnection };
+const userRepository = {
+    createUser,
+    getUserByEmail,
+    getUserById,
+    updateUserById
+};
+
+export { initializeDbConnection, userRepository };

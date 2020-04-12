@@ -1,4 +1,4 @@
-import { User } from "../../../db/types/User";
+import { IUser, User } from "telechat-db";
 import { UserPayload, Nullable, SignupModel } from "../Types";
 
 export const getUserPayload = (userFromDb: Nullable<User>): Nullable<UserPayload> => {
@@ -17,7 +17,7 @@ export const getUserPayload = (userFromDb: Nullable<User>): Nullable<UserPayload
     };
 };
 
-export const getUserFromSignup = (signinModel: SignupModel): User => {
+export const getUserFromSignup = (signinModel: SignupModel): IUser => {
     const { email, password, firstName, lastName } = signinModel;
 
     return {

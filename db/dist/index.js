@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = require("mongoose");
+var userRepository_1 = require("./repositories/userRepository");
 var initializeDbConnection = function (connectionString) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -56,3 +57,10 @@ var initializeDbConnection = function (connectionString) { return __awaiter(void
     });
 }); };
 exports.initializeDbConnection = initializeDbConnection;
+var userRepository = {
+    createUser: userRepository_1.createUser,
+    getUserByEmail: userRepository_1.getUserByEmail,
+    getUserById: userRepository_1.getUserById,
+    updateUserById: userRepository_1.updateUserById
+};
+exports.userRepository = userRepository;

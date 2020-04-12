@@ -1,5 +1,5 @@
-import { UserModel } from "dataModel/user";
-import { User } from "types/User";
+import { UserModel } from "../dataModel/user";
+import { User, IUser } from "telechat-db";
 
 export const getUserById = async (id: string) => {
     var user = await UserModel.findById(id);
@@ -13,13 +13,13 @@ export const getUserByEmail = async (email: string) => {
     return user as User;
 };
 
-export const updateUserById = async (id: string, changes: User) => {
+export const updateUserById = async (id: string, changes: IUser) => {
     var user = await UserModel.findByIdAndUpdate(id, { $set: changes });
 
     return user as User;
 };
 
-export const createUser = async (model: User) => {
+export const createUser = async (model: IUser) => {
     const userModel = new UserModel({ ...model });
     const user = await userModel.save();
 

@@ -10,6 +10,8 @@ const getTokenFromHeader = (req: Request) => {
             return token;
         }
     }
+
+    return "";
 };
 
 const isAuth = jwt({

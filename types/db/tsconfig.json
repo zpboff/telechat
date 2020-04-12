@@ -3,7 +3,8 @@
         "target": "es5",
         "module": "commonjs",
         "outDir": "./dist",
-        "rootDir": "./app",
+        "rootDir": "./src",
+        "declaration": true,
         "removeComments": true,
         "strict": true,
         "noImplicitAny": true,
@@ -18,6 +19,13 @@
         "noFallthroughCasesInSwitch": true,
         "moduleResolution": "node",
         "esModuleInterop": true,
+        "baseUrl": "./src",
+        "paths": {
+            "dataModel": ["./src/dataModel"],
+            "repositories": ["./src/repositories"],
+            "types": ["./src/types"]
+        },
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "exclude": ["./dist"]
 }

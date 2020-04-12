@@ -1,7 +1,7 @@
 import { Schema, Document, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import { Salt } from "../consts";
-import { IUser } from "types/User";
+import { IUser } from "telechat-db";
 
 interface IUserSchema extends Document, IUser {}
 

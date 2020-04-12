@@ -1,8 +1,9 @@
 import { Request } from "express";
-import { IUser } from "../../../db/Types";
+import { IUser } from "telechat-db";
+import { Nullable } from "Types";
 
 export type RequestWithUser = Request & {
-    currentUser: IUser | null;
+    currentUser: Nullable<IUser>;
 };
 
 export type TokenData = {

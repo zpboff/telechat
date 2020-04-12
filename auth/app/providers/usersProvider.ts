@@ -1,20 +1,20 @@
-import { getUserById, createUser, getUserByEmail } from "../../../db/repositories/userRepository";
-import { User } from "../../../db/Types";
+import { userRepository } from "../../../db/src";
+import { User, IUser } from "telechat-db";
 
-export const getById = async (id: string) => {
-    const user = await getUserById(id);
-
-    return user as User;
-};
-
-export const getByEmail = async (email: string) => {
-    const user = await getUserByEmail(email);
+export const getUserById = async (id: string) => {
+    const user = await userRepository.getUserById(id);
 
     return user as User;
 };
 
-export const create = async (model: User) => {
-    var user = await createUser(model);
+export const getUserByEmail = async (email: string) => {
+    const user = await userRepository.getUserByEmail(email);
+
+    return user as User;
+};
+
+export const createUser = async (model: IUser) => {
+    var user = await userRepository.createUser(model);
 
     return user;
 };
