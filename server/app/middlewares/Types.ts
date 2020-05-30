@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IUser } from "telechat-db/types/user";
-import { Nullable } from "Types";
+import { Nullable } from "types";
 
 export type RequestWithUser = Request & {
     currentUser: Nullable<IUser>;

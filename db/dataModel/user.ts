@@ -2,6 +2,7 @@ import { Schema, Document, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import { Salt } from "telechat-auth/consts";
 import { IUser } from "../types/user";
+import { UserRoles } from "telechat-auth/types/roles";
 
 interface IUserSchema extends Document, IUser {}
 
@@ -11,7 +12,8 @@ const UserSchema: Schema<IUserSchema> = new Schema<IUserSchema>({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     registrationDate: { type: Date, default: Date.now },
-    isOnline: { type: Boolean, default: false }
+    isOnline: { type: Boolean, default: false },
+    roles: { type: [String], default: [UserRoles.User] }
 });
 
 UserSchema.pre<IUserSchema>("save", function (next) {

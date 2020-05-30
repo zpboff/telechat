@@ -1,10 +1,11 @@
 import { Response, NextFunction } from "express";
-import { RequestWithUser } from "./Types";
+import { RequestWithUser } from "./types";
+import { UserRoles } from "telechat-auth/types/roles";
 
-export const hasRole = (requiredRole: string) => {
+export const hasRole = (requiredRole: UserRoles) => {
     return (req: RequestWithUser, res: Response, next: NextFunction) => {
         next();
-        if (req.currentUser?.email === requiredRole) {
+        if (req.currentUser?.roles?.includes(requiredRole)) {
             return next();
         } else {
             return res.sendStatus(401);

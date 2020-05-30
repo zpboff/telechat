@@ -1,3 +1,5 @@
+import { UserRoles } from "telechat-auth/types/roles";
+
 export interface IUser {
     email: string;
     password: string;
@@ -6,6 +8,7 @@ export interface IUser {
     registrationDate?: Date;
     isOnline?: boolean;
     initials?: string;
+    roles?: UserRoles[];
 }
 
 export type User = IUser & {

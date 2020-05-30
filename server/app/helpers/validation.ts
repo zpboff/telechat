@@ -5,7 +5,7 @@ import {
     SigninModel,
     SigninErrorModel,
     ValidationResult
-} from "../Types";
+} from "../types";
 
 const isEmpty = (value: any) => {
     return (

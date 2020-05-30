@@ -1,4 +1,4 @@
-import { SignupModel, SignupErrorModel, ValidationResult } from "Types";
+import { SignupModel, SignupErrorModel, ValidationResult } from "types";
 import { validateSignup } from "../helpers/validation";
 
 describe("Signup", () => {

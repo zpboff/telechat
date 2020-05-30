@@ -1,5 +1,5 @@
 import { IUser, User } from "telechat-db/types/user";
-import { UserPayload, Nullable, SignupModel } from "../Types";
+import { UserPayload, Nullable, SignupModel } from "../types";
 
 export const getUserPayload = (userFromDb: Nullable<User>): Nullable<UserPayload> => {
     if (!userFromDb) {

@@ -1,5 +1,5 @@
 import { Response, NextFunction } from "express";
-import { RequestWithToken } from "./Types";
+import { RequestWithToken } from "./types";
 import { getUserById } from "providers/usersProvider";
 
 const withUser = async (req: RequestWithToken, res: Response, next: NextFunction) => {

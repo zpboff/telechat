@@ -1,5 +1,5 @@
 import { sign } from "jsonwebtoken";
-import { SigninModel, SignupModel } from "../Types";
+import { SigninModel, SignupModel } from "../types";
 import bcrypt from "bcryptjs";
 import { getUserByEmail, createUser } from "./usersProvider";
 import { User } from "telechat-db/types/user";
