@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = require("mongoose");
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
-var consts_1 = require("../consts");
+var consts_1 = require("telechat-auth/consts");
 var UserSchema = new mongoose_1.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
