@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Auth.API.Helpers;
+using Auth.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,10 +28,12 @@ namespace Auth.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-            //     .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
-            
+            services.AddCors();
             services.AddControllers();
+            
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            
+            services.AddScoped<IUserService, UserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,6 +46,13 @@ namespace Auth.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            
+            app.UseMiddleware<JwtMiddleware>();
             //
             // app.UseAuthentication();
             // app.UseAuthorization();
