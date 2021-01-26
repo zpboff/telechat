@@ -1,17 +1,15 @@
 import { Request, Response } from "express";
+import express from 'express';
+import { logRequest } from "./middlewares/loggingMiddleware";
+import { configs } from "./config";
 
-const express = require('express');
-const config = require('../config.json');
-
-const environment = process.env.NODE_ENV || 'development';
-const currentConfig = config[environment];
 const app = express();
-
+app.use(logRequest);
 
 app.get('/', (req: Request, res: Response) => {
     return res.send('Hello world');
 })
 
-app.listen(currentConfig.port, () => {
-    console.log(`Start listening for port ${currentConfig.port}...`);
+app.listen(configs.port, () => {
+    console.log(`Start listening for port ${configs.port}...`);
 })
