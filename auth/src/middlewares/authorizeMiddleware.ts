@@ -15,11 +15,16 @@ export async function authorize(req: Request, res: Response, next: NextFunction)
         return res.status(401).json({ errors: ['Некорректный формат токена'] });
     }
 
-    const decodedUser = verify(token, configs.secret);
+    try {
+        const decodedUser = verify(token, configs.secret);
 
-    if(isNil(decodedUser)) {
-        return res.status(401).json({ errors: ['Некорректный токен'] });
-    }    
-
-    next();
+        if(isNil(decodedUser)) {
+            return res.status(401).json({ errors: ['Некорректный токен'] });
+        }    
+        
+        next();
+    }
+    catch(ex) {
+        return res.status(401).json({ errors: [ex.message] });
+    }
 }
