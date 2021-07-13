@@ -1,19 +1,20 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { json } from "body-parser";
+import cookieParser from 'cookie-parser';
 import express from 'express';
-import { logRequest } from "./middlewares/loggingMiddleware";
-import { configs } from "./config";
-import { serve, setup } from 'swagger-ui-express';
-import swaggerDocument from './swagger.json';
-import bodyparser from 'body-parser';
+import { configs } from './configs';
+import { authRouter } from './routes'
+import { usersRouter } from "./routes/users";
 
 const app = express();
-app.use(logRequest);
-app.use('/swagger', serve, setup(swaggerDocument));
+app.use(json());
+app.use(cookieParser());
 
-app.get('/', (req: Request, res: Response) => {
-    return res.send('Hello world');
-})
+app.use('/auth', authRouter);
+app.use('/users', usersRouter);
 
-app.listen(configs.port, () => {
-    console.log(`Start listening for port ${configs.port}...`);
-})
+app.get('/', (_, res: Response) => {
+    return res.status(200);
+});
+
+app.listen(configs.port, () => console.log(`Listen here you little shit! ${configs.port}`));
