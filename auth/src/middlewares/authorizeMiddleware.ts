@@ -6,19 +6,19 @@ import { configs } from "../configs";
 export async function authorize(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization;
     if(isNil(authHeader)) {
-       throw new Error('Пользователь не авторизован');
+       return res.status(401).json();
     }
 
     const [type, token] = authHeader?.split(' ');
 
     if(type !== "Bearer") {
-        throw new Error('Некорректный токен');
+        return res.status(401).json();
     }
 
     const correct = verify(token, configs.secret);
 
     if(!correct) {
-        throw new Error('Некорректный токен');
+        return res.status(401).json();
     }    
 
     console.log(correct);
