@@ -5,7 +5,7 @@ config();
 type Configs = {
     port: string;    
     secret: string;
-    expiresIn: string;
+    lifeTime: number;
     saltRounds: number;
 }
 
@@ -19,7 +19,7 @@ type DbConfigs = {
 const configs: Configs = {
     port: process.env.PORT ?? "3001",
     secret: process.env.SECRET ?? "",
-    expiresIn: process.env.EXPIRES_IN ?? "15m",
+    lifeTime: parseInt(process.env.EXPIRES_IN ?? "") || 60*60*24*365,
     saltRounds: parseInt(process.env.SALT_ROUNDS ?? "10")
 }
 
