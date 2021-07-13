@@ -1,8 +1,8 @@
+import { isNil } from "lodash";
 import { pool } from "../db";
-import { Result } from "../types";
+import { HasId, Result } from "../types";
 
-export type User = {
-    id: number;
+export type User = HasId<number> & {
     email: string;
     password: string;
     createDate: Date;
@@ -15,7 +15,8 @@ export async function getUser(email: string): Promise<Result<User>> {
         const [user] = rows;
     
         return {
-            entity: user
+            entity: user,
+            errors: isNil(user) ? ['Пользователь не найден'] : [] 
         };
     }
     catch(ex) {
@@ -27,12 +28,19 @@ export async function getUser(email: string): Promise<Result<User>> {
     }
 }
 
-export async function createUser(email: string, password: string): Promise<Result<boolean>> {
+export async function createUser(email: string, password: string): Promise<Result<number>> {
+    const query = `
+INSERT INTO users
+(email, password) 
+VALUES($1, $2)
+RETURNING id`;
+
     try {
-        const result = await pool.query("INSERT INTO users(email, password) VALUES($1, $2)", [email, password]);
+        const { rows } = await pool.query<HasId<number>, string[]>(query, [email, password]);
+        const [result] = rows;
 
         return {
-            entity: true
+            entity: result.id
         };
     }
     catch(ex) {

@@ -5,6 +5,7 @@ config();
 type Configs = {
     port: string;    
     secret: string;
+    expiresIn: string;
 }
 
 type DbConfigs = {
@@ -16,7 +17,8 @@ type DbConfigs = {
 
 const configs: Configs = {
     port: process.env.PORT ?? "3001",
-    secret: process.env.SECRET ?? ""
+    secret: process.env.SECRET ?? "",
+    expiresIn: process.env.EXPIRES_IN ?? "30m"
 }
 
 const dbConfigs: DbConfigs = {
