@@ -2,14 +2,11 @@ import { createUser, getUser } from "../../stores";
 import { isNil } from 'lodash';
 import { isSuccess, Result } from "../../types";
 import { findUser, mapUser, UserViewModel } from "../user";
-import { TokenInfo } from "../token/types";
 import { generateTokens } from "../token/service";
 import { compare, hash } from 'bcrypt';
 import { configs } from "../../configs";
+import { AuthInfo } from "./types";
 
-type AuthInfo = TokenInfo & {
-    user?: UserViewModel;
-}
 
 export async function login(email: string, password: string): Promise<Result<AuthInfo>> {
     const result = await getUser(email);    

@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash";
+import { isEmpty, isNil } from "lodash";
 
 export type Result<T> = {
     entity?: T;
@@ -11,4 +11,10 @@ export type HasId<T> = {
 
 export function isSuccess<T>(result: Result<T>){
     return isEmpty(result.errors);
-} ;
+}
+
+export function isCorrect<T>(result: Result<T>) {
+    return isEmpty(result.errors) && !isNil(result.entity);
+}
+
+
