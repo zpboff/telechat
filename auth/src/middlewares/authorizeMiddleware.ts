@@ -12,16 +12,14 @@ export async function authorize(req: Request, res: Response, next: NextFunction)
     const [type, token] = authHeader?.split(' ');
 
     if(type !== "Bearer") {
-        return res.status(401).json();
+        return res.status(401).json({ errors: ['Некорректный формат токена'] });
     }
 
-    const correct = verify(token, configs.secret);
+    const decodedUser = verify(token, configs.secret);
 
-    if(!correct) {
-        return res.status(401).json();
+    if(isNil(decodedUser)) {
+        return res.status(401).json({ errors: ['Некорректный токен'] });
     }    
-
-    console.log(correct);
 
     next();
 }
