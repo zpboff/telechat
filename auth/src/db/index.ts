@@ -10,4 +10,5 @@ export const pool = new Pool({
 
 pool.on("error", (err, client) => {
     console.log(err.message, err.stack);
+    client.release();
 })

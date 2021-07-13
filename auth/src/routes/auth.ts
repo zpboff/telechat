@@ -4,9 +4,9 @@ import { login, logout, registration } from '../services';
 const authRouter = Router();
 
 authRouter.post('/login', async (req, res) => {
-    await login(req.body.email, req.body.password);
+    const result = await login(req.body.email, req.body.password);
 
-    return res.json({a: 1});
+    return res.json(result);
 });
 
 authRouter.post('/registration', async (req, res) => {
