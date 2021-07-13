@@ -1,8 +1,9 @@
-import { createUser, getUser, User } from "../stores";
+import { createUser, getUser, User } from "../../stores";
 import { isNil } from 'lodash';
 import { sign } from 'jsonwebtoken';
-import { configs } from "../configs";
-import { Result } from "../types";
+import { configs } from "../../configs";
+import { Result } from "../../types";
+import { findUser } from "../user";
 
 type AuthInfo = {
     accessToken: string;
@@ -16,7 +17,7 @@ export async function login(email: string, password: string) {
 
 export async function registration(email: string, password: string): Promise<Result<AuthInfo>> {
     const errors: string[] = [];
-    const { result: user } = await getUser(email);
+    const user = await findUser(email);
 
     if(!isNil(user)) {
         errors.push('Пользователь с таким email уже существует');
@@ -34,7 +35,7 @@ export async function registration(email: string, password: string): Promise<Res
     // });
 
     return {
-        result: {
+        entity: {
             accessToken: "accessToken",
             refreshToken: 'refreshToken'
         },

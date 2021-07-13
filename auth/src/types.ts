@@ -1,7 +1,7 @@
 import { isEmpty } from "lodash";
 
 export type Result<T> = {
-    result?: T;
+    entity?: T;
     errors?: string[];
 }
 

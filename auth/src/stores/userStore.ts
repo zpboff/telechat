@@ -15,7 +15,7 @@ export async function getUser(email: string): Promise<Result<User>> {
         const [user] = rows;
     
         return {
-            result: user
+            entity: user
         };
     }
     catch(ex) {
@@ -32,7 +32,7 @@ export async function createUser(email: string, password: string): Promise<Resul
         const result = await pool.query("INSERT INTO users(email, password) VALUES($1, $2)", [email, password]);
 
         return {
-            result: true
+            entity: true
         };
     }
     catch(ex) {
