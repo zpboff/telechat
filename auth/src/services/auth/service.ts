@@ -1,7 +1,7 @@
 import { createUser, getUser } from "../../stores";
 import { isNil } from 'lodash';
-import { isSuccess, Result } from "../../types";
-import { findUser, mapUser, UserViewModel } from "../user";
+import { buildResult, buildResultFromError, isSuccess, Result } from "../../types";
+import { findUser, findUserByToken, mapUser, UserViewModel } from "../user";
 import { generateTokens } from "../token/service";
 import { compare, hash } from 'bcrypt';
 import { configs } from "../../configs";
@@ -12,39 +12,31 @@ export async function login(email: string, password: string): Promise<Result<Aut
     const result = await getUser(email);    
 
     if(!isSuccess(result) || isNil(result.entity)) {
-        return {
-            errors: ['Пользователь не найден']
-        };
+        return buildResultFromError(['Пользователь не найден']);
     }
 
     const passwordsMatch = await compare(password, result.entity.password);
 
     if(!passwordsMatch) {
-        return {
-            errors: ['Пароли не совпадают']
-        };
+        return buildResultFromError(['Пароли не совпадают']);
     }
 
     const user = mapUser(result.entity);
 
     const { refreshToken, accessToken } = await generateTokens(user);
 
-    return {
-        entity: {
-            accessToken,
-            refreshToken,
-            user
-        }
-    }
+    return buildResult<AuthInfo>({
+        accessToken,
+        refreshToken,
+        user
+    });
 }
 
 export async function registration(email: string, password: string): Promise<Result<AuthInfo>> {
     const user = await findUser(email);
 
     if(!isNil(user)) {
-        return {
-            errors: ['Пользователь с таким email уже существует']
-        };
+        return buildResultFromError(['Пользователь с таким email уже существует']);
     }
 
     const passwordHash = await hash(password, configs.saltRounds);
@@ -52,9 +44,7 @@ export async function registration(email: string, password: string): Promise<Res
     const result = await createUser(email, passwordHash);
 
     if(!isSuccess(result)) {
-        return {
-            errors: result.errors
-        };
+        return buildResultFromError(result.errors);
     }
 
     const payload: UserViewModel = {
@@ -64,15 +54,29 @@ export async function registration(email: string, password: string): Promise<Res
 
     const { refreshToken, accessToken } = await generateTokens(payload);
 
-    return {
-        entity: {
-            accessToken,
-            refreshToken,
-            user: payload
-        }
-    }
+    return buildResult<AuthInfo>({
+        accessToken,
+        refreshToken,
+        user: payload
+    });
 }
 
 export async function logout() {
     
+}
+
+export async function refresh(token: string): Promise<Result<AuthInfo>> {
+    const user = await findUserByToken(token);
+
+    if(isNil(user)) {
+        return buildResultFromError(['Пользователь не найден']);
+    }
+
+    const { refreshToken, accessToken } = await generateTokens(user as UserViewModel);
+
+    return buildResult<AuthInfo>({
+        accessToken,
+        refreshToken,
+        user
+    });
 }

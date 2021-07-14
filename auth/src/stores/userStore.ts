@@ -1,6 +1,6 @@
 import { isNil } from "lodash";
 import { pool } from "../db";
-import { HasId, Result } from "../types";
+import { buildResult, buildResultFromError, HasId, Result } from "../types";
 
 export type User = HasId<number> & {
     email: string;
@@ -22,9 +22,7 @@ export async function getUser(email: string): Promise<Result<User>> {
     catch(ex) {
         console.log(ex);
         
-        return {
-            errors: [ex]
-        };
+        return buildResultFromError([ex.message]);
     }
 }
 
@@ -39,15 +37,11 @@ RETURNING id`;
         const { rows } = await pool.query<HasId<number>, string[]>(query, [email, password]);
         const [result] = rows;
 
-        return {
-            entity: result.id
-        };
+        return buildResult(result.id);
     }
     catch(ex) {
         console.log(ex);
         
-        return {
-            errors: [ex.message]
-        }
+        return buildResultFromError([ex.message]);
     }
 }

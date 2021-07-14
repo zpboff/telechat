@@ -1,6 +1,6 @@
 import { isNil } from "lodash";
 import { pool } from "../db";
-import { HasId, Result } from "../types";
+import { buildResult, buildResultFromError, HasId, Result } from "../types";
 
 export type Token = HasId<number> & {
     email: string;
@@ -10,7 +10,7 @@ export type Token = HasId<number> & {
     lifeTime: number;
 }
 
-export async function getToken(email: string): Promise<Result<Token>> {
+export async function getTokenByEmail(email: string): Promise<Result<Token>> {
     try {
         const { rows } = await pool.query("SELECT * FROM tokens WHERE email=$1", [email]);
         const [tokenInfo] = rows;
@@ -27,9 +27,23 @@ export async function getToken(email: string): Promise<Result<Token>> {
     catch(ex) {
         console.log(ex);
         
-        return {
-            errors: [ex]
-        };
+        return buildResultFromError([ex.message]);
+    }
+}
+
+export async function getToken(token: string): Promise<Result<Token>> {
+    try {
+        const { rows } = await pool.query<Token>("SELECT * FROM tokens WHERE token=$1", [token]);
+        const [tokenInfo] = rows;
+
+        return isNil(tokenInfo) 
+            ? buildResult(tokenInfo)
+            : buildResultFromError<Token>(['Токен не найден']);
+    }
+    catch(ex) {
+        console.log(ex);
+
+        return buildResultFromError([ex.message]);
     }
 }
 
@@ -44,15 +58,11 @@ RETURNING id`;
         const { rows } = await pool.query<HasId<number>>(query, [email, token, lifeTime]);
         const [result] = rows;
 
-        return {
-            entity: result.id
-        };
+        return buildResult(result.id);
     }
     catch(ex) {
         console.log(ex);
         
-        return {
-            errors: [ex.message]
-        }
+        return buildResultFromError([ex.message]);
     }
 }

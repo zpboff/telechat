@@ -2,29 +2,31 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { isNil } from "lodash";
 import { configs } from "../configs";
+import { ApiError } from "../exceptions/ApiError";
 
-export async function authorize(req: Request, res: Response, next: NextFunction) {
-    const authHeader = req.headers.authorization;
-    if(isNil(authHeader)) {
-       return res.status(401).json();
+export async function authorizeMiddleware(req: Request, _res: Response, next: NextFunction) {
+    const authHeader = req.headers.authorization ?? "";
+
+    if(!authHeader) {
+        next(ApiError.Unathorize());
     }
 
-    const [type, token] = authHeader?.split(' ');
+    const [type, token] = authHeader.split(' ');
 
     if(type !== "Bearer") {
-        return res.status(401).json({ errors: ['Некорректный формат токена'] });
+        next(ApiError.Unathorize())
     }
 
     try {
         const decodedUser = verify(token, configs.secret);
 
         if(isNil(decodedUser)) {
-            return res.status(401).json({ errors: ['Некорректный токен'] });
+            throw ApiError.Unathorize();
         }    
         
         next();
     }
     catch(ex) {
-        return res.status(401).json({ errors: [ex.message] });
+        next(ApiError.Unathorize())
     }
 }

@@ -2,7 +2,7 @@ import { sign } from "jsonwebtoken";
 import { isEmpty } from "lodash";
 import { v4 } from "uuid";
 import { configs } from "../../configs";
-import { createToken, getToken } from "../../stores/tokenStore";
+import { createToken, getTokenByEmail } from "../../stores/tokenStore";
 import { isSuccess } from "../../types";
 import { UserViewModel } from "../user";
 import { TokenInfo } from "./types";
@@ -12,7 +12,7 @@ export async function generateTokens(payload: UserViewModel): Promise<TokenInfo>
         expiresIn: configs.lifeTime
     });
 
-    const result = await getToken(payload.email);
+    const result = await getTokenByEmail(payload.email);
     let refreshToken = result?.entity?.token;
 
     if(isEmpty(result.entity)) {

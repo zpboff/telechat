@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { authorize } from '../middlewares/authorizeMiddleware';
+import { authorizeMiddleware } from '../middlewares/authorizeMiddleware';
 import { findUser } from '../services';
 
 const usersRouter = Router();
 
-usersRouter.get('/get/:email', authorize, async (req, res) => {
+usersRouter.get('/get/:email', authorizeMiddleware, async (req, res) => {
     const user = await findUser(req.params.email);
 
-    return res.json(user);
+    return res.json(user);    
 });
 
 export { usersRouter }

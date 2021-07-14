@@ -1,25 +1,26 @@
-import { Response, Router } from 'express';
+import { NextFunction, Response, Router } from 'express';
 import { configs } from '../configs';
-import { AuthInfo, login, logout, registration } from '../services';
-import { isCorrect, isSuccess, Result } from '../types';
+import { ApiError } from '../exceptions/ApiError';
+import { authorizeMiddleware } from '../middlewares/authorizeMiddleware';
+import { AuthInfo, login, logout, refresh, registration } from '../services';
+import { isCorrect, Result } from '../types';
 
 const authRouter = Router();
 
-authRouter.post('/login', async (req, res) => {
+authRouter.post('/login', async (req, res, next) => {
     const result = await login(req.body.email, req.body.password);
 
-
-    return authenticate(result, res);
+    return authenticate(result, res, next);
 });
 
-authRouter.post('/registration', async (req, res) => {
+authRouter.post('/registration', async (req, res, next) => {
     const result = await registration(req.body.email, req.body.password);
 
     if(!isCorrect(result)) {
         return res.status(401).json({ errors: result.errors });
     }
 
-    return authenticate(result, res);
+    return authenticate(result, res, next);
 });
 
 authRouter.get('/logout', async (_, res) => {
@@ -28,10 +29,26 @@ authRouter.get('/logout', async (_, res) => {
     return res.status(200);
 });
 
+authRouter.get('/check', authorizeMiddleware, async (_, res) => {
+    return res.json();
+});
 
-function authenticate(result: Result<AuthInfo>, res: Response) {    
+authRouter.get('/refresh', async (req, res, next) => {
+    const { refreshToken } = req.cookies;
+
+    if(!refreshToken) {
+        return next(ApiError.Unathorize());
+    }    
+
+    const result = await refresh(refreshToken);
+
+    return authenticate(result, res, next);
+});
+
+
+function authenticate(result: Result<AuthInfo>, res: Response, next: NextFunction) {    
     if(!isCorrect(result)) {
-        return res.status(401).json({ errors: result.errors });
+        return next(ApiError.Unathorize());
     }
 
     const { accessToken, refreshToken, user } = result.entity as AuthInfo;
