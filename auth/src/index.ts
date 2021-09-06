@@ -23,4 +23,4 @@ app.get('/', (_, res: Response) => {
     return res.status(200);
 });
 
-app.listen(configs.port, () => console.log(`Listen here you little shit! ${configs.port}`));
+app.listen(configs.port, () => console.log(`Listen ${configs.port} you little shit!`));
