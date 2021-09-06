@@ -1,6 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { method } from "lodash";
+import { OutgoingHttpHeaders } from "http";
 import { logger } from "../services";
+
+type ResponseLogPart = {
+    statusCode: number;
+    statusMessage: string;
+    headers: OutgoingHttpHeaders;
+}
 
 type LogEntity = {
     timestamp: Date;
@@ -17,6 +23,7 @@ type LogEntity = {
     remoteFamily: string | undefined;
     remotePort: number | undefined;
     processingTime: number;
+    response: ResponseLogPart;
 }
 
 export async function loggerMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -25,6 +32,9 @@ export async function loggerMiddleware(req: Request, res: Response, next: NextFu
     res.on('finish', () => {
         const { method, url, rawHeaders, cookies, ip, query, body, socket, baseUrl, originalUrl } = req;
         const { remoteFamily, remoteAddress, remotePort } = socket;
+
+        const { statusCode, statusMessage } = res;
+        const headers = res.getHeaders();
     
         const logEntity: LogEntity = {
             timestamp: new Date(),
@@ -40,7 +50,12 @@ export async function loggerMiddleware(req: Request, res: Response, next: NextFu
             remoteFamily, 
             remotePort,
             baseUrl,
-            originalUrl
+            originalUrl,
+            response: {
+                headers,
+                statusCode,
+                statusMessage
+            }
         }
     
         logger.info(logEntity, `Request {url}`);
