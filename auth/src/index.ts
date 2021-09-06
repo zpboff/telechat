@@ -5,7 +5,9 @@ import express from 'express';
 import { configs } from './configs';
 import { authRouter } from './routes'
 import { usersRouter } from "./routes/users";
-import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { errorMiddleware } from "./middlewares";
+import { loggerMiddleware } from "./middlewares";
+import { testRouter } from "./routes/test";
 
 const app = express();
 app.use(json());
@@ -13,6 +15,8 @@ app.use(cookieParser());
 
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+app.use('/test', testRouter);
+app.use(loggerMiddleware);
 app.use(errorMiddleware);
 
 app.get('/', (_, res: Response) => {
