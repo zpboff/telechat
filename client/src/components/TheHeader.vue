@@ -7,22 +7,22 @@
                 <logout-link></logout-link>
             </template>
             <template v-else>
-                <sign-in-link></sign-in-link>
-                <sign-up-link></sign-up-link>
+                <login-link></login-link>
+                <register-link></register-link>
             </template>
         </div>
     </div>
 </template>
 
 <script>
-import SignInLink from "@/components/SignInLink";
-import SignUpLink from "@/components/SignUpLink";
+import LoginLink from "@/components/LoginLink";
+import RegisterLink from "@/components/RegisterLink";
 import LogoutLink from "@/components/LogoutLink";
 import TheLogo from "@/components/TheLogo";
 
 export default {
     name: "TheHeader",
-    components: { TheLogo, LogoutLink, SignInLink, SignUpLink },
+    components: { TheLogo, LogoutLink, LoginLink, RegisterLink },
     computed: {
         isAuthenticated() {
             return this.$store.getters.isAuthenticated;

@@ -8,6 +8,10 @@ import authGetters from "@/store/modules/auth/getters";
 export default createStore<AuthInfo>({
     state: authInitialState,
     mutations: authMutations,
-    actions: authActions,
+    actions: {
+        logout() {
+            console.log(123)
+        }
+    },
     getters: authGetters
 });

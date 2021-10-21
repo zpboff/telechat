@@ -1,20 +1,23 @@
 import { ActionTree } from "vuex";
 import { AuthInfo, Credentials } from "@/store/modules/auth/types";
-import { sendSignInRequest, sendSignUpRequest } from "@/store/modules/auth/api";
+import { login, register } from "@/store/modules/auth/api";
 
 const authActions: ActionTree<AuthInfo, AuthInfo> = {
-    async signIn({ commit }, credentials: Credentials) {
-        await sendSignInRequest(credentials);
+    Login: async function({ commit }, credentials: Credentials) {
+        await login(credentials);
+
+        await commit("setAuthInfo", { isAuthenticated: true });
+    },
+    Register: async function({ commit }, credentials: Credentials) {
+        await register(credentials);
 
         await commit("setAuthInfo", true);
     },
-    async signUp({ commit }, credentials: Credentials) {
-        await sendSignUpRequest(credentials);
-
-        await commit("setAuthInfo", true);
+    Logout({ commit }) {
+        commit("logout");
     },
-    async logout({ commit }) {
-        await commit("logout");
+    logout() {
+        console.log(123)
     }
 };
 

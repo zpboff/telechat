@@ -1,12 +1,12 @@
 <template>
-    <header-link link="/signin">Вход</header-link>
+    <header-link link="/register">Регистрация</header-link>
 </template>
 
 <script>
 import HeaderLink from "@/components/HeaderLink";
 
 export default {
-    name: "SignInLink",
+    name: "RegisterLink",
     components: { HeaderLink }
 };
 </script>

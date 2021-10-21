@@ -16,3 +16,6 @@ $link-padding: 10px;
   font-size: 20px;
   text-decoration: none;
 }
+.nav-link:hover {
+  background-color: darken($base-color, 5);
+}
