@@ -1,10 +1,15 @@
 <template>
     <div class="header">
-        <div class="logo"></div>
+        <the-logo></the-logo>
         <div class="main-area"></div>
         <div class="auth-links">
-            <sign-in-link></sign-in-link>
-            <sign-up-link></sign-up-link>
+            <template v-if="isAuthenticated">
+                <logout-link></logout-link>
+            </template>
+            <template v-else>
+                <sign-in-link></sign-in-link>
+                <sign-up-link></sign-up-link>
+            </template>
         </div>
     </div>
 </template>
@@ -12,19 +17,23 @@
 <script>
 import SignInLink from "@/components/SignInLink";
 import SignUpLink from "@/components/SignUpLink";
+import LogoutLink from "@/components/LogoutLink";
+import TheLogo from "@/components/TheLogo";
 
 export default {
     name: "TheHeader",
-    components: { SignInLink, SignUpLink }
+    components: { TheLogo, LogoutLink, SignInLink, SignUpLink },
+    computed: {
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated;
+        }
+    }
 };
 </script>
 
 <style scoped>
-.header {
-    height: 50px;
-    background-color: #42b983;
-    display: flex;
-}
+
+
 .main-area {
     flex-grow: 1;
 }

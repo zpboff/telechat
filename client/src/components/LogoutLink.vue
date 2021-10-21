@@ -1,10 +1,16 @@
 <template>
-    <router-link to="/logout">
+    <a @click="logout">Logout</a>
 </template>
 
 <script>
 export default {
-    name: "LogoutLink"
+    name: "LogoutLink",
+    methods: {
+        async logout() {
+            await this.$store.dispatch("logout");
+            await this.$router.push("/");
+        }
+    }
 };
 </script>
 
