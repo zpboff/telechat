@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="link">
+    <router-link :to="link" class="nav-link">
         <slot></slot>
     </router-link>
 </template>
@@ -22,23 +22,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-$link-padding: 10px;
-a {
-    background-color: $base-color;
-    display: inline-block;
-    height: calc(100% - 2 * #{$link-padding});
-    padding: $link-padding;
-    font-size: 20px;
-    text-decoration: none;
-}
-a:visited {
-    background-color: $base-color;
-}
-a:hover, a.current {
-    background-color: darken($base-color, 10);
-}
-a, a:visited, a:hover, a:active {
-    color: inherit;
-}
+<style lang="scss">
 </style>

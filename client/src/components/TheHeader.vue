@@ -31,9 +31,7 @@ export default {
 };
 </script>
 
-<style scoped>
-
-
+<style lang="scss">
 .main-area {
     flex-grow: 1;
 }
