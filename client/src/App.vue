@@ -1,9 +1,7 @@
 <template>
-    <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <base-layout>
+        <router-view />
+    </base-layout>
 </template>
 
 <style>
@@ -28,3 +26,9 @@
     color: #42b983;
 }
 </style>
+<script>
+import BaseLayout from "@/components/BaseLayout";
+export default {
+    components: { BaseLayout }
+}
+</script>
