@@ -1,0 +1,21 @@
+@import "colors";
+
+$link-padding: 10px;
+
+.header {
+  height: 50px;
+  background-color: #42b983;
+  display: flex;
+}
+
+.nav-link {
+  background-color: $base-color;
+  display: inline-block;
+  height: calc(100% - 2 * #{$link-padding});
+  padding: $link-padding;
+  font-size: 20px;
+  text-decoration: none;
+}
+.nav-link:hover {
+  background-color: darken($base-color, 5);
+}
