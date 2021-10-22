@@ -4,10 +4,11 @@ import authInitialState from "@/store/modules/auth/state";
 
 const authMutations: MutationTree<AuthInfo> = {
     setAuthInfo(state, authInfo: AuthInfo) {
-        state = authInfo;
+        state.isAuthenticated = authInfo.isAuthenticated;
     },
     logout(state) {
-        state = authInitialState;
+        const defaultState = authInitialState();
+        state.isAuthenticated = defaultState.isAuthenticated;
     }
 };
 

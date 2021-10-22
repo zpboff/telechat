@@ -38,7 +38,7 @@ export default {
         async submit() {
             const { email, password } = this;
             console.log(this.$store)
-            await this.$store.dispatch("Register", { password, email });
+            await this.$store.dispatch("auth/Register", { password, email });
         }
     }
 };

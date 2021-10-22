@@ -19,20 +19,20 @@ import LoginLink from "@/components/LoginLink";
 import RegisterLink from "@/components/RegisterLink";
 import LogoutLink from "@/components/LogoutLink";
 import TheLogo from "@/components/TheLogo";
+import { mapGetters } from "vuex";
 
 export default {
     name: "TheHeader",
     components: { TheLogo, LogoutLink, LoginLink, RegisterLink },
     computed: {
-        isAuthenticated() {
-            return this.$store.getters.isAuthenticated;
-        }
+        ...mapGetters("auth", ["isAuthenticated"])
     }
 };
 </script>
 
 <style lang="scss">
 @import 'src/assets/scss/header';
+
 .main-area {
     flex-grow: 1;
 }

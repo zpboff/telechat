@@ -29,15 +29,10 @@ export default {
             return this.$store.getters.isAuthenticated;
         }
     },
-    async created() {
-        if (this.isAuthenticated) {
-            await this.$router.push("/");
-        }
-    },
     methods: {
         async submit() {
             const { email, password } = this;
-            await this.$store.dispatch("Login", { password, email });
+            await this.$store.dispatch("auth/Login", { password, email });
         }
     }
 };

@@ -1,10 +1,9 @@
-import { Store } from "vuex";
+import Vuex from "vuex";
 import auth from "./modules/auth";
-import test from "./modules/test";
 
-export default new Store({
+export default new Vuex.Store({
+    devtools: true,
     modules: {
-        auth,
-        test
+        auth
     }
 });

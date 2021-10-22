@@ -4,20 +4,17 @@ import { login, register } from "@/store/modules/auth/api";
 
 const authActions: ActionTree<AuthInfo, AuthInfo> = {
     Login: async function({ commit }, credentials: Credentials) {
-        await login(credentials);
+        // await login(credentials);
 
         await commit("setAuthInfo", { isAuthenticated: true });
     },
     Register: async function({ commit }, credentials: Credentials) {
-        await register(credentials);
+        // await register(credentials);
 
-        await commit("setAuthInfo", true);
+        await commit("setAuthInfo", { isAuthenticated: true });
     },
     Logout({ commit }) {
         commit("logout");
-    },
-    logout() {
-        console.log(123)
     }
 };
 
