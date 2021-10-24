@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
     name: "Login",
     data() {
@@ -25,11 +27,22 @@ export default {
         };
     },
     computed: {
-        isAuthenticated() {
-            return this.$store.getters.isAuthenticated;
-        }
+        ...mapGetters('auth', ['isAuthenticated'])
+    },
+    async created() {
+        await this.redirect();
+    },
+    watch: {
+      async isAuthenticated() {
+          await this.redirect();
+      }
     },
     methods: {
+        async redirect() {
+            if(this.isAuthenticated) {
+                await this.$router.push("/");
+            }
+        },
         async submit() {
             const { email, password } = this;
             await this.$store.dispatch("auth/Login", { password, email });

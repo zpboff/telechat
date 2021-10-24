@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
     name: "Register",
     data() {
@@ -25,16 +27,22 @@ export default {
         };
     },
     computed: {
-        isAuthenticated() {
-            return this.$store.getters.isAuthenticated;
-        }
+        ...mapGetters('auth', ['isAuthenticated'])
     },
     async created() {
-        if (this.isAuthenticated) {
-            await this.$router.push("/");
+        await this.redirect();
+    },
+    watch: {
+        async isAuthenticated() {
+            await this.redirect();
         }
     },
     methods: {
+        async redirect() {
+            if(this.isAuthenticated) {
+                await this.$router.push("/");
+            }
+        },
         async submit() {
             const { email, password } = this;
             console.log(this.$store)
