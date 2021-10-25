@@ -37,7 +37,7 @@ authRouter.get('/refresh', async (req, res, next) => {
     const { refreshToken } = req.cookies;
 
     if(!refreshToken) {
-        return next(ApiError.Unathorize());
+        return next(ApiError.Unauthorized());
     }    
 
     const result = await refresh(refreshToken);
@@ -48,7 +48,7 @@ authRouter.get('/refresh', async (req, res, next) => {
 
 function authenticate(result: Result<AuthInfo>, res: Response, next: NextFunction) {    
     if(!isCorrect(result)) {
-        return next(ApiError.Unathorize());
+        return next(ApiError.Unauthorized(result.errors));
     }
 
     const { accessToken, refreshToken, user } = result.entity as AuthInfo;

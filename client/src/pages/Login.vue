@@ -12,23 +12,37 @@
         <div>
             <button type="submit">Войти</button>
         </div>
+        <div v-if="hasError">
+          <div v-for="error in errors" v-bind:key="error">
+            {{error}}
+          </div>
+        </div>
     </form>
 </template>
 
 <script>
+
+import isEmpty from "lodash.isempty";
 
 export default {
     name: "Login",
     data() {
         return {
             email: "",
-            password: ""
+            password: "",
+            errors: []
         };
+    },
+    computed: {
+      hasError() {
+        return !isEmpty(this.errors);
+      }
     },
     methods: {
         async submit() {
             const { email, password } = this;
-            await this.$store.dispatch("auth/Login", { password, email });
+            const errors = await this.$store.dispatch("auth/Login", { password, email });
+            this.errors = errors;
         }
     }
 };
