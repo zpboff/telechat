@@ -37,8 +37,8 @@ export async function getToken(token: string): Promise<Result<Token>> {
         const [tokenInfo] = rows;
 
         return isNil(tokenInfo) 
-            ? buildResult(tokenInfo)
-            : buildResultFromError<Token>(['Токен не найден']);
+            ? buildResultFromError<Token>(['Токен не найден'])
+            : buildResult(tokenInfo);
     }
     catch(ex) {
         console.log(ex);

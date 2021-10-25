@@ -1,8 +1,7 @@
 import { AuthInfo } from "@/store/modules/auth/types";
-import { getToken } from "@/store/modules/auth/tokenStorage";
 
 const authInitialState = (): AuthInfo => ({
-    accessToken: getToken(),
+    accessToken: null,
     email: null
 });
 
