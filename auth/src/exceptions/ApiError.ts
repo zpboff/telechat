@@ -14,7 +14,7 @@ export class ApiError extends Error {
         return new ApiError(400, 'Неправильный запрос', errors)
     }
 
-    static Unathorize() {
-        return new ApiError(403, 'Пользователь не авторизован');
+    static Unauthorized(errors: string[] = []) {
+        return new ApiError(403, 'Пользователь не авторизован', errors);
     }
 }

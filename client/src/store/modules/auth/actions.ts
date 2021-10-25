@@ -1,29 +1,36 @@
 import { ActionTree } from "vuex";
 import { AuthInfo, Credentials } from "@/store/modules/auth/types";
-import { login, register } from "@/store/modules/auth/api";
+import { AuthResult, login, register } from "@/store/modules/auth/api";
 import isEmpty from "lodash.isempty";
 import { saveToken } from "@/store/modules/auth/tokenStorage";
 
+type AuthPayload = {
+    authInfo: AuthResult;
+    defaultErrorMessage: string
+}
+
 const authActions: ActionTree<AuthInfo, AuthInfo> = {
-    Login: async function({ commit }, credentials: Credentials) {
-        // await login(credentials);
-
-        // await commit("setAuthInfo", { isAuthenticated: true });
+    Login: async function({ dispatch }, credentials: Credentials) {
+        const authInfo = await login(credentials);
+        return await dispatch("SetAuthInfo", { authInfo, defaultErrorMessage: "Ошибка при входе в систему" });
     },
-    Register: async function({ commit }, credentials: Credentials): Promise<string[]> {
-        const result = await register(credentials);
+    Register: async function({ dispatch }, credentials: Credentials): Promise<string[]> {
+        const authInfo = await register(credentials);
 
-        if (!result || !isEmpty(result.errors)) {
+        return await dispatch("SetAuthInfo", { authInfo, defaultErrorMessage: "Ошибка при регистрации в системе" });
+    },
+    async SetAuthInfo({ commit }, payload: AuthPayload) {
+        const { authInfo, defaultErrorMessage } = payload;
+
+        if (!authInfo || !isEmpty(authInfo.errors)) {
             await commit("setAuthInfo", { accessToken: null });
-            return result?.errors ?? ['Ошибка регистрации'];
+            return authInfo?.errors ?? defaultErrorMessage;
         }
 
-        const { user, accessToken } = result;
+        const { user, accessToken } = authInfo;
 
         saveToken(accessToken);
         await commit("setAuthInfo", { accessToken, email: user.email });
-
-        return [];
     },
     Logout({ commit }) {
         commit("logout");

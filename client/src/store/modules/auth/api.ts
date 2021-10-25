@@ -14,9 +14,19 @@ export type AuthResult = {
 }
 
 export const login = async (credentials: Credentials) => {
-    const { data } = await client.post("/auth/login", credentials);
+    try {
+        const response = await client.post<AuthResult>("/auth/login", credentials);
 
-    return data;
+        return response.data;
+    } catch (err: unknown) {
+        const error = err as AxiosError<AuthResult>;
+
+        if (error.response?.status === 403) {
+            return error.response.data;
+        }
+
+        return null;
+    }
 };
 
 export const register = async (credentials: Credentials) => {
@@ -33,5 +43,4 @@ export const register = async (credentials: Credentials) => {
 
         return null;
     }
-
 };

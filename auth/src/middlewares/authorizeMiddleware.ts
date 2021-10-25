@@ -8,25 +8,25 @@ export async function authorizeMiddleware(req: Request, _res: Response, next: Ne
     const authHeader = req.headers.authorization ?? "";
 
     if(!authHeader) {
-        next(ApiError.Unathorize());
+        next(ApiError.Unauthorized());
     }
 
     const [type, token] = authHeader.split(' ');
 
     if(type !== "Bearer") {
-        next(ApiError.Unathorize())
+        next(ApiError.Unauthorized())
     }
 
     try {
         const decodedUser = verify(token, configs.secret);
 
         if(isNil(decodedUser)) {
-            throw ApiError.Unathorize();
+            throw ApiError.Unauthorized();
         }    
         
         next();
     }
     catch(ex) {
-        next(ApiError.Unathorize())
+        next(ApiError.Unauthorized())
     }
 }
