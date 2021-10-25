@@ -16,6 +16,7 @@
 </template>
 
 <script>
+
 export default {
     name: "Login",
     data() {
@@ -23,11 +24,6 @@ export default {
             email: "",
             password: ""
         };
-    },
-    computed: {
-        isAuthenticated() {
-            return this.$store.getters.isAuthenticated;
-        }
     },
     methods: {
         async submit() {

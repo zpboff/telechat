@@ -1,5 +1,6 @@
 export type AuthInfo = {
-    isAuthenticated: boolean;
+    accessToken: string | null;
+    email?: string | null;
 }
 
 export type Credentials = {

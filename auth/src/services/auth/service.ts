@@ -44,6 +44,7 @@ export async function registration(email: string, password: string): Promise<Res
     const result = await createUser(email, passwordHash);
 
     if(!isSuccess(result)) {
+
         return buildResultFromError(result.errors);
     }
 
