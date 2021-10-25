@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "serve": "npx nodemon --inspect=127.0.0.1:9229 ./index.ts",
+    "serve": "nodemon --inspect ./index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -36,6 +36,7 @@
     "@types/lodash": "^4.14.171",
     "@types/node": "^14.14.22",
     "@types/sequelize": "^4.28.10",
-    "@types/uuid": "^8.3.1"
+    "@types/uuid": "^8.3.1",
+    "tslib": "^2.3.1"
   }
 }

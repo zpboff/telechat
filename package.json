@@ -4,7 +4,7 @@
     "description": "telechat",
     "main": "index.js",
     "scripts": {
-        "run": "concurrently \"cd auth && npx nodemon --inspect index.ts\" \"cd client && npm run serve\" \"cd admin && npm run watch\"",
+        "run": "concurrently \"cd auth && nodemon --inspect index.ts\" \"cd client && npm run serve\" \"cd admin && npm run watch\"",
         "start": "concurrently \"cd api/auth && nodemon --inspect index.ts\" \"cd api/chats && nodemon --inspect=127.0.0.1:9230 index.ts\" \"cd web && npm run serve\""
     },
     "repository": {
