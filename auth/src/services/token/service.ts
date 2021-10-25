@@ -9,7 +9,7 @@ import { TokenInfo } from "./types";
 
 export async function generateTokens(payload: UserViewModel): Promise<TokenInfo> {    
     const accessToken = sign(payload, configs.secret, {
-        expiresIn: configs.lifeTime
+        expiresIn: configs.refreshTokenLifeTime
     });
 
     const result = await getTokenByEmail(payload.email);
@@ -17,7 +17,7 @@ export async function generateTokens(payload: UserViewModel): Promise<TokenInfo>
 
     if(isEmpty(result.entity)) {
         refreshToken = v4();
-        const createResult = await createToken(payload.email, refreshToken, configs.lifeTime);
+        const createResult = await createToken(payload.email, refreshToken, configs.refreshTokenLifeTime);
 
         if(!isSuccess(createResult)) {
             refreshToken = undefined;

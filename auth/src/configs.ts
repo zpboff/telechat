@@ -1,12 +1,13 @@
-import { config } from 'dotenv';
+import {config} from 'dotenv';
 
 config();
 
 type Configs = {
-    port: string;    
+    port: string;
     secret: string;
-    lifeTime: number;
+    refreshTokenLifeTime: number;
     saltRounds: number;
+    cookieDomain: string;
 }
 
 type DbConfigs = {
@@ -24,8 +25,9 @@ type LoggerConfigs = {
 const configs: Configs = {
     port: process.env.PORT ?? "3001",
     secret: process.env.SECRET ?? "",
-    lifeTime: parseInt(process.env.EXPIRES_IN ?? "") || 60*60*24*365,
-    saltRounds: parseInt(process.env.SALT_ROUNDS ?? "10")
+    refreshTokenLifeTime: 1000 * 60 * 60 * 24 * parseInt(process.env.REFRESH_TOKEN_LIFE_TIME_IN_DAYS ?? "0"),
+    saltRounds: parseInt(process.env.SALT_ROUNDS ?? "10"),
+    cookieDomain: process.env.COOKIE_DOMAIN ?? ""
 }
 
 const dbConfigs: DbConfigs = {
@@ -40,4 +42,4 @@ const loggerConfigs: LoggerConfigs = {
     url: process.env.SEQ_URL ?? "",
 }
 
-export { configs, dbConfigs, loggerConfigs }
+export {configs, dbConfigs, loggerConfigs}

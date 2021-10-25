@@ -54,8 +54,9 @@ function authenticate(result: Result<AuthInfo>, res: Response, next: NextFunctio
     const { accessToken, refreshToken, user } = result.entity as AuthInfo;
 
     res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        expires: new Date(new Date().getTime() + configs.lifeTime)
+        expires: new Date(new Date().getTime() + configs.refreshTokenLifeTime),
+        domain: configs.cookieDomain,
+        httpOnly: true
     });
 
     return res.json({ accessToken, user });

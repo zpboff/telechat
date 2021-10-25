@@ -16,6 +16,7 @@ export type AuthResult = {
 export const login = async (credentials: Credentials) => {
     try {
         const response = await client.post<AuthResult>("/auth/login", credentials);
+        console.log(response);
 
         return response.data;
     } catch (err: unknown) {
@@ -44,3 +45,19 @@ export const register = async (credentials: Credentials) => {
         return null;
     }
 };
+
+export const refresh = async () => {
+    try {
+        const response = await client.get<AuthResult>("/auth/refresh");
+
+        return response.data;
+    } catch (err: unknown) {
+        const error = err as AxiosError<AuthResult>;
+
+        if (error.response?.status === 401) {
+            return error.response.data;
+        }
+
+        return null;
+    }
+}

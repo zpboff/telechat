@@ -6,5 +6,8 @@ module.exports = {
                 additionalData: `@import "~@/assets/scss/colors.scss";`
             }
         }
+    },
+    devServer: {
+        disableHostCheck: true
     }
 };

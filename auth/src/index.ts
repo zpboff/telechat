@@ -1,17 +1,22 @@
-import { Response } from "express";
-import { json } from "body-parser";
+import {Response} from "express";
+import {json} from "body-parser";
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import cors from 'cors';
-import { configs } from './configs';
-import { authRouter } from './routes'
-import { usersRouter } from "./routes/users";
-import { errorMiddleware } from "./middlewares";
-import { loggerMiddleware } from "./middlewares";
-import { testRouter } from "./routes/test";
+import {configs} from './configs';
+import {authRouter} from './routes'
+import {usersRouter} from "./routes/users";
+import {errorMiddleware} from "./middlewares";
+import {loggerMiddleware} from "./middlewares";
+import {testRouter} from "./routes/test";
 
 const app = express();
-app.use(cors());
+app.use(cors((req, callback) => {
+    callback(null, {
+        origin: true,
+        credentials: true
+    })
+}));
 app.use(json());
 app.use(cookieParser());
 

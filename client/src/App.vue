@@ -9,6 +9,10 @@
 <script>
 import BaseLayout from "@/components/BaseLayout";
 export default {
-    components: { BaseLayout }
+    components: { BaseLayout },
+    async created() {
+        await this.$store.dispatch("auth/Refresh");
+    }
+
 }
 </script>
