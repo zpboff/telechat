@@ -14,10 +14,6 @@ export default {
                 return value.startsWith('/')
             }
         }
-    },
-    computed: function() {
-        console.log(this.$route);
-        return true;
     }
 };
 </script>
