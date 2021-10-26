@@ -21,18 +21,23 @@ $link-padding: 10px;
 .logo {
     $text-height: 18px;
 
+    @include base.flexed;
+
     background-color: colors.$base-color;
-    display: flex;
     height: calc(100% - 2 * #{$link-padding});
     padding: $link-padding;
     font-size: $text-height;
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
 
-    .nav-link_text {
-        color: colors.$inverted-text-color;
-        display: block;
-        height: $text-height;
+    * {
+        margin-right: 10px;
+    }
+
+    img {
+        border-radius: .5em;
+        border: 2px solid white;
     }
 
     &:hover {
