@@ -61,3 +61,19 @@ export const refresh = async () => {
         return null;
     }
 }
+
+export const logout = async () => {
+    try {
+        const response = await client.get<AuthResult>("/auth/logout");
+
+        return response.data;
+    } catch (err: unknown) {
+        const error = err as AxiosError<AuthResult>;
+
+        if (error.response?.status === 401) {
+            return error.response.data;
+        }
+
+        return null;
+    }
+}

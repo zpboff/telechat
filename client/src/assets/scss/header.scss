@@ -1,21 +1,40 @@
-@import "colors";
+@use 'colors';
 
 $link-padding: 10px;
 
 .header {
-  height: 50px;
-  background-color: #42b983;
-  display: flex;
+    height: 50px;
+    background-color: #42b983;
+    display: flex;
+}
+
+.auth-links {
+    display: flex;
 }
 
 .nav-link {
-  background-color: $base-color;
-  display: inline-block;
-  height: calc(100% - 2 * #{$link-padding});
-  padding: $link-padding;
-  font-size: 20px;
-  text-decoration: none;
-}
-.nav-link:hover {
-  background-color: darken($base-color, 5);
+    $text-height: 18px;
+
+    background-color: colors.$base-color;
+    display: flex;
+    height: calc(100% - 2 * #{$link-padding});
+    padding: $link-padding;
+    font-size: $text-height;
+    text-decoration: none;
+    cursor: pointer;
+
+    .nav-link_text {
+        color: colors.$header-text-color;
+        display: block;
+        height: $text-height;
+    }
+
+    .nav-link__icon {
+        color: colors.$header-text-color;
+        margin-right: 5px;
+    }
+
+    &:hover {
+        background-color: darken(colors.$base-color, 5);
+    }
 }

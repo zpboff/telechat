@@ -1,31 +1,32 @@
 <template>
     <h2>Главная</h2>
-    <div v-if="data">
-        {{data}}
+    <div v-if="testData">
+        {{ testData }}
     </div>
-    <button type="button" v-on:click="test()">Test</button>
+    <base-button @click="test">Test</base-button>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue";
+import BaseButton from "@/components/BaseButton.vue";
 import { client } from "@/client"; // @ is an alias to /src
 
 @Options({
     components: {
-        HelloWorld
+        BaseButton
     },
     data() {
         return {
-            data: null
-        }
+            testData: null
+        };
     },
     methods: {
         async test() {
-            const { data } = await client('/test');
-            this.data = data;
+            const { data } = await client("/test");
+            this.testData = data;
         }
     }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+}
 </script>

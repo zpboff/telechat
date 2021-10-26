@@ -1,5 +1,9 @@
 <template>
-    <a @click="logout" class="nav-link">Logout</a>
+    <a @click="logout" class="nav-link">
+        <span class="nav-link_text">
+            Выход
+        </span>
+    </a>
 </template>
 
 <script>

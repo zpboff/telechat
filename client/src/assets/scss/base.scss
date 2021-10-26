@@ -1,7 +1,14 @@
+@import "colors";
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
   outline: none;
+  background-color: $body-color;
 }
 
 a, a:visited, a:hover, a:active {
