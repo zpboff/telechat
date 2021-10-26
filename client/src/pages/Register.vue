@@ -1,24 +1,37 @@
 <template>
     <base-layout>
-        <h2>Регистрация</h2>
-        <form @submit.prevent="submit">
-            <div>
-                <label for="email">Email</label>
-                <input id="email" type="email" v-model="email" name="email" />
-            </div>
-            <div>
-                <label for="password">Пароль</label>
-                <input id="password" type="password" v-model="password" name="password" />
-            </div>
-            <div>
-                <button type="submit">Зарегистироваться</button>
-            </div>
-            <div v-if="hasError">
-                <div v-for="error in errors" v-bind:key="error">
-                    {{ error }}
+        <div class="container">
+            <form @submit.prevent="submit" class="form form--small">
+                <h2>Регистрация</h2>
+                <img src="/android-chrome-192x192.png" width="60" height="60" alt="Telechat" title="Telechat"
+                     class="form-logo" />
+                <div class="form-control" v-bind:class="{'form-control--expanded': emailFieldExpanded}">
+                    <label class="label" for="email">Email</label>
+                    <input @focus="expandEmailField()" @focusout="collapseEmailField()" class="input" id="email"
+                           type="email" v-model="email" name="email" />
                 </div>
-            </div>
-        </form>
+                <div class="form-control" v-bind:class="{'form-control--expanded': passwordFieldExpanded}">
+                    <label class="label" for="password">Пароль</label>
+                    <input @focus="expandPasswordField()" @focusout="collapsePasswordField()" class="input"
+                           id="password"
+                           type="password" v-model="password" name="password" />
+                </div>
+                <div class="form-submitter">
+                    <primary-button>Зарегистрироваться</primary-button>
+                </div>
+                <div v-if="hasError">
+                    <div v-for="error in errors" v-bind:key="error">
+                        {{ error }}
+                    </div>
+                </div>
+                <div class="form-note">
+                    Есть учетная запись?
+                    <router-link to="/login">
+                        Войти
+                    </router-link>
+                </div>
+            </form>
+        </div>
     </base-layout>
 </template>
 
@@ -26,14 +39,17 @@
 
 import isEmpty from "lodash.isempty";
 import BaseLayout from "@/components/BaseLayout";
+import PrimaryButton from "@/components/PrimaryButton";
 
 export default {
     name: "Register",
-    components: { BaseLayout },
+    components: { PrimaryButton, BaseLayout },
     data() {
         return {
             email: "",
+            emailFieldExpanded: false,
             password: "",
+            passwordFieldExpanded: false,
             errors: []
         };
     },
@@ -43,6 +59,22 @@ export default {
         }
     },
     methods: {
+        expandEmailField() {
+            this.emailFieldExpanded = true;
+        },
+        collapseEmailField() {
+            if (!this.email) {
+                this.emailFieldExpanded = false;
+            }
+        },
+        expandPasswordField() {
+            this.passwordFieldExpanded = true;
+        },
+        collapsePasswordField() {
+            if (!this.password) {
+                this.passwordFieldExpanded = false;
+            }
+        },
         async submit() {
             const { email, password } = this;
             const errors = await this.$store.dispatch("auth/Register", { password, email });
