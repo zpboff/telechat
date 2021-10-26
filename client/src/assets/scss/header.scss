@@ -1,21 +1,41 @@
-@import "colors";
+@use 'colors';
+@use 'base';
 
 $link-padding: 10px;
 
 .header {
-  height: 50px;
-  background-color: #42b983;
-  display: flex;
+    height: 50px;
+    background-color: colors.$base-color;
+    display: flex;
 }
 
-.nav-link {
-  background-color: $base-color;
-  display: inline-block;
-  height: calc(100% - 2 * #{$link-padding});
-  padding: $link-padding;
-  font-size: 20px;
-  text-decoration: none;
+.auth-links {
+    @include base.flexed;
+    padding: 0 1rem;
+
+    *:not(:last-child) {
+      margin-right: 10px;
+    }
 }
-.nav-link:hover {
-  background-color: darken($base-color, 5);
+
+.logo {
+    $text-height: 18px;
+
+    background-color: colors.$base-color;
+    display: flex;
+    height: calc(100% - 2 * #{$link-padding});
+    padding: $link-padding;
+    font-size: $text-height;
+    text-decoration: none;
+    cursor: pointer;
+
+    .nav-link_text {
+        color: colors.$inverted-text-color;
+        display: block;
+        height: $text-height;
+    }
+
+    &:hover {
+        background-color: darken(colors.$base-color, 5);
+    }
 }

@@ -1,5 +1,7 @@
 <template>
-    <header-link link="/register">Регистрация</header-link>
+    <header-link link="/register" class-name="button">
+        Регистрация
+    </header-link>
 </template>
 
 <script>

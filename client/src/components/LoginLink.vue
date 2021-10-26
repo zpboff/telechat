@@ -1,5 +1,7 @@
 <template>
-    <header-link link="/login">Вход</header-link>
+    <header-link link="/login" class-name="button">
+       Вход
+    </header-link>
 </template>
 
 <script>
