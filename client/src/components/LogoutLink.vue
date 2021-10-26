@@ -1,14 +1,14 @@
 <template>
-    <a @click="logout" class="nav-link">
-        <span class="nav-link_text">
-            Выход
-        </span>
-    </a>
+    <base-button @click="logout">
+        Выход
+    </base-button>
 </template>
 
 <script>
+import BaseButton from "@/components/BaseButton";
 export default {
     name: "LogoutLink",
+    components: { BaseButton },
     methods: {
         async logout() {
             await this.$store.dispatch("auth/Logout");

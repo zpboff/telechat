@@ -3,17 +3,17 @@
     <div v-if="testData">
         {{ testData }}
     </div>
-    <base-button @click="test">Test</base-button>
+    <primary-button @click="test">Test</primary-button>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import BaseButton from "@/components/BaseButton.vue";
-import { client } from "@/client"; // @ is an alias to /src
+import { client } from "@/client";
+import PrimaryButton from "@/components/PrimaryButton.vue"; // @ is an alias to /src
 
 @Options({
     components: {
-        BaseButton
+        PrimaryButton
     },
     data() {
         return {

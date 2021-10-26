@@ -3,7 +3,10 @@ module.exports = {
         requireModuleExtension: false,
         loaderOptions: {
             sass: {
-                additionalData: `@import "~@/assets/scss/colors.scss";`
+                additionalData: `
+                    @import "~@/assets/scss/_colors.scss";
+                    @import "~@/assets/scss/_buttons.scss";
+                `
             }
         }
     },

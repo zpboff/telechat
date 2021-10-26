@@ -1,6 +1,6 @@
 <template>
-    <header-link link="/login">
-        <span class="nav-link_text">Вход</span>
+    <header-link link="/login" class-name="button">
+       Вход
     </header-link>
 </template>
 

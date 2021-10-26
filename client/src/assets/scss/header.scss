@@ -1,18 +1,24 @@
 @use 'colors';
+@use 'base';
 
 $link-padding: 10px;
 
 .header {
     height: 50px;
-    background-color: #42b983;
+    background-color: colors.$base-color;
     display: flex;
 }
 
 .auth-links {
-    display: flex;
+    @include base.flexed;
+    padding: 0 1rem;
+
+    *:not(:last-child) {
+      margin-right: 10px;
+    }
 }
 
-.nav-link {
+.logo {
     $text-height: 18px;
 
     background-color: colors.$base-color;
@@ -24,14 +30,9 @@ $link-padding: 10px;
     cursor: pointer;
 
     .nav-link_text {
-        color: colors.$header-text-color;
+        color: colors.$inverted-text-color;
         display: block;
         height: $text-height;
-    }
-
-    .nav-link__icon {
-        color: colors.$header-text-color;
-        margin-right: 5px;
     }
 
     &:hover {

@@ -1,6 +1,6 @@
 <template>
-    <header-link link="/register">
-        <span class="nav-link_text">Регистрация</span>
+    <header-link link="/register" class-name="button">
+        Регистрация
     </header-link>
 </template>
 
