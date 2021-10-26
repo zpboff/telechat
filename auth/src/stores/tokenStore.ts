@@ -10,6 +10,10 @@ export type Token = HasId<number> & {
     lifeTime: number;
 }
 
+type CountResult = {
+    count: number;
+}
+
 export async function getTokenByEmail(email: string): Promise<Result<Token>> {
     try {
         const { rows } = await pool.query("SELECT * FROM tokens WHERE email=$1", [email]);
@@ -63,6 +67,28 @@ RETURNING id`;
     catch(ex) {
         console.log(ex);
         
+        return buildResultFromError([ex.message]);
+    }
+}
+
+export async function deleteToken(email: string, token: string): Promise<Result<number>> {
+    const query = `
+WITH deleted AS (
+    DELETE FROM tokens
+    WHERE token = $1 AND email = $2
+    RETURNING id
+) 
+SELECT count(*) FROM deleted;`;
+
+    try {
+        const { rows } = await pool.query<CountResult>(query, [token, email]);
+        const [result] = rows;
+
+        return buildResult(result.count);
+    }
+    catch(ex) {
+        console.log(ex);
+
         return buildResultFromError([ex.message]);
     }
 }

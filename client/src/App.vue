@@ -1,17 +1,20 @@
 <template>
-    <base-layout>
-        <router-view />
-    </base-layout>
+    <router-view />
 </template>
 
-<style>
+<style lang="scss">
+    @import "./assets/scss/style.scss";
 </style>
 <script>
-import BaseLayout from "@/components/BaseLayout";
+import { getToken } from "@/store/modules/auth/tokenStorage";
+
 export default {
-    components: { BaseLayout },
     async created() {
-        await this.$store.dispatch("auth/Refresh");
+        const token = getToken();
+
+        if(token) {
+            await this.$store.dispatch("auth/Refresh");
+        }
     }
 
 }

@@ -1,31 +1,35 @@
 <template>
-    <h2>Регистрация</h2>
-    <form @submit.prevent="submit">
-        <div>
-            <label for="email">Email</label>
-            <input id="email" type="email" v-model="email" name="email" />
-        </div>
-        <div>
-            <label for="password">Пароль</label>
-            <input id="password" type="password" v-model="password" name="password" />
-        </div>
-        <div>
-            <button type="submit">Зарегистироваться</button>
-        </div>
-        <div v-if="hasError">
-            <div v-for="error in errors" v-bind:key="error">
-                {{error}}
+    <base-layout>
+        <h2>Регистрация</h2>
+        <form @submit.prevent="submit">
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" v-model="email" name="email" />
             </div>
-        </div>
-    </form>
+            <div>
+                <label for="password">Пароль</label>
+                <input id="password" type="password" v-model="password" name="password" />
+            </div>
+            <div>
+                <button type="submit">Зарегистироваться</button>
+            </div>
+            <div v-if="hasError">
+                <div v-for="error in errors" v-bind:key="error">
+                    {{ error }}
+                </div>
+            </div>
+        </form>
+    </base-layout>
 </template>
 
 <script>
 
 import isEmpty from "lodash.isempty";
+import BaseLayout from "@/components/BaseLayout";
 
 export default {
     name: "Register",
+    components: { BaseLayout },
     data() {
         return {
             email: "",

@@ -14,7 +14,11 @@ export class ApiError extends Error {
         return new ApiError(400, 'Неправильный запрос', errors)
     }
 
-    static Unauthorized(errors: string[] = []) {
+    static Forbidden(errors: string[] = []) {
         return new ApiError(403, 'Пользователь не авторизован', errors);
+    }
+
+    static Unauthorized(errors: string[] = []) {
+        return new ApiError(401, 'Ошибка авторизации', errors);
     }
 }

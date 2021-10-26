@@ -2,7 +2,7 @@ import { createUser, getUser } from "../../stores";
 import { isNil } from 'lodash';
 import { buildResult, buildResultFromError, isSuccess, Result } from "../../types";
 import { findUser, findUserByToken, mapUser, UserViewModel } from "../user";
-import { generateTokens } from "../token/service";
+import {generateTokens, removeToken} from "../token/service";
 import { compare, hash } from 'bcrypt';
 import { configs } from "../../configs";
 import { AuthInfo } from "./types";
@@ -44,7 +44,6 @@ export async function registration(email: string, password: string): Promise<Res
     const result = await createUser(email, passwordHash);
 
     if(!isSuccess(result)) {
-
         return buildResultFromError(result.errors);
     }
 
@@ -62,8 +61,14 @@ export async function registration(email: string, password: string): Promise<Res
     });
 }
 
-export async function logout() {
-    
+export async function logout(token: string) {
+    const user = await findUserByToken(token);
+
+    if(isNil(user)) {
+        return buildResultFromError(['Вы не авторизованы']);
+    }
+
+    return await removeToken(user.email, token);
 }
 
 export async function refresh(token: string): Promise<Result<AuthInfo>> {

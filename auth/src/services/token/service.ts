@@ -2,7 +2,7 @@ import { sign } from "jsonwebtoken";
 import { isEmpty } from "lodash";
 import { v4 } from "uuid";
 import { configs } from "../../configs";
-import { createToken, getTokenByEmail } from "../../stores/tokenStore";
+import {createToken, deleteToken, getTokenByEmail} from "../../stores/tokenStore";
 import { isSuccess } from "../../types";
 import { UserViewModel } from "../user";
 import { TokenInfo } from "./types";
@@ -29,3 +29,9 @@ export async function generateTokens(payload: UserViewModel): Promise<TokenInfo>
         refreshToken
     }
 }
+
+export const removeToken = async (email: string, token: string) => {
+    const result = await deleteToken(email, token);
+
+    return isEmpty(result.errors) && result.entity;
+};

@@ -6,7 +6,7 @@ $height: 2.5rem;
 
 .button {
     background: $base-color;
-    color: colors.$text-color;
+    color: colors.$base-filler-color;
     border: 1px solid $border-color;
     display: inline-flex;
     align-items: center;
@@ -22,13 +22,21 @@ $height: 2.5rem;
     transition: .3s opacity, .3s transform, .3s border-color, .3s background-color;
     cursor: pointer;
 
+    &:visited, &:hover, &:active {
+        color: colors.$base-filler-color;
+    }
+
     &.primary {
         background: colors.$base-color;
         color: colors.$inverted-text-color;
+
+        &:visited, &:hover, &:active {
+            color: colors.$inverted-text-color;
+        }
     }
 
-    &:visited, &:hover, &:active {
-        color: colors.$text-color;
+    &:hover {
+        box-shadow: 0px 0px 0px 1px $border-color;
     }
 
     * {

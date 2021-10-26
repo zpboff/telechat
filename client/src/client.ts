@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken } from "@/store/modules/auth/tokenStorage";
 
 export const client = axios.create({
     baseURL: "http://auth.telechat.com:3001",
@@ -9,6 +10,13 @@ export const client = axios.create({
 });
 
 client.interceptors.request.use((config) => {
+    if(!config.headers) {
+        config.headers = {};
+    }
+
+    const token = getToken();
+    config.headers["authorization"] = token ? `Bearer ${token}` : "";
+
     return config;
 });
 

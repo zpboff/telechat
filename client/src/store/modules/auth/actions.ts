@@ -1,6 +1,6 @@
 import { ActionTree } from "vuex";
 import { AuthInfo, Credentials } from "@/store/modules/auth/types";
-import { AuthResult, login, refresh, register } from "@/store/modules/auth/api";
+import { AuthResult, login, logout, refresh, register } from "@/store/modules/auth/api";
 import isEmpty from "lodash.isempty";
 import { saveToken } from "@/store/modules/auth/tokenStorage";
 
@@ -36,7 +36,8 @@ const authActions: ActionTree<AuthInfo, AuthInfo> = {
         saveToken(accessToken);
         await commit("setAuthInfo", { accessToken, email: user.email });
     },
-    Logout({ commit }) {
+    async Logout({ commit }) {
+        await logout();
         commit("logout");
     }
 };
