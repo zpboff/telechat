@@ -3,7 +3,8 @@
         <div class="container">
             <form @submit.prevent="submit" class="form form--small">
                 <h2>Вход</h2>
-                <img src="/android-chrome-192x192.png" width="60" height="60" alt="Telechat" title="Telechat" class="form-logo" />
+                <img src="/android-chrome-192x192.png" width="60" height="60" alt="Telechat" title="Telechat"
+                     class="form-logo" />
                 <div class="form-control" v-bind:class="{'form-control--expanded': emailFieldExpanded}">
                     <label class="label" for="email">Email</label>
                     <input @focus="expandEmailField()" @focusout="collapseEmailField()" class="input" id="email"

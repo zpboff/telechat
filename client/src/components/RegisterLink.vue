@@ -1,5 +1,5 @@
 <template>
-    <header-link link="/register" class-name="button">
+    <header-link :link="link" class-name="button">
         Регистрация
     </header-link>
 </template>
@@ -9,7 +9,12 @@ import HeaderLink from "@/components/HeaderLink";
 
 export default {
     name: "RegisterLink",
-    components: { HeaderLink }
+    components: { HeaderLink },
+    computed: {
+        link() {
+            return `/login?returnUrl=${this.$route.path}`
+        }
+    }
 };
 </script>
 

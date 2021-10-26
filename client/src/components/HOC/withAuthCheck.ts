@@ -2,10 +2,10 @@ import { Component, ComponentOptions } from "vue";
 import { mapGetters } from "vuex";
 import { h } from "@vue/runtime-core";
 
-export const withRedirectWhenAuth = (component: Component): ComponentOptions => {
+export const withAuthCheck = (component: Component): ComponentOptions => {
     return {
         render() {
-            return h(component, this.$props);
+            return h(component);
         },
         computed: {
             ...mapGetters("auth", ["isAuthenticated"])
@@ -20,15 +20,8 @@ export const withRedirectWhenAuth = (component: Component): ComponentOptions => 
         },
         methods: {
             async redirect() {
-                if (this.isAuthenticated) {
-                    const { returnUrl } = this.$route.query;
-
-                    if(returnUrl) {
-                        await this.$router.push(returnUrl);
-                        return;
-                    }
-
-                    await this.$router.back();
+                if (!this.isAuthenticated) {
+                    await this.$router.push("/login?returnUrl=/news");
                 }
             }
         }
