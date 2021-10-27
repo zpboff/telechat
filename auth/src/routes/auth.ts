@@ -3,7 +3,7 @@ import {configs} from '../configs';
 import {ApiError} from '../exceptions/ApiError';
 import {authorizeMiddleware} from '../middlewares/authorizeMiddleware';
 import {AuthActionResult, login, logout, refresh, registration} from '../services';
-import {isCorrect, Result} from '../types';
+import {isCorrect, isSuccess, Result} from '../types';
 
 const authRouter = Router();
 
@@ -26,12 +26,12 @@ authRouter.post('/login', async (req, res, next) => {
 authRouter.get('/logout', authorizeMiddleware, async (req, res, next) => {
     const {refreshToken} = req.cookies;
 
-    const isSuccess = await logout(refreshToken);
+    const logoutResult = await logout(refreshToken);
 
     setRefreshTokenCookie(res, refreshToken, new Date(new Date().getTime() - 1));
 
-    if (!isSuccess) {
-        return next(ApiError.BadRequest(['Произошла ошибка']));
+    if (!isSuccess(logoutResult)) {
+        return next(ApiError.BadRequest(logoutResult.errors));
     }
 
     return res.status(200).send();

@@ -3,6 +3,7 @@ import { verify } from "jsonwebtoken";
 import { isNil } from "lodash";
 import { configs } from "../configs";
 import { ApiError } from "../exceptions/ApiError";
+import {BaseErrors} from "../services";
 
 export async function authorizeMiddleware(req: Request, _res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization ?? "";
@@ -27,6 +28,9 @@ export async function authorizeMiddleware(req: Request, _res: Response, next: Ne
         next();
     }
     catch(ex) {
-        next(ApiError.Forbidden())
+        const errors: BaseErrors = {
+            common: ex.message
+        }
+        next(ApiError.Unauthorized(errors))
     }
 }
