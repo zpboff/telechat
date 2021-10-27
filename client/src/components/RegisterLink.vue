@@ -1,5 +1,5 @@
 <template>
-    <header-link :link="link" class-name="button">
+    <header-link :link="link" class-name="button button-primary">
         Регистрация
     </header-link>
 </template>

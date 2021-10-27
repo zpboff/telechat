@@ -5,8 +5,12 @@ $link-padding: 10px;
 
 .header {
     height: 50px;
-    background-color: colors.$base-color;
+    background-color: colors.$base-bg-color;
     display: flex;
+}
+
+.main-area {
+    flex-grow: 1;
 }
 
 .auth-links {
@@ -23,12 +27,12 @@ $link-padding: 10px;
 
     @include base.flexed;
 
-    background-color: colors.$base-color;
-    height: calc(100% - 2 * #{$link-padding});
+    background-color: colors.$base-bg-color;
     padding: $link-padding;
     font-size: $text-height;
     font-weight: 600;
     text-decoration: none;
+    color: colors.$dark-color;
     cursor: pointer;
 
     * {
@@ -38,9 +42,5 @@ $link-padding: 10px;
     img {
         border-radius: .5em;
         border: 2px solid white;
-    }
-
-    &:hover {
-        background-color: darken(colors.$base-color, 5);
     }
 }

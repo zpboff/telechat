@@ -3,7 +3,7 @@
         <div class="container">
             <form @submit.prevent="submit" class="form form--small">
                 <h2>Вход</h2>
-                <img src="/android-chrome-192x192.png" width="60" height="60" alt="Telechat" title="Telechat"
+                <img src="../assets/logo.png" width="60" height="60" alt="Telechat" title="Telechat"
                      class="form-logo" />
                 <div class="form-control" v-bind:class="{'form-control--expanded': emailFieldExpanded}">
                     <label class="label" for="email">Email</label>
@@ -82,9 +82,3 @@ export default {
     }
 };
 </script>
-
-<style lang="scss">
-@import 'src/assets/scss/forms';
-
-
-</style>

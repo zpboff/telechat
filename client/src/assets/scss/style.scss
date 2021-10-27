@@ -1,11 +1,23 @@
 @import 'colors';
 @import "base";
+@import "buttons";
+@import "header";
+@import "forms";
 
 * {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     outline: none;
+    box-sizing: border-box;
+}
+
+::before {
+    box-sizing: border-box;
+}
+
+::after {
+    box-sizing: border-box;
 }
 
 #app {
@@ -15,12 +27,11 @@
     flex-direction: column;
 }
 
+a {
+    background-color: transparent;
+}
 body {
     background-color: $body-color;
-}
-
-a, a:visited, a:hover, a:active {
-    color: inherit;
 }
 
 .body {
@@ -33,7 +44,7 @@ a, a:visited, a:hover, a:active {
 
     .sidebar {
         width: 300px;
-        background-color: $base-filler-color;
+        background-color: $text-color;
         height: 100%;
     }
 

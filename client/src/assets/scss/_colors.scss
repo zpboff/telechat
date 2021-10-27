@@ -1,5 +1,8 @@
-$base-color: #45D09E;
-$base-filler-color: #656d7e;
+$base-bg-color: #ffffff;
+$main-color: #ED254E;
+$secondary-color: #F9DC5C;
+$additional-color: #C2EABD;
+$dark-color: #011936;
+$text-color: #465362;
 $body-color: rgb(237, 238, 240);
-$inverted-text-color: white;
-$note-color: lighten($base-filler-color, 10);
+$note-color: lighten($text-color, 10);

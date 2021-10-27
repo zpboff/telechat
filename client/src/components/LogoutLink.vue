@@ -1,14 +1,15 @@
 <template>
-    <base-button @click="logout">
+    <primary-button @click="logout">
         Выход
-    </base-button>
+    </primary-button>
 </template>
 
 <script>
-import BaseButton from "@/components/BaseButton";
+import PrimaryButton from "@/components/PrimaryButton";
+
 export default {
     name: "LogoutLink",
-    components: { BaseButton },
+    components: { PrimaryButton },
     methods: {
         async logout() {
             await this.$store.dispatch("auth/Logout");
@@ -17,7 +18,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-
-</style>

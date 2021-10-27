@@ -5,7 +5,7 @@
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 1px 0 $base-filler-color;
+    box-shadow: 0 0 1px 0 $text-color;
     justify-content: center;
     align-items: center;
     padding: 50px;
@@ -13,7 +13,7 @@
     height: auto;
 
     &--small {
-        width: 250px;
+        width: 350px;
     }
 
     >:not(:last-child) {
@@ -22,7 +22,7 @@
 
     .form-logo {
         border-radius: .5rem;
-        box-shadow: 0 0 0 2px $base-color;
+        box-shadow: 0 0 0 2px $main-color;
     }
 
     .form-control {
@@ -50,7 +50,7 @@
             height: 40px;
             width: 100%;
             font-size: 16px;
-            border-bottom: 2px solid $base-filler-color;
+            border-bottom: 2px solid $text-color;
         }
     }
 

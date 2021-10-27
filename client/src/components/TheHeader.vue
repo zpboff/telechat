@@ -29,11 +29,3 @@ export default {
     }
 };
 </script>
-
-<style lang="scss">
-@import 'src/assets/scss/header';
-
-.main-area {
-    flex-grow: 1;
-}
-</style>
