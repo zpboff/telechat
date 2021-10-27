@@ -1,41 +1,43 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../pages/Home.vue";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import News from "../pages/News";
+import Login from "../pages/Login.vue";
+import Register from "../pages/Register.vue";
+import News from "../pages/News.vue";
 import Logout from "../pages/Logout.vue";
+import { withRedirectWhenAuth } from "@/components/HOC/withRedirectWhenAuth";
+import { withAuthCheck } from "@/components/HOC/withAuthCheck";
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
         name: "Home",
-        component: Home,
+        component: withAuthCheck(Home),
         strict: true
     },
     {
         path: "/register",
         name: "Register",
-        component: Register
+        component: withRedirectWhenAuth(Register)
     },
     {
         path: "/login",
         name: "Login",
-        component: Login
+        component: withRedirectWhenAuth(Login)
     },
     {
         path: "/news",
         name: "News",
-        component: News
+        component: withAuthCheck(News)
     },
     {
         path: "/logout",
         name: "Logout",
-        component: Logout
+        component: withAuthCheck(Logout)
     },
     {
         path: "/about",
         name: "About",
-        component: () => import(/* webpackChunkName: "about" */ "../pages/About.vue")
+        component: () => withAuthCheck(import(/* webpackChunkName: "about" */ "../pages/About.vue"))
     }
 ];
 
