@@ -75,10 +75,12 @@ export const refresh = async () => {
     }
 };
 
-export const logout = async () => {
+export const logout = async (): Promise<boolean> => {
     try {
         await client.get<LogoutResult>("/auth/logout");
+
+        return true;
     } catch (err: unknown) {
-        //do nothing
+        return false;
     }
 };

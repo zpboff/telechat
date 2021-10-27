@@ -5,7 +5,10 @@
 </template>
 
 <script>
+import HeaderLink from "@/components/HeaderLink";
+
 export default {
-    name: "LogoutLink"
+    name: "LogoutLink",
+    components: { HeaderLink }
 };
 </script>
