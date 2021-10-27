@@ -7,7 +7,7 @@ export type Token = HasId<number> & {
     token: string;
     createDate: Date;
     accessDate: Date;
-    lifeTime: number;
+    expirationDate: Date;
 }
 
 type CountResult = {
@@ -51,15 +51,15 @@ export async function getToken(token: string): Promise<Result<Token>> {
     }
 }
 
-export async function createToken(email: string, token: string, lifeTime: number): Promise<Result<number>> {
+export async function createToken(email: string, token: string, expirationDate: Date): Promise<Result<number>> {
     const query = `
 INSERT INTO tokens
-(email, token, lifeTime) 
+(email, token, expirationDate) 
 VALUES($1, $2, $3)
 RETURNING id`;
 
     try {
-        const { rows } = await pool.query<HasId<number>>(query, [email, token, lifeTime]);
+        const { rows } = await pool.query<HasId<number>>(query, [email, token, expirationDate]);
         const [result] = rows;
 
         return buildResult(result.id);

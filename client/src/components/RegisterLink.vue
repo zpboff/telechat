@@ -12,7 +12,11 @@ export default {
     components: { HeaderLink },
     computed: {
         link() {
-            return `/login?returnUrl=${this.$route.path}`
+            const targetRoute = "/register";
+
+            return targetRoute === this.$route.path
+                ? targetRoute
+                : `${targetRoute}?returnUrl=${this.$route.path}`;
         }
     }
 };

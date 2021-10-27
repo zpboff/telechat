@@ -5,5 +5,5 @@ CREATE TABLE public.tokens
     token text COLLATE pg_catalog."default" NOT NULL,
     createDate time with time zone default current_time,
     accessDate time with time zone default current_time,
-    lifeTime integer default 0
+    expirationDate time with time zone NOT NULL
 )

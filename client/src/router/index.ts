@@ -3,6 +3,7 @@ import Home from "../pages/Home.vue";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import News from "../pages/News";
+import Logout from "../pages/Logout.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -25,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/news",
         name: "News",
         component: News
+    },
+    {
+        path: "/logout",
+        name: "Logout",
+        component: Logout
     },
     {
         path: "/about",
