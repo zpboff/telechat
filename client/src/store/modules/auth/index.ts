@@ -1,4 +1,4 @@
-import { Module, StoreOptions } from "vuex";
+import { Module } from "vuex";
 import { AuthInfo } from "@/store/modules/auth/types";
 import authInitialState from "@/store/modules/auth/state";
 import authMutations from "@/store/modules/auth/mutations";

@@ -1,34 +1,35 @@
-import { isEmpty, isNil } from "lodash";
+import {isEmpty, isNil} from "lodash";
 
-export type Result<T> = {
-    entity: T | null;
-    errors: string[];
+export type Result<TEntity> = {
+    entity: TEntity | null;
+    errors: object;
 }
 
 export type HasId<T> = {
     id: T;
 }
 
-export function buildResult<T>(entity: T): Result<T> {
+export function buildResult<TEntity>(entity: TEntity): Result<TEntity> {
     return {
         entity,
-        errors: []
+        errors: {}
     }
 }
 
-export function buildResultFromError<T>(errors: string[]): Result<T> {
+export function buildResultFromError<TEntity>(errors: object): Result<TEntity> {
     return {
         entity: null,
         errors
     }
 }
 
-export function isSuccess<T>(result: Result<T>){
+export function isSuccess<TEntity>(result: Result<TEntity>) {
     return isEmpty(result.errors);
 }
 
-export function isCorrect<T>(result: Result<T>) {
+export function isCorrect<TEntity>(result: Result<TEntity>) {
     return isEmpty(result.errors) && !isNil(result.entity);
 }
 
+export type Dict<TValue> = { [key: string]: TValue }
 

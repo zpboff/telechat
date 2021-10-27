@@ -1,30 +1,29 @@
 <template>
-    <h2>Главная</h2>
-    <div v-if="testData">
-        {{ testData }}
-    </div>
-    <primary-button @click="test">Test</primary-button>
+    <base-loader></base-loader>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { client } from "@/client";
-import PrimaryButton from "@/components/PrimaryButton.vue"; // @ is an alias to /src
+import PrimaryButton from "@/components/PrimaryButton.vue";
+import LayoutWithSidebar from "@/components/LayoutWithSidebar.vue";
+import { mapGetters } from "vuex";
+import BaseLoader from "@/components/BaseLoader.vue";
 
 @Options({
     components: {
+        BaseLoader,
+        LayoutWithSidebar,
         PrimaryButton
     },
-    data() {
-        return {
-            testData: null
-        };
+    computed: {
+        ...mapGetters("auth", ["isAuthenticated"])
     },
-    methods: {
-        async test() {
-            const { data } = await client("/test");
-            this.testData = data;
+    async created() {
+        if (this.isAuthenticated) {
+            await this.$router.push("/news");
+            return;
         }
+        await this.$router.push("/login");
     }
 })
 export default class Home extends Vue {

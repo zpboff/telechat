@@ -1,6 +1,6 @@
 <template>
-    <header-link link="/login" class-name="button">
-       Вход
+    <header-link :link="link" class-name="button button-primary">
+        Вход
     </header-link>
 </template>
 
@@ -9,7 +9,16 @@ import HeaderLink from "@/components/HeaderLink";
 
 export default {
     name: "LoginLink",
-    components: { HeaderLink }
+    components: { HeaderLink },
+    computed: {
+        link() {
+            const targetRoute = "/login";
+
+            return targetRoute === this.$route.path
+                ? targetRoute
+                : `${targetRoute}?returnUrl=${this.$route.path}`;
+        }
+    }
 };
 </script>
 

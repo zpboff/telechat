@@ -24,7 +24,7 @@ export default {
       classObject() {
           return {
               ...this.classes,
-              primary: true
+              "button-primary": true
           }
       }
     },

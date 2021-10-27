@@ -5,8 +5,12 @@ $link-padding: 10px;
 
 .header {
     height: 50px;
-    background-color: colors.$base-color;
+    background-color: colors.$base-bg-color;
     display: flex;
+}
+
+.main-area {
+    flex-grow: 1;
 }
 
 .auth-links {
@@ -21,21 +25,22 @@ $link-padding: 10px;
 .logo {
     $text-height: 18px;
 
-    background-color: colors.$base-color;
-    display: flex;
-    height: calc(100% - 2 * #{$link-padding});
+    @include base.flexed;
+
+    background-color: colors.$base-bg-color;
     padding: $link-padding;
     font-size: $text-height;
+    font-weight: 600;
     text-decoration: none;
+    color: colors.$dark-color;
     cursor: pointer;
 
-    .nav-link_text {
-        color: colors.$inverted-text-color;
-        display: block;
-        height: $text-height;
+    * {
+        margin-right: 10px;
     }
 
-    &:hover {
-        background-color: darken(colors.$base-color, 5);
+    img {
+        border-radius: .5em;
+        border: 2px solid white;
     }
 }

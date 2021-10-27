@@ -1,16 +1,61 @@
 @import 'colors';
+@import "base";
+@import "buttons";
+@import "header";
+@import "forms";
 
 * {
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    color: inherit;
 }
 
+::before {
+    box-sizing: border-box;
+}
+
+::after {
+    box-sizing: border-box;
+}
+
+#app {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    background-color: transparent;
+}
 body {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  background-color: $body-color;
+    background-color: $body-color;
 }
 
-a, a:visited, a:hover, a:active {
-  color: inherit;
+.body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    overflow-y: hidden;
+
+    .sidebar {
+        width: 300px;
+        background-color: $text-color;
+        height: 100%;
+    }
+
+    .content {
+        flex-grow: 1;
+        height: 100%;
+    }
+}
+
+.container {
+    @include flexed;
+    height: 100%;
 }

@@ -1,0 +1,70 @@
+@import "colors";
+@import "base";
+
+.form {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 1px 0 $text-color;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    border-radius: .5em;
+    height: auto;
+
+    &--small {
+        width: 350px;
+    }
+
+    >:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
+    .form-header {
+        @include flexed();
+    }
+
+    .form-logo {
+        border-radius: .5rem;
+        box-shadow: 0 0 0 2px $main-color;
+        margin-right: 20px;
+    }
+
+    .form-control {
+        position: relative;
+        width: 100%;
+
+        .label {
+            display: block;
+            position: absolute;
+            color: $note-color;
+            transition: transform .3s ease;
+            bottom: 10px;
+        }
+
+        &--expanded {
+            .label {
+                transform-origin: top left;
+                transform: translateY(-20px) scale(0.75, 0.75);
+            }
+        }
+
+        .input {
+            display: block;
+            border: none;
+            height: 40px;
+            width: 100%;
+            font-size: 16px;
+            border-bottom: 2px solid $text-color;
+        }
+    }
+
+    .form-submitter {
+        @include flexed;
+    }
+
+    .form-note {
+        color: $note-color;
+        font-size: 12px;
+    }
+}

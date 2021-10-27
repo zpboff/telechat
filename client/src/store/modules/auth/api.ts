@@ -7,20 +7,33 @@ export type UserInfo = {
     email: string;
 }
 
-export type AuthResult = {
+export type AuthResult<TError> = {
     accessToken: string;
     user: UserInfo;
-    errors?: string[];
+    errors?: TError;
 }
+
+export type LoginErrors = {
+    email?: string[];
+    password?: string[];
+    common?: string[];
+}
+
+export type RegisterErrors = LoginErrors;
+export type RefreshErrors = unknown;
+export type LogoutResult = unknown;
+
+export type LoginResult = AuthResult<LoginErrors>;
+export type RegisterResult = AuthResult<RegisterErrors>;
+export type RefreshResult = AuthResult<RefreshErrors>;
 
 export const login = async (credentials: Credentials) => {
     try {
-        const response = await client.post<AuthResult>("/auth/login", credentials);
-        console.log(response);
+        const response = await client.post<LoginResult>("/auth/login", credentials);
 
         return response.data;
     } catch (err: unknown) {
-        const error = err as AxiosError<AuthResult>;
+        const error = err as AxiosError<LoginResult>;
 
         if (error.response?.status === 403) {
             return error.response.data;
@@ -32,11 +45,11 @@ export const login = async (credentials: Credentials) => {
 
 export const register = async (credentials: Credentials) => {
     try {
-        const response = await client.post<AuthResult>("/auth/registration", credentials);
+        const response = await client.post<RegisterResult>("/auth/registration", credentials);
 
         return response.data;
     } catch (err: unknown) {
-        const error = err as AxiosError<AuthResult>;
+        const error = err as AxiosError<RegisterResult>;
 
         if (error.response?.status === 401) {
             return error.response.data;
@@ -48,11 +61,11 @@ export const register = async (credentials: Credentials) => {
 
 export const refresh = async () => {
     try {
-        const response = await client.get<AuthResult>("/auth/refresh");
+        const response = await client.get<RefreshResult>("/auth/refresh");
 
         return response.data;
     } catch (err: unknown) {
-        const error = err as AxiosError<AuthResult>;
+        const error = err as AxiosError<RefreshResult>;
 
         if (error.response?.status === 401) {
             return error.response.data;
@@ -60,20 +73,14 @@ export const refresh = async () => {
 
         return null;
     }
-}
+};
 
-export const logout = async () => {
+export const logout = async (): Promise<boolean> => {
     try {
-        const response = await client.get<AuthResult>("/auth/logout");
+        await client.get<LogoutResult>("/auth/logout");
 
-        return response.data;
+        return true;
     } catch (err: unknown) {
-        const error = err as AxiosError<AuthResult>;
-
-        if (error.response?.status === 401) {
-            return error.response.data;
-        }
-
-        return null;
+        return false;
     }
-}
+};

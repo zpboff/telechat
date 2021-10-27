@@ -1,18 +1,33 @@
 <template>
-    <base-layout>
+    <template v-if="isLoaded">
+        <div>12321</div>
+    </template>
+    <template v-else>
         <router-view />
-    </base-layout>
+    </template>
 </template>
 
-<style>
+<style lang="scss">
+@import "./assets/scss/style.scss";
 </style>
-<script>
-import BaseLayout from "@/components/BaseLayout";
-export default {
-    components: { BaseLayout },
-    async created() {
-        await this.$store.dispatch("auth/Refresh");
-    }
 
-}
+<script>
+import { getToken } from "@/store/modules/auth/tokenStorage";
+
+export default {
+    data() {
+        return {
+            isLoaded: true
+        };
+    },
+    async created() {
+        const token = getToken();
+
+        if (token) {
+            await this.$store.dispatch("auth/Refresh");
+        }
+
+        this.isLoaded = false;
+    }
+};
 </script>

@@ -1,6 +1,7 @@
 import { isNil } from "lodash";
 import { pool } from "../db";
 import { buildResult, buildResultFromError, HasId, Result } from "../types";
+import {BaseErrors} from "../services";
 
 export type User = HasId<number> & {
     email: string;
@@ -21,8 +22,12 @@ export async function getUser(email: string): Promise<Result<User>> {
     }
     catch(ex) {
         console.log(ex);
-        
-        return buildResultFromError([ex.message]);
+
+        const errors: BaseErrors = {
+            common: ex.message
+        }
+
+        return buildResultFromError(errors);
     }
 }
 
@@ -41,7 +46,11 @@ RETURNING id`;
     }
     catch(ex) {
         console.log(ex);
-        
-        return buildResultFromError([ex.message]);
+
+        const errors: BaseErrors = {
+            common: ex.message
+        }
+
+        return buildResultFromError(errors);
     }
 }

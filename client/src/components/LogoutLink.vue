@@ -1,23 +1,14 @@
 <template>
-    <base-button @click="logout">
+    <header-link link="/logout" class-name="button button-primary">
         Выход
-    </base-button>
+    </header-link>
 </template>
 
 <script>
-import BaseButton from "@/components/BaseButton";
+import HeaderLink from "@/components/HeaderLink";
+
 export default {
     name: "LogoutLink",
-    components: { BaseButton },
-    methods: {
-        async logout() {
-            await this.$store.dispatch("auth/Logout");
-            await this.$router.push("/");
-        }
-    }
+    components: { HeaderLink }
 };
 </script>
-
-<style scoped>
-
-</style>
