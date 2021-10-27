@@ -2,9 +2,11 @@
     <base-layout>
         <div class="container">
             <form @submit.prevent="submit" class="form form--small">
-                <h2>Вход</h2>
-                <img src="../assets/logo.png" width="60" height="60" alt="Telechat" title="Telechat"
-                     class="form-logo" />
+                <div class="form-header">
+                    <img src="../assets/logo.png" width="35" height="35" alt="Telechat" title="Telechat"
+                         class="form-logo" />
+                    <h2>Вход</h2>
+                </div>
                 <div class="form-control" v-bind:class="{'form-control--expanded': emailFieldExpanded}">
                     <label class="label" for="email">Email</label>
                     <input @focus="expandEmailField()" @focusout="collapseEmailField()" class="input" id="email"
