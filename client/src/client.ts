@@ -21,7 +21,5 @@ client.interceptors.request.use((config) => {
 });
 
 client.interceptors.response.use((config) => {
-    console.log(config);
-
     return config;
 });

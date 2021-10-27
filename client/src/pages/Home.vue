@@ -1,11 +1,17 @@
+<template>
+    <base-loader></base-loader>
+</template>
+
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import PrimaryButton from "@/components/PrimaryButton.vue";
 import LayoutWithSidebar from "@/components/LayoutWithSidebar.vue";
 import { mapGetters } from "vuex";
+import BaseLoader from "@/components/BaseLoader.vue";
 
 @Options({
     components: {
+        BaseLoader,
         LayoutWithSidebar,
         PrimaryButton
     },
