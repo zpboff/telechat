@@ -1,12 +1,18 @@
 <template>
-    <base-loader></base-loader>
+    <base-layout>
+        <div class="container">
+            <base-loader></base-loader>
+        </div>
+    </base-layout>
 </template>
 
 <script>
-import BaseLoader from "@/components/BaseLoader";
+import BaseLayout from "@/components/BaseLayout.vue";
+import BaseLoader from "@/components/BaseLoader.vue";
+
 export default {
     name: "Logout",
-    components: { BaseLoader },
+    components: { BaseLoader, BaseLayout },
     async created() {
         await this.$store.dispatch("auth/Logout");
         await this.$router.push("/");

@@ -1,6 +1,6 @@
 <template>
     <template v-if="isLoaded">
-        <div>12321</div>
+        <base-loader></base-loader>
     </template>
     <template v-else>
         <router-view />
@@ -13,8 +13,10 @@
 
 <script>
 import { getToken } from "@/store/modules/auth/tokenStorage";
+import BaseLoader from "@/components/BaseLoader";
 
 export default {
+    components: { BaseLoader },
     data() {
         return {
             isLoaded: true
