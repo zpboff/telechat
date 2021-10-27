@@ -1,24 +1,22 @@
-import { error } from "console";
-
 export class ApiError extends Error {
     status: number;
-    errors: string[];
+    errors: unknown;
 
-    constructor(status: number, message: string, errors: string[] = []) {
+    constructor(status: number, message: string, errors: unknown | null) {
         super(message);
         this.status = status;
         this.errors = errors;
     }
 
-    static BadRequest(errors: string[]) {
+    static BadRequest(errors: unknown) {
         return new ApiError(400, 'Неправильный запрос', errors)
     }
 
-    static Forbidden(errors: string[] = []) {
+    static Forbidden(errors: unknown = null) {
         return new ApiError(403, 'Пользователь не авторизован', errors);
     }
 
-    static Unauthorized(errors: string[] = []) {
+    static Unauthorized(errors: unknown) {
         return new ApiError(401, 'Ошибка авторизации', errors);
     }
 }

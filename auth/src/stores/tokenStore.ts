@@ -1,6 +1,8 @@
-import { isNil } from "lodash";
-import { pool } from "../db";
-import { buildResult, buildResultFromError, HasId, Result } from "../types";
+import {isNil} from "lodash";
+import {pool} from "../db";
+import {buildResult, buildResultFromError, HasId, Result} from "../types";
+import {BaseErrors} from "../services";
+import {TokenInfo} from "../services/token/types";
 
 export type Token = HasId<number> & {
     email: string;
@@ -16,38 +18,36 @@ type CountResult = {
 
 export async function getTokenByEmail(email: string): Promise<Result<Token>> {
     try {
-        const { rows } = await pool.query("SELECT * FROM tokens WHERE email=$1", [email]);
+        const {rows} = await pool.query("SELECT * FROM tokens WHERE email=$1", [email]);
         const [tokenInfo] = rows;
 
-        if(!isNil(tokenInfo)) {
-            await pool.query("UPDATE Tokens SET accessDate=current_time where email=$1", [email]);
-        }
-    
-        return {
-            entity: tokenInfo,
-            errors: isNil(tokenInfo) ? ['Токен не найден'] : []
-        };
-    }
-    catch(ex) {
+        return await getTokenResult(tokenInfo);
+
+    } catch (ex) {
         console.log(ex);
-        
-        return buildResultFromError([ex.message]);
+
+        const errors: BaseErrors = {
+            common: ex.message
+        }
+
+        return buildResultFromError(errors);
     }
 }
 
 export async function getToken(token: string): Promise<Result<Token>> {
     try {
-        const { rows } = await pool.query<Token>("SELECT * FROM tokens WHERE token=$1", [token]);
+        const {rows} = await pool.query<Token>("SELECT * FROM tokens WHERE token=$1", [token]);
         const [tokenInfo] = rows;
 
-        return isNil(tokenInfo) 
-            ? buildResultFromError<Token>(['Токен не найден'])
-            : buildResult(tokenInfo);
-    }
-    catch(ex) {
+        return await getTokenResult(tokenInfo);
+    } catch (ex) {
         console.log(ex);
 
-        return buildResultFromError([ex.message]);
+        const errors: BaseErrors = {
+            common: ex.message
+        }
+
+        return buildResultFromError(errors);
     }
 }
 
@@ -59,15 +59,18 @@ VALUES($1, $2, $3)
 RETURNING id`;
 
     try {
-        const { rows } = await pool.query<HasId<number>>(query, [email, token, expirationDate]);
+        const {rows} = await pool.query<HasId<number>>(query, [email, token, expirationDate]);
         const [result] = rows;
 
         return buildResult(result.id);
-    }
-    catch(ex) {
+    } catch (ex) {
         console.log(ex);
-        
-        return buildResultFromError([ex.message]);
+
+        const errors: BaseErrors = {
+            common: ex.message
+        }
+
+        return buildResultFromError(errors);
     }
 }
 
@@ -81,14 +84,31 @@ WITH deleted AS (
 SELECT count(*) FROM deleted;`;
 
     try {
-        const { rows } = await pool.query<CountResult>(query, [token, email]);
+        const {rows} = await pool.query<CountResult>(query, [token, email]);
         const [result] = rows;
 
         return buildResult(result.count);
-    }
-    catch(ex) {
+    } catch (ex) {
         console.log(ex);
 
-        return buildResultFromError([ex.message]);
+        const errors: BaseErrors = {
+            common: ex.message
+        }
+
+        return buildResultFromError(errors);
     }
+}
+
+async function getTokenResult(tokenInfo: Token): Promise<Result<Token>> {
+    if (isNil(tokenInfo)) {
+        const errors: BaseErrors = {
+            common: 'Токен не найден'
+        }
+
+        return buildResultFromError(errors);
+    }
+
+    await pool.query("UPDATE Tokens SET accessDate=current_time where id=$1", [tokenInfo.id]);
+
+    return buildResult(tokenInfo);
 }

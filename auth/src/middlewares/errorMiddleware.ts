@@ -6,8 +6,8 @@ export async function errorMiddleware(err: Error, req: Request, res: Response, _
     logger.info(err, req, res);
 
     if(err instanceof ApiError) {
-        return res.status(err.status).json({ errors: err.errors, message: err.message });
+        return res.status(err.status).json({ errors: err.errors });
     }
 
-    return res.status(500).json({ message: 'Серверная ошибка' });
+    return res.status(500).json({ errors: { common: 'Ошибка сервера'} });
 }

@@ -2,10 +2,10 @@ import { ActionTree } from "vuex";
 import { AuthInfo, Credentials } from "@/store/modules/auth/types";
 import { AuthResult, login, logout, refresh, register } from "@/store/modules/auth/api";
 import isEmpty from "lodash.isempty";
-import { getToken, removeToken, saveToken } from "@/store/modules/auth/tokenStorage";
+import { saveToken } from "@/store/modules/auth/tokenStorage";
 
-type AuthPayload = {
-    authInfo: AuthResult;
+type AuthPayload<TErrors> = {
+    authInfo: AuthResult<TErrors>;
     defaultErrorMessage: string
 }
 
@@ -24,7 +24,7 @@ const authActions: ActionTree<AuthInfo, AuthInfo> = {
 
         return await dispatch("SetAuthInfo", { authInfo });
     },
-    async SetAuthInfo({ commit }, payload: AuthPayload) {
+    async SetAuthInfo({ commit }, payload: AuthPayload<unknown>) {
         const { authInfo, defaultErrorMessage } = payload;
 
         if (!authInfo || !isEmpty(authInfo.errors)) {
