@@ -27,11 +27,15 @@ async function checkAccessTokenCreated(payload: UserViewModel): Promise<Result<s
 async function checkRefreshTokenCreated(email: string) {
     const expirationDate = new Date(new Date().getTime() + configs.refreshTokenLifeTime);
 
-    const result = await getTokenByEmail(email);
+    const getTokenResult = await getTokenByEmail(email);
 
-    let refreshToken = result?.entity?.token;
+    if(!isSuccess(getTokenResult)) {
+        return buildResultFromError(getTokenResult.errors);
+    }
 
-    if (isEmpty(result.entity)) {
+    let refreshToken = getTokenResult?.entity?.token;
+
+    if (isEmpty(getTokenResult.entity)) {
         refreshToken = v4();
         const createResult = await createToken(email, refreshToken, expirationDate);
 

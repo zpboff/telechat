@@ -39,6 +39,14 @@ export async function getToken(token: string): Promise<Result<Token>> {
         const {rows} = await pool.query<Token>("SELECT * FROM tokens WHERE token=$1", [token]);
         const [tokenInfo] = rows;
 
+        if(isNil(tokenInfo)) {
+            const errors: BaseErrors = {
+                common: "Токен не найден"
+            }
+
+            return buildResultFromError(errors);
+        }
+
         return await getTokenResult(tokenInfo);
     } catch (ex) {
         console.log(ex);
@@ -100,15 +108,9 @@ SELECT count(*) FROM deleted;`;
 }
 
 async function getTokenResult(tokenInfo: Token): Promise<Result<Token>> {
-    if (isNil(tokenInfo)) {
-        const errors: BaseErrors = {
-            common: 'Токен не найден'
-        }
-
-        return buildResultFromError(errors);
+    if(!isNil(tokenInfo)) {
+        await pool.query("UPDATE Tokens SET accessDate=current_timestamp where id=$1", [tokenInfo.id]);
     }
-
-    await pool.query("UPDATE Tokens SET accessDate=current_time where id=$1", [tokenInfo.id]);
 
     return buildResult(tokenInfo);
 }
