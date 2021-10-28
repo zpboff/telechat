@@ -11,10 +11,10 @@ export default {
     name: "ChevronDown",
     props: {
         width: {
-            type: Number
+            type: String
         },
         height: {
-            type: Number
+            type: String
         }
     }
 };
