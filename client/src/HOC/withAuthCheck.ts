@@ -1,5 +1,4 @@
 import { Component, ComponentOptions } from "vue";
-import { mapGetters } from "vuex";
 import { h } from "@vue/runtime-core";
 import { authInfo } from "@/mixins/authInfo";
 
