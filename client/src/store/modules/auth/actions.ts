@@ -1,5 +1,5 @@
 import { ActionTree } from "vuex";
-import { AuthInfo, Credentials } from "@/store/modules/auth/types";
+import { AuthInfo, Credentials, UserCreateModel } from "@/store/modules/auth/types";
 import { AuthResult, login, logout, refresh, register } from "@/store/modules/auth/api";
 import isEmpty from "lodash.isempty";
 import { saveToken } from "@/store/modules/auth/tokenStorage";
@@ -14,8 +14,8 @@ const authActions: ActionTree<AuthInfo, AuthInfo> = {
         const authInfo = await login(credentials);
         return await dispatch("SetAuthInfo", { authInfo, defaultErrorMessage: "Ошибка при входе в систему" });
     },
-    Register: async function({ dispatch }, credentials: Credentials): Promise<string[]> {
-        const authInfo = await register(credentials);
+    Register: async function({ dispatch }, user: UserCreateModel): Promise<string[]> {
+        const authInfo = await register(user);
 
         return await dispatch("SetAuthInfo", { authInfo, defaultErrorMessage: "Ошибка при регистрации в системе" });
     },

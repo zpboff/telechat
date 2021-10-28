@@ -8,7 +8,7 @@ import {isCorrect, isSuccess, Result} from '../types';
 const authRouter = Router();
 
 authRouter.post('/registration', async (req, res, next) => {
-    const result = await registration(req.body.email, req.body.password);
+    const result = await registration(req.body);
 
     if (!isCorrect(result)) {
         return next(ApiError.Unauthorized(result.errors));
