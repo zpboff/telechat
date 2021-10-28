@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="link" :class="className">
+    <router-link :to="link">
         <slot></slot>
     </router-link>
 </template>
@@ -13,9 +13,6 @@ export default {
             validator: function (value) {
                 return value.startsWith('/')
             }
-        },
-        className: {
-            type: String
         }
     }
 };

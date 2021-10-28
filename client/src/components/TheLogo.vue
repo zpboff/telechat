@@ -1,5 +1,5 @@
 <template>
-    <header-link link="/" class-name="logo">
+    <header-link link="/" class="logo">
         <img src="../assets/logo.png" alt="Telechat" title="Telechat" width="32" height="32" />
         TELECHAT
     </header-link>

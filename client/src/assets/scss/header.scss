@@ -2,6 +2,7 @@
 @use 'base';
 
 $link-padding: 10px;
+$link-hover-bg: darken(colors.$base-bg-color, 5);
 
 .header {
     height: 50px;
@@ -16,8 +17,8 @@ $link-padding: 10px;
 .auth-links {
     @include base.flexed;
 
-    *:not(:last-child) {
-      margin-right: 10px;
+    > * {
+        margin-right: 10px;
     }
 }
 
@@ -46,15 +47,20 @@ $link-padding: 10px;
 
 .user-toolbar {
     @include base.flexed;
-    padding: 5px 10px;
-    cursor: pointer;
+    position: relative;
 
-    &>:not(:last-child) {
-        margin-right: 10px;
-    }
+    .user-info {
+        @include base.flexed;
+        cursor: pointer;
+        padding: 5px 10px;
 
-    &:hover {
-        background-color: darken(colors.$base-bg-color, 5);
+        & > :not(:last-child) {
+            margin-right: 10px;
+        }
+
+        &:hover {
+            background-color: $link-hover-bg;
+        }
     }
 
     .avatar-icon {
@@ -75,6 +81,30 @@ $link-padding: 10px;
 
         &--active {
             transform: rotateX(180deg);
+        }
+    }
+
+    .user-actions {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        box-shadow: 0 0 0 1px $link-hover-bg;
+        width: 200px;
+        border-radius: 2px;
+        background-color: colors.$base-bg-color;
+        font-size: 14px;
+
+        &_link {
+            display: flex;
+            padding: 10px;
+            flex-grow: 1;
+
+            &:hover {
+                background-color: colors.$base-bg-color;
+                box-shadow: 0 4px 2px -2px colors.$main-color;
+            }
         }
     }
 }

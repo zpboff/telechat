@@ -2,14 +2,10 @@
     <div class="header">
         <the-logo></the-logo>
         <div class="main-area"></div>
-        <div class="auth-links">
-            <template v-if="isAuthenticated">
-                <user-toolbar></user-toolbar>
-            </template>
-            <template v-else>
-                <login-link></login-link>
-                <register-link></register-link>
-            </template>
+        <user-toolbar v-if="isAuthenticated"></user-toolbar>
+        <div class="auth-links" v-else>
+            <login-link></login-link>
+            <register-link></register-link>
         </div>
     </div>
 </template>
