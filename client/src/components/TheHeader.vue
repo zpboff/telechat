@@ -4,7 +4,7 @@
         <div class="main-area"></div>
         <div class="auth-links">
             <template v-if="isAuthenticated">
-                <logout-link></logout-link>
+                <user-toolbar></user-toolbar>
             </template>
             <template v-else>
                 <login-link></login-link>
@@ -17,15 +17,14 @@
 <script>
 import LoginLink from "@/components/LoginLink";
 import RegisterLink from "@/components/RegisterLink";
-import LogoutLink from "@/components/LogoutLink";
 import TheLogo from "@/components/TheLogo";
 import { mapGetters } from "vuex";
+import UserToolbar from "@/components/UserToolbar";
+import { authInfo } from "@/mixins/authInfo";
 
 export default {
     name: "TheHeader",
-    components: { TheLogo, LogoutLink, LoginLink, RegisterLink },
-    computed: {
-        ...mapGetters("auth", ["isAuthenticated"])
-    }
+    components: { UserToolbar, TheLogo, LoginLink, RegisterLink },
+    mixins: [authInfo]
 };
 </script>

@@ -1,15 +1,14 @@
 import { Component, ComponentOptions } from "vue";
 import { mapGetters } from "vuex";
 import { h } from "@vue/runtime-core";
+import { authInfo } from "@/mixins/authInfo";
 
 export const withAuthCheck = (component: Component): ComponentOptions => {
     return {
         render() {
             return h(component);
         },
-        computed: {
-            ...mapGetters("auth", ["isAuthenticated"])
-        },
+        mixins: [authInfo],
         async created() {
             await this.redirect();
         },

@@ -1,6 +1,7 @@
 import { Component, ComponentOptions } from "vue";
 import { mapGetters } from "vuex";
 import { h } from "@vue/runtime-core";
+import { authInfo } from "@/mixins/authInfo";
 
 const routesWithRedirect: string[] = [];
 
@@ -9,9 +10,7 @@ export const withRedirectWhenAuth = (component: Component): ComponentOptions => 
         render() {
             return h(component, this.$props);
         },
-        computed: {
-            ...mapGetters("auth", ["isAuthenticated"])
-        },
+        mixins: [authInfo],
         async created() {
             routesWithRedirect.push(this.$route.path);
             await this.redirect();

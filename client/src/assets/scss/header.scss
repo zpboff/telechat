@@ -15,7 +15,6 @@ $link-padding: 10px;
 
 .auth-links {
     @include base.flexed;
-    padding: 0 1rem;
 
     *:not(:last-child) {
       margin-right: 10px;
@@ -42,5 +41,40 @@ $link-padding: 10px;
     img {
         border-radius: .5em;
         border: 2px solid white;
+    }
+}
+
+.user-toolbar {
+    @include base.flexed;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &>:not(:last-child) {
+        margin-right: 10px;
+    }
+
+    &:hover {
+        background-color: darken(colors.$base-bg-color, 5);
+    }
+
+    .avatar-icon {
+        border-radius: 50%;
+        border: 2px solid #ed254e;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .actions-handler {
+        @include base.flexed;
+
+        padding: 0 5px;
+        transition: transform 0.3s ease;
+
+        &--active {
+            transform: rotateX(180deg);
+        }
     }
 }
