@@ -1,7 +1,9 @@
-import { AuthInfo } from "@/store/modules/auth/types";
+import { UserViewModel } from "@/store/modules/auth/types";
 
-const authInitialState = (): AuthInfo => ({
-    email: null
+const authInitialState = (): UserViewModel => ({
+    login: null,
+    lastName: null,
+    firstName: null
 });
 
 export default authInitialState;

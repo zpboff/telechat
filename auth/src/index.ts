@@ -4,11 +4,8 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import cors from 'cors';
 import {configs} from './configs';
-import {authRouter} from './routes'
-import {usersRouter} from "./routes/users";
-import {errorMiddleware} from "./middlewares";
-import {loggerMiddleware} from "./middlewares";
-import {testRouter} from "./routes/test";
+import {authRouter, usersRouter, testRouter} from './routes'
+import {errorMiddleware, loggerMiddleware} from "./middlewares";
 
 const app = express();
 app.use(cors((req, callback) => {

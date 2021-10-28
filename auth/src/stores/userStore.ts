@@ -1,61 +1,56 @@
-import { isNil } from "lodash";
-import { pool } from "../db";
-import { buildResult, buildResultFromError, HasId, Result } from "../types";
+import {isNil} from "lodash";
+import {pool} from "../db";
+import {buildResult, buildResultFromError, HasId, Result} from "../types";
 import {BaseErrors, UserCreateModel} from "../services";
+import {withCatch} from "../exceptions/withCatch";
 
-export type User = HasId<number> & {
+export type UserEntity = HasId<number> & {
     email: string;
     password: string;
     login: string;
-    firstName: string;
-    lastName: string;
-    createDate: Date;
-    updateDate: Date;
+    firstname: string;
+    lastname: string;
+    createdate: Date;
+    updatedate: Date;
 }
 
-export async function getUser(email: string): Promise<Result<User>> {
-    try {
-        const { rows } = await pool.query("SELECT * FROM USERS WHERE Email=$1", [email]);
+export function getUserById(userId: number): Promise<Result<UserEntity>> {
+    return getUser("SELECT * FROM USERS WHERE id=$1", [userId]);
+}
+
+export function getUserByEmail(email: string): Promise<Result<UserEntity>> {
+    return getUser("SELECT * FROM USERS WHERE email=$1", [email]);
+}
+
+async function getUser(query: string, params: unknown[]): Promise<Result<UserEntity>> {
+    return await withCatch(async () => {
+        const {rows} = await pool.query(query, params);
         const [user] = rows;
 
-        return {
-            entity: user,
-            errors: isNil(user) ? ['Пользователь не найден'] : []
-        };
-    }
-    catch(ex) {
-        console.log(ex);
-
-        const errors: BaseErrors = {
-            common: ex.message
+        if (isNil(user)) {
+            const errors: BaseErrors = {
+                common: 'Пользователь не найден'
+            }
+            return buildResultFromError(errors);
         }
 
-        return buildResultFromError(errors);
-    }
+        return buildResult(user);
+    });
 }
 
-export async function createUser(user: UserCreateModel): Promise<Result<number>> {
-    const { email, password, firstName, lastName } = user;
+export async function createUser(user: UserCreateModel): Promise<Result<UserEntity>> {
+    const {email, password, firstName, lastName} = user;
 
     const query = `
 INSERT INTO users
 (email, password, firstName, lastName) 
 VALUES($1, $2, $3, $4)
-RETURNING id`;
+RETURNING *`;
 
-    try {
-        const { rows } = await pool.query<HasId<number>, string[]>(query, [email, password, firstName, lastName]);
+    return await withCatch(async () => {
+        const {rows} = await pool.query<UserEntity, string[]>(query, [email, password, firstName, lastName]);
         const [result] = rows;
 
-        return buildResult(result.id);
-    }
-    catch(ex) {
-        console.log(ex);
-
-        const errors: BaseErrors = {
-            common: ex.message
-        }
-
-        return buildResultFromError(errors);
-    }
+        return buildResult(result);
+    });
 }

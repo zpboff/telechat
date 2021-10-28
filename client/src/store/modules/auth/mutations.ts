@@ -1,16 +1,18 @@
 import { MutationTree } from "vuex";
-import { AuthInfo } from "@/store/modules/auth/types";
+import { UserViewModel } from "@/store/modules/auth/types";
 import authInitialState from "@/store/modules/auth/state";
 import { removeToken } from "@/store/modules/auth/tokenStorage";
 
-const authMutations: MutationTree<AuthInfo> = {
-    setAuthInfo(state, authInfo: AuthInfo) {
-        state.email = authInfo.email;
+const authMutations: MutationTree<UserViewModel> = {
+    setAuthInfo(state, authInfo: UserViewModel) {
+        state.login = authInfo.login;
     },
     logout(state) {
         removeToken();
         const defaultState = authInitialState();
-        state.email = defaultState.email;
+        state.login = defaultState.login;
+        state.firstName = defaultState.firstName;
+        state.lastName = defaultState.lastName;
     }
 };
 

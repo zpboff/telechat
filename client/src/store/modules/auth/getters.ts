@@ -1,9 +1,9 @@
 import { GetterTree } from "vuex";
-import { AuthInfo } from "@/store/modules/auth/types";
+import { UserViewModel } from "@/store/modules/auth/types";
 import isEmpty from "lodash.isempty";
 
-const authGetters: GetterTree<AuthInfo, AuthInfo> = {
-    isAuthenticated: state => !isEmpty(state.email)
+const authGetters: GetterTree<UserViewModel, UserViewModel> = {
+    isAuthenticated: state => !isEmpty(state.login)
 };
 
 export default authGetters;

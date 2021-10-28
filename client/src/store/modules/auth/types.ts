@@ -1,6 +1,8 @@
-export type AuthInfo = {
-    email: string | null;
-}
+export type UserViewModel = {
+    login: string | null;
+    firstName: string | null;
+    lastName: string | null;
+};
 
 export type Credentials = {
     email: string;
@@ -8,6 +10,6 @@ export type Credentials = {
 };
 
 export type UserCreateModel = Credentials & {
-    email: string;
-    password: string;
+    firstName: string;
+    lastName: string;
 };

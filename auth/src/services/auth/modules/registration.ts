@@ -1,6 +1,6 @@
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
 import {AuthActionResult, BaseErrors} from "../types";
-import {findUser, UserCreateModel, UserViewModel} from "../../user";
+import {findUserByEmail, mapUser, User, UserCreateModel} from "../../user";
 import {isNil} from "lodash";
 import {hash} from "bcrypt";
 import {configs} from "../../../configs";
@@ -73,7 +73,7 @@ async function checkParams(user: UserCreateModel): Promise<Result<null>> {
 }
 
 async function checkExistingUser(email: string): Promise<Result<null>> {
-    const user = await findUser(email);
+    const user = await findUserByEmail(email);
 
     if (!isNil(user)) {
         const errors: BaseErrors = {
@@ -86,29 +86,26 @@ async function checkExistingUser(email: string): Promise<Result<null>> {
     return buildResult(null);
 }
 
-async function checkUserCreated(user: UserCreateModel): Promise<Result<null>> {
+async function checkUserCreated(user: UserCreateModel): Promise<Result<User>> {
     user.password = await hash(user.password, configs.saltRounds);
 
-    const result = await createUser(user);
-
-    return isSuccess(result)
-        ? buildResult(null)
-        : buildResultFromError(result.errors)
+    return await createUser(user);
 }
 
-async function checkTokensCreated(email: string): Promise<Result<AuthActionResult>> {
-    const user: UserViewModel = {
-        email
-    }
-
+async function checkTokensCreated(user: User): Promise<Result<AuthActionResult>> {
     const result = await generateTokens(user);
 
-    return isSuccess(result)
-        ? buildResult({
-            accessToken: result.entity?.accessToken,
-            refreshToken: result.entity?.refreshToken,
-            user
-        }) : buildResultFromError(result.errors);
+    if (!isSuccess(result)) {
+        return buildResultFromError(result.errors);
+    }
+
+    const authResult: AuthActionResult = {
+        accessToken: result.entity?.accessToken,
+        refreshToken: result.entity?.refreshToken,
+        user
+    }
+
+    return buildResult(authResult);
 }
 
 export async function registration(user: UserCreateModel): Promise<Result<AuthActionResult>> {
@@ -130,5 +127,5 @@ export async function registration(user: UserCreateModel): Promise<Result<AuthAc
         return buildResultFromError(userCreatedCheckResult.errors);
     }
 
-    return await checkTokensCreated(user.email);
+    return await checkTokensCreated(userCreatedCheckResult.entity as User);
 }
