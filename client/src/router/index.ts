@@ -4,6 +4,8 @@ import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
 import News from "../pages/News.vue";
 import Logout from "../pages/Logout.vue";
+import User from "../pages/User.vue";
+import NotFound from "../pages/NotFound.vue";
 import { withRedirectWhenAuth } from "@/components/HOC/withRedirectWhenAuth";
 import { withAuthCheck } from "@/components/HOC/withAuthCheck";
 
@@ -35,10 +37,20 @@ const routes: Array<RouteRecordRaw> = [
         component: withAuthCheck(Logout)
     },
     {
+        path: "/user/:login",
+        name: "User",
+        component: withAuthCheck(User)
+    },
+    {
         path: "/about",
         name: "About",
         component: () => withAuthCheck(import(/* webpackChunkName: "about" */ "../pages/About.vue"))
-    }
+    },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "NotFound",
+        component: NotFound
+    },
 ];
 
 const router = createRouter({

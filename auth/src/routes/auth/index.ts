@@ -1,14 +1,16 @@
 import {NextFunction, Response, Router} from 'express';
-import {configs} from '../configs';
-import {ApiError} from '../exceptions/ApiError';
-import {authorizeMiddleware} from '../middlewares/authorizeMiddleware';
-import {AuthActionResult, login, logout, refresh, registration} from '../services';
-import {isCorrect, isSuccess, Result} from '../types';
+import {configs} from '../../configs';
+import {ApiError} from '../../exceptions/ApiError';
+import {authorizeMiddleware} from '../../middlewares';
+import {AuthActionResult, login, logout, refresh, registration} from '../../services';
+import {isCorrect, isSuccess, Result} from '../../types';
+import {AuthenticateResponse} from "./types";
+import {mapUserViewModel} from "./mapUserViewModel";
 
 const authRouter = Router();
 
 authRouter.post('/registration', async (req, res, next) => {
-    const result = await registration(req.body.email, req.body.password);
+    const result = await registration(req.body);
 
     if (!isCorrect(result)) {
         return next(ApiError.Unauthorized(result.errors));
@@ -63,7 +65,12 @@ function authenticate(result: Result<AuthActionResult>, res: Response, next: Nex
 
     setRefreshTokenCookie(res, refreshToken, new Date(new Date().getTime() + configs.refreshTokenLifeTime));
 
-    return res.json({accessToken, user});
+    const authResult: AuthenticateResponse = {
+        user: mapUserViewModel(user),
+        accessToken
+    }
+
+    return res.json(authResult);
 }
 
 function setRefreshTokenCookie(res: Response, refreshToken: string | undefined, expires: Date) {

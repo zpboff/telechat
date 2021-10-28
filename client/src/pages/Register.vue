@@ -18,6 +18,18 @@
                            id="password"
                            type="password" v-model="password" name="password" />
                 </div>
+                <div class="form-control" v-bind:class="{'form-control--expanded': firstNameFieldExpanded}">
+                    <label class="label" for="firstName">Имя</label>
+                    <input @focus="expandFirstNameField()" @focusout="collapseFirstNameField()" class="input"
+                           id="firstName"
+                           type="text" v-model="firstName" name="firstName" />
+                </div>
+                <div class="form-control" v-bind:class="{'form-control--expanded': lastNameFieldExpanded}">
+                    <label class="label" for="lastName">Фамилия</label>
+                    <input @focus="expandLastNameField()" @focusout="collapseLastNameField()" class="input"
+                           id="lastName"
+                           type="text" v-model="lastName" name="lastName" />
+                </div>
                 <div class="form-submitter">
                     <primary-button>Зарегистрироваться</primary-button>
                 </div>
@@ -52,6 +64,10 @@ export default {
             emailFieldExpanded: false,
             password: "",
             passwordFieldExpanded: false,
+            firstName: "",
+            firstNameFieldExpanded: false,
+            lastName: "",
+            lastNameFieldExpanded: false,
             errors: []
         };
     },
@@ -77,9 +93,25 @@ export default {
                 this.passwordFieldExpanded = false;
             }
         },
+        expandFirstNameField() {
+            this.firstNameFieldExpanded = true;
+        },
+        collapseFirstNameField() {
+            if (!this.firstName) {
+                this.firstNameFieldExpanded = false;
+            }
+        },
+        expandLastNameField() {
+            this.lastNameFieldExpanded = true;
+        },
+        collapseLastNameField() {
+            if (!this.lastName) {
+                this.lastNameFieldExpanded = false;
+            }
+        },
         async submit() {
-            const { email, password } = this;
-            const errors = await this.$store.dispatch("auth/Register", { password, email });
+            const { email, password, firstName, lastName } = this;
+            const errors = await this.$store.dispatch("auth/Register", { password, email, firstName, lastName });
             this.errors = errors;
         }
     }

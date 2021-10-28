@@ -2,18 +2,18 @@ import {sign} from "jsonwebtoken";
 import {isEmpty} from "lodash";
 import {v4} from "uuid";
 import {configs} from "../../configs";
-import {createToken, deleteToken, getTokenByEmail} from "../../stores/tokenStore";
+import {createToken, deleteToken, getTokenByUser} from "../../stores/tokenStore";
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../types";
-import {UserViewModel} from "../user";
+import {User} from "../user";
 import {TokenInfo} from "./types";
-import {AuthActionResult, BaseErrors} from "../auth";
+import {BaseErrors} from "../auth";
 
-async function checkAccessTokenCreated(payload: UserViewModel): Promise<Result<string>> {
-    const accessToken = sign(payload, configs.secret, {
+async function checkAccessTokenCreated(user: User): Promise<Result<string>> {
+    const accessToken = sign(user, configs.secret, {
         expiresIn: configs.refreshTokenLifeTime
     });
 
-    if(isEmpty(accessToken)) {
+    if (isEmpty(accessToken)) {
         const errors: BaseErrors = {
             common: 'Ошибка при создании access-токена'
         }
@@ -24,12 +24,12 @@ async function checkAccessTokenCreated(payload: UserViewModel): Promise<Result<s
     return buildResult(accessToken);
 }
 
-async function checkRefreshTokenCreated(email: string) {
+async function checkRefreshTokenCreated(userId: number) {
     const expirationDate = new Date(new Date().getTime() + configs.refreshTokenLifeTime);
 
-    const getTokenResult = await getTokenByEmail(email);
+    const getTokenResult = await getTokenByUser(userId);
 
-    if(!isSuccess(getTokenResult)) {
+    if (!isSuccess(getTokenResult)) {
         return buildResultFromError(getTokenResult.errors);
     }
 
@@ -37,14 +37,14 @@ async function checkRefreshTokenCreated(email: string) {
 
     if (isEmpty(getTokenResult.entity)) {
         refreshToken = v4();
-        const createResult = await createToken(email, refreshToken, expirationDate);
+        const createResult = await createToken(userId, refreshToken, expirationDate);
 
         if (!isSuccess(createResult)) {
             refreshToken = undefined;
         }
     }
 
-    if(isEmpty(refreshToken)) {
+    if (isEmpty(refreshToken)) {
         const errors: BaseErrors = {
             common: 'Ошибка при создании refresh-токена'
         }
@@ -55,16 +55,16 @@ async function checkRefreshTokenCreated(email: string) {
     return buildResult(refreshToken);
 }
 
-export async function generateTokens(payload: UserViewModel): Promise<Result<TokenInfo>> {
-    const checkAccessTokenCreatedResult = await checkAccessTokenCreated(payload);
+export async function generateTokens(user: User): Promise<Result<TokenInfo>> {
+    const checkAccessTokenCreatedResult = await checkAccessTokenCreated(user);
 
-    if(!isSuccess(checkAccessTokenCreatedResult)) {
+    if (!isSuccess(checkAccessTokenCreatedResult)) {
         return buildResultFromError(checkAccessTokenCreatedResult.errors);
     }
 
-    const checkRefreshTokenCreatedResult = await checkRefreshTokenCreated(payload.email);
+    const checkRefreshTokenCreatedResult = await checkRefreshTokenCreated(user.id);
 
-    if(!isSuccess(checkRefreshTokenCreatedResult)) {
+    if (!isSuccess(checkRefreshTokenCreatedResult)) {
         return buildResultFromError(checkRefreshTokenCreatedResult.errors);
     }
 

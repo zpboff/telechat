@@ -1,15 +1,16 @@
-import {findUserByToken, UserViewModel} from "../../user";
+import {findUserByToken, User} from "../../user";
 import {isNil} from "lodash";
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
-import {removeToken} from "../../token/service";
+import {removeToken} from "../../token";
 import {BaseErrors} from "../types";
 import validator from "validator";
+import {withCatch} from "../../../exceptions/withCatch";
 
-function checkToken(token: string): Result<null> {
-    try {
+async function checkToken(token: string): Promise<Result<null>> {
+    return await withCatch(async () => {
         const isValid = !validator.isEmpty(token);
 
-        if(!isValid) {
+        if (!isValid) {
             const errors: BaseErrors = {
                 common: 'Отсутствует токен'
             }
@@ -18,54 +19,43 @@ function checkToken(token: string): Result<null> {
         }
 
         return buildResult(null);
-    }
-    catch (err) {
-        console.log(err);
-
-        const errors: BaseErrors = {
-            common: err.message
-        }
-
-        return buildResultFromError(errors);
-    }
+    });
 }
 
-async function checkUser(token: string): Promise<Result<UserViewModel>> {
+async function checkUser(token: string): Promise<Result<User>> {
     const user = await findUserByToken(token);
 
-    if(isNil(user)) {
+    if (isNil(user)) {
         const errors: BaseErrors = {
             common: 'Вы не авторизованы'
         }
 
-       return buildResultFromError(errors);
+        return buildResultFromError(errors);
     }
 
     return buildResult(user);
 }
 
 async function checkTokenDeleted(email: string, token: string) {
-    const result = await removeToken(email, token);
-
-    return result;
+    return await removeToken(email, token);
 }
 
 export async function logout(token: string): Promise<Result<boolean>> {
-    const checkTokenResult = checkToken(token);
+    const checkTokenResult = await checkToken(token);
 
-    if(!isSuccess(checkTokenResult)) {
+    if (!isSuccess(checkTokenResult)) {
         return buildResultFromError(checkTokenResult.errors);
     }
 
     const checkUserResult = await checkUser(token);
 
-    if(!isSuccess(checkUserResult)) {
+    if (!isSuccess(checkUserResult)) {
         return buildResultFromError(checkUserResult.errors);
     }
 
     const tokenDeletedResult = await checkTokenDeleted(checkUserResult.entity?.email as string, token);
 
-    if(!isSuccess(tokenDeletedResult)) {
+    if (!isSuccess(tokenDeletedResult)) {
         return buildResultFromError(tokenDeletedResult.errors);
     }
 

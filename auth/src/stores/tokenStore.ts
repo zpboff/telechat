@@ -2,44 +2,35 @@ import {isNil} from "lodash";
 import {pool} from "../db";
 import {buildResult, buildResultFromError, HasId, Result} from "../types";
 import {BaseErrors} from "../services";
-import {TokenInfo} from "../services/token/types";
+import {withCatch} from "../exceptions/withCatch";
 
-export type Token = HasId<number> & {
-    email: string;
+export type TokenEntity = HasId<number> & {
+    userid: number;
     token: string;
-    createDate: Date;
-    accessDate: Date;
-    expirationDate: Date;
+    createdate: Date;
+    accessdate: Date;
+    expirationdate: Date;
 }
 
 type CountResult = {
     count: number;
 }
 
-export async function getTokenByEmail(email: string): Promise<Result<Token>> {
-    try {
-        const {rows} = await pool.query("SELECT * FROM tokens WHERE email=$1", [email]);
+export async function getTokenByUser(userId: number): Promise<Result<TokenEntity>> {
+    return withCatch<TokenEntity>(async () => {
+        const {rows} = await pool.query("SELECT * FROM tokens WHERE userId=$1", [userId]);
         const [tokenInfo] = rows;
 
         return await getTokenResult(tokenInfo);
-
-    } catch (ex) {
-        console.log(ex);
-
-        const errors: BaseErrors = {
-            common: ex.message
-        }
-
-        return buildResultFromError(errors);
-    }
+    });
 }
 
-export async function getToken(token: string): Promise<Result<Token>> {
-    try {
-        const {rows} = await pool.query<Token>("SELECT * FROM tokens WHERE token=$1", [token]);
+export async function getToken(token: string): Promise<Result<TokenEntity>> {
+    return withCatch<TokenEntity>(async () => {
+        const {rows} = await pool.query<TokenEntity>("SELECT * FROM tokens WHERE token=$1", [token]);
         const [tokenInfo] = rows;
 
-        if(isNil(tokenInfo)) {
+        if (isNil(tokenInfo)) {
             const errors: BaseErrors = {
                 common: "Токен не найден"
             }
@@ -48,67 +39,43 @@ export async function getToken(token: string): Promise<Result<Token>> {
         }
 
         return await getTokenResult(tokenInfo);
-    } catch (ex) {
-        console.log(ex);
-
-        const errors: BaseErrors = {
-            common: ex.message
-        }
-
-        return buildResultFromError(errors);
-    }
+    });
 }
 
-export async function createToken(email: string, token: string, expirationDate: Date): Promise<Result<number>> {
+export async function createToken(userId: number, token: string, expirationDate: Date): Promise<Result<number>> {
     const query = `
 INSERT INTO tokens
-(email, token, expirationDate) 
+(userId, token, expirationDate) 
 VALUES($1, $2, $3)
 RETURNING id`;
 
-    try {
-        const {rows} = await pool.query<HasId<number>>(query, [email, token, expirationDate]);
+    return withCatch<number>(async () => {
+        const {rows} = await pool.query<HasId<number>>(query, [userId, token, expirationDate]);
         const [result] = rows;
 
         return buildResult(result.id);
-    } catch (ex) {
-        console.log(ex);
-
-        const errors: BaseErrors = {
-            common: ex.message
-        }
-
-        return buildResultFromError(errors);
-    }
+    });
 }
 
-export async function deleteToken(email: string, token: string): Promise<Result<number>> {
+export async function deleteToken(userId: string, token: string): Promise<Result<number>> {
     const query = `
 WITH deleted AS (
     DELETE FROM tokens
-    WHERE token = $1 AND email = $2
+    WHERE token = $1 AND userId = $2
     RETURNING id
 ) 
 SELECT count(*) FROM deleted;`;
 
-    try {
-        const {rows} = await pool.query<CountResult>(query, [token, email]);
+    return withCatch<number>(async () => {
+        const {rows} = await pool.query<CountResult>(query, [token, userId]);
         const [result] = rows;
 
         return buildResult(result.count);
-    } catch (ex) {
-        console.log(ex);
-
-        const errors: BaseErrors = {
-            common: ex.message
-        }
-
-        return buildResultFromError(errors);
-    }
+    });
 }
 
-async function getTokenResult(tokenInfo: Token): Promise<Result<Token>> {
-    if(!isNil(tokenInfo)) {
+async function getTokenResult(tokenInfo: TokenEntity): Promise<Result<TokenEntity>> {
+    if (!isNil(tokenInfo)) {
         await pool.query("UPDATE Tokens SET accessDate=current_timestamp where id=$1", [tokenInfo.id]);
     }
 

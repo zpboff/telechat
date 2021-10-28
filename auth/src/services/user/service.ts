@@ -1,39 +1,54 @@
-import { isNil } from "lodash";
-import { getUser as get, createUser as create, User } from "../../stores";
-import { getToken, getTokenByEmail } from "../../stores/tokenStore";
-import { isCorrect, isSuccess } from "../../types";
-import { mapUser } from "./mapper";
-import { UserViewModel } from "./types";
+import {getUserById, getUserByEmail, UserEntity, getUserByLogin} from "../../stores";
+import {getToken} from "../../stores/tokenStore";
+import {isCorrect, isSuccess} from "../../types";
+import {mapUser} from "./mapper";
 
+export type User = {
+    id: number;
+    email: string;
+    login: string;
+    firstName: string;
+    lastName: string;
+    createDate: Date;
+    updateDate: Date;
+};
 
-export async function findUser(email: string): Promise<UserViewModel | null> {
-    const result = await get(email);
+export async function findUser(userId: number): Promise<User | null> {
+    const result = await getUserById(userId);
 
-    if(isSuccess(result)) {
-        return mapUser(result.entity as User);
+    if (isSuccess(result)) {
+        return mapUser(result.entity);
     }
 
     return null;
 }
 
-export async function findUserByToken(refreshToken: string): Promise<UserViewModel | null> {
+export async function findUserByEmail(email: string): Promise<User | null> {
+    const result = await getUserByEmail(email);
+
+    if (isSuccess(result)) {
+        return mapUser(result.entity);
+    }
+
+    return null;
+}
+
+export async function findUserByLogin(login: string): Promise<User | null> {
+    const result = await getUserByLogin(login);
+
+    if (isSuccess(result)) {
+        return mapUser(result.entity);
+    }
+
+    return null;
+}
+
+export async function findUserByToken(refreshToken: string): Promise<User | null> {
     const tokenInfo = await getToken(refreshToken)
 
-    if(!isCorrect(tokenInfo)) {
+    if (!isCorrect(tokenInfo)) {
         return null;
     }
 
-    return await findUser(tokenInfo.entity?.email as string);
-}
-
-export async function createUser(email: string, password: string): Promise<UserViewModel | null> {
-    const result = await get(email);
-
-    if(!isSuccess(result) || !isNil(result.entity)) {
-        return null;
-    }
-
-    const s = await create(email, password);
-
-    return null;
+    return await findUser(tokenInfo.entity?.userid as number);
 }

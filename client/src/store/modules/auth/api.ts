@@ -1,5 +1,5 @@
 import { client } from "@/client";
-import { Credentials } from "@/store/modules/auth/types";
+import { Credentials, UserCreateModel } from "@/store/modules/auth/types";
 import { AxiosError } from "axios";
 
 export type UserInfo = {
@@ -43,9 +43,9 @@ export const login = async (credentials: Credentials) => {
     }
 };
 
-export const register = async (credentials: Credentials) => {
+export const register = async (user: UserCreateModel) => {
     try {
-        const response = await client.post<RegisterResult>("/auth/registration", credentials);
+        const response = await client.post<RegisterResult>("/auth/registration", user);
 
         return response.data;
     } catch (err: unknown) {

@@ -1,10 +1,8 @@
 <template>
-    <template v-if="isLoaded">
+    <base-layout v-if="isLoaded">
         <base-loader></base-loader>
-    </template>
-    <template v-else>
-        <router-view />
-    </template>
+    </base-layout>
+    <router-view v-else />
 </template>
 
 <style lang="scss">
@@ -14,9 +12,10 @@
 <script>
 import { getToken } from "@/store/modules/auth/tokenStorage";
 import BaseLoader from "@/components/BaseLoader";
+import BaseLayout from "@/components/BaseLayout";
 
 export default {
-    components: { BaseLoader },
+    components: { BaseLayout, BaseLoader },
     data() {
         return {
             isLoaded: true

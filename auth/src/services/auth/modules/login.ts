@@ -1,19 +1,19 @@
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
-import {getUser, User} from "../../../stores";
 import {isNil} from "lodash";
 import {compare} from "bcrypt";
-import {mapUser, UserViewModel} from "../../user";
-import {generateTokens} from "../../token/service";
+import {mapUser, User} from "../../user";
+import {generateTokens} from "../../token";
 import {AuthActionResult, BaseErrors} from "../types";
+import {getUserByEmail, UserEntity} from "../../../stores";
 
-async function checkExistingUser(email: string): Promise<Result<User>> {
-    const result = await getUser(email);
+async function checkExistingUser(email: string): Promise<Result<UserEntity>> {
+    const result = await getUserByEmail(email);
 
-    if(!isSuccess(result)) {
+    if (!isSuccess(result)) {
         return buildResultFromError(result.errors);
     }
 
-    if(isNil(result.entity)) {
+    if (isNil(result.entity)) {
         const errors: BaseErrors = {
             common: 'Пользователь не найден'
         }
@@ -38,17 +38,22 @@ async function checkPassword(password: string, passwordHash: string = ""): Promi
     return buildResult(null);
 }
 
-async function checkTokensCreated(userEntity: User): Promise<Result<AuthActionResult>> {
+async function checkTokensCreated(userEntity: UserEntity): Promise<Result<AuthActionResult>> {
     const user = mapUser(userEntity);
 
-    const result = await generateTokens(user);
+    const result = await generateTokens(user as User);
 
-    return isSuccess(result)
-        ? buildResult({
-            accessToken: result.entity?.accessToken,
-            refreshToken: result.entity?.refreshToken,
-            user
-        }) : buildResultFromError(result.errors);
+    if(!isSuccess(result)) {
+        return buildResultFromError<AuthActionResult>(result.errors);
+    }
+
+    const authResult: AuthActionResult = {
+        accessToken: result.entity?.accessToken,
+        refreshToken: result.entity?.refreshToken,
+        user: user as User
+    }
+
+    return buildResult(authResult);
 }
 
 export async function login(email: string, password: string): Promise<Result<AuthActionResult>> {
@@ -64,5 +69,5 @@ export async function login(email: string, password: string): Promise<Result<Aut
         return buildResultFromError(checkPasswordResult.errors);
     }
 
-    return await checkTokensCreated(checkExistingUserResult.entity as User);
+    return await checkTokensCreated(checkExistingUserResult.entity as UserEntity);
 }
