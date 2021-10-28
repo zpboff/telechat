@@ -4,6 +4,7 @@ import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
 import News from "../pages/News.vue";
 import Logout from "../pages/Logout.vue";
+import User from "../pages/User.vue";
 import { withRedirectWhenAuth } from "@/components/HOC/withRedirectWhenAuth";
 import { withAuthCheck } from "@/components/HOC/withAuthCheck";
 
@@ -33,6 +34,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/logout",
         name: "Logout",
         component: withAuthCheck(Logout)
+    },
+    {
+        path: "/user/:login",
+        name: "User",
+        component: withAuthCheck(User)
     },
     {
         path: "/about",
