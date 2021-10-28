@@ -6,5 +6,5 @@ export type UserViewModel = {
 
 export type AuthenticateResponse = {
     accessToken: string | null | undefined;
-    user: UserViewModel;
+    user: UserViewModel | null;
 }

@@ -4,20 +4,20 @@ import {buildResult, buildResultFromError, HasId, Result} from "../types";
 import {BaseErrors} from "../services";
 import {withCatch} from "../exceptions/withCatch";
 
-export type Token = HasId<number> & {
-    userId: number;
+export type TokenEntity = HasId<number> & {
+    userid: number;
     token: string;
-    createDate: Date;
-    accessDate: Date;
-    expirationDate: Date;
+    createdate: Date;
+    accessdate: Date;
+    expirationdate: Date;
 }
 
 type CountResult = {
     count: number;
 }
 
-export async function getTokenByUser(userId: number): Promise<Result<Token>> {
-    return withCatch<Token>(async () => {
+export async function getTokenByUser(userId: number): Promise<Result<TokenEntity>> {
+    return withCatch<TokenEntity>(async () => {
         const {rows} = await pool.query("SELECT * FROM tokens WHERE userId=$1", [userId]);
         const [tokenInfo] = rows;
 
@@ -25,9 +25,9 @@ export async function getTokenByUser(userId: number): Promise<Result<Token>> {
     });
 }
 
-export async function getToken(token: string): Promise<Result<Token>> {
-    return withCatch<Token>(async () => {
-        const {rows} = await pool.query<Token>("SELECT * FROM tokens WHERE token=$1", [token]);
+export async function getToken(token: string): Promise<Result<TokenEntity>> {
+    return withCatch<TokenEntity>(async () => {
+        const {rows} = await pool.query<TokenEntity>("SELECT * FROM tokens WHERE token=$1", [token]);
         const [tokenInfo] = rows;
 
         if (isNil(tokenInfo)) {
@@ -74,7 +74,7 @@ SELECT count(*) FROM deleted;`;
     });
 }
 
-async function getTokenResult(tokenInfo: Token): Promise<Result<Token>> {
+async function getTokenResult(tokenInfo: TokenEntity): Promise<Result<TokenEntity>> {
     if (!isNil(tokenInfo)) {
         await pool.query("UPDATE Tokens SET accessDate=current_timestamp where id=$1", [tokenInfo.id]);
     }

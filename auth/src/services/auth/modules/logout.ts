@@ -1,7 +1,7 @@
 import {findUserByToken, User} from "../../user";
 import {isNil} from "lodash";
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
-import {removeToken} from "../../token/service";
+import {removeToken} from "../../token";
 import {BaseErrors} from "../types";
 import validator from "validator";
 import {withCatch} from "../../../exceptions/withCatch";
@@ -37,9 +37,7 @@ async function checkUser(token: string): Promise<Result<User>> {
 }
 
 async function checkTokenDeleted(email: string, token: string) {
-    const result = await removeToken(email, token);
-
-    return result;
+    return await removeToken(email, token);
 }
 
 export async function logout(token: string): Promise<Result<boolean>> {

@@ -1,10 +1,10 @@
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
-import {findUserByToken, UserViewModel} from "../../user";
+import {findUserByToken, User} from "../../user";
 import {isNil} from "lodash";
-import {generateTokens} from "../../token/service";
+import {generateTokens} from "../../token";
 import {AuthActionResult, BaseErrors} from "../types";
 
-async function checkUser(token: string): Promise<Result<UserViewModel>> {
+async function checkUser(token: string): Promise<Result<User>> {
     const user = await findUserByToken(token);
 
     if (isNil(user)) {
@@ -18,7 +18,7 @@ async function checkUser(token: string): Promise<Result<UserViewModel>> {
     return buildResult(user);
 }
 
-async function checkTokensCreated(user: UserViewModel): Promise<Result<AuthActionResult>> {
+async function checkTokensCreated(user: User): Promise<Result<AuthActionResult>> {
     const result = await generateTokens(user);
 
     return isSuccess(result)
@@ -36,5 +36,5 @@ export async function refresh(token: string): Promise<Result<AuthActionResult>> 
         return buildResultFromError(checkUserResult.errors);
     }
 
-    return await checkTokensCreated(checkUserResult.entity as UserViewModel);
+    return await checkTokensCreated(checkUserResult.entity as User);
 }

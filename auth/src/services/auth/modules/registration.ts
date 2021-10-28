@@ -1,11 +1,11 @@
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
 import {AuthActionResult, BaseErrors} from "../types";
 import {findUserByEmail, mapUser, User, UserCreateModel} from "../../user";
-import {isNil} from "lodash";
+import {isNil, map} from "lodash";
 import {hash} from "bcrypt";
 import {configs} from "../../../configs";
-import {createUser} from "../../../stores";
-import {generateTokens} from "../../token/service";
+import {createUser, UserEntity} from "../../../stores";
+import {generateTokens} from "../../token";
 import validator from 'validator';
 import {withCatch} from "../../../exceptions/withCatch";
 
@@ -86,10 +86,13 @@ async function checkExistingUser(email: string): Promise<Result<null>> {
     return buildResult(null);
 }
 
-async function checkUserCreated(user: UserCreateModel): Promise<Result<User>> {
-    user.password = await hash(user.password, configs.saltRounds);
+async function checkUserCreated(userCreateModel: UserCreateModel): Promise<Result<User>> {
+    userCreateModel.password = await hash(userCreateModel.password, configs.saltRounds);
 
-    return await createUser(user);
+    const userEntityResult = await createUser(userCreateModel);
+    const user = mapUser(userEntityResult.entity as UserEntity);
+
+    return buildResult(user as User);
 }
 
 async function checkTokensCreated(user: User): Promise<Result<AuthActionResult>> {

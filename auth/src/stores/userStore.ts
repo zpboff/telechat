@@ -22,6 +22,10 @@ export function getUserByEmail(email: string): Promise<Result<UserEntity>> {
     return getUser("SELECT * FROM USERS WHERE email=$1", [email]);
 }
 
+export function getUserByLogin(login: string): Promise<Result<UserEntity>> {
+    return getUser("SELECT * FROM USERS WHERE login=$1", [login]);
+}
+
 async function getUser(query: string, params: unknown[]): Promise<Result<UserEntity>> {
     return await withCatch(async () => {
         const {rows} = await pool.query(query, params);

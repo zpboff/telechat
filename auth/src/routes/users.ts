@@ -1,13 +1,15 @@
 import {Router} from 'express';
 import {authorizeMiddleware} from '../middlewares';
-import {findUserByEmail} from '../services';
+import {findUserByLogin} from '../services';
+import {mapUserViewModel} from "./auth/mapUserViewModel";
 
 const usersRouter = Router();
 
-usersRouter.get('/get/:email', authorizeMiddleware, async (req, res) => {
-    const user = await findUserByEmail(req.params.email);
+usersRouter.get('/get/:login', authorizeMiddleware, async (req, res) => {
+    const user = await findUserByLogin(req.params.login);
+    const userViewModel = mapUserViewModel(user);
 
-    return res.json(user);
+    return res.json(userViewModel);
 });
 
 export {usersRouter}

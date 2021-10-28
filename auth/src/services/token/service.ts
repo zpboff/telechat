@@ -4,12 +4,11 @@ import {v4} from "uuid";
 import {configs} from "../../configs";
 import {createToken, deleteToken, getTokenByUser} from "../../stores/tokenStore";
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../types";
-import {mapUser, UserViewModel} from "../user";
+import {User} from "../user";
 import {TokenInfo} from "./types";
 import {BaseErrors} from "../auth";
-import {User} from "../../stores";
 
-async function checkAccessTokenCreated(user: UserViewModel): Promise<Result<string>> {
+async function checkAccessTokenCreated(user: User): Promise<Result<string>> {
     const accessToken = sign(user, configs.secret, {
         expiresIn: configs.refreshTokenLifeTime
     });
@@ -57,8 +56,7 @@ async function checkRefreshTokenCreated(userId: number) {
 }
 
 export async function generateTokens(user: User): Promise<Result<TokenInfo>> {
-    const userViewModel = mapUser(user);
-    const checkAccessTokenCreatedResult = await checkAccessTokenCreated(userViewModel);
+    const checkAccessTokenCreatedResult = await checkAccessTokenCreated(user);
 
     if (!isSuccess(checkAccessTokenCreatedResult)) {
         return buildResultFromError(checkAccessTokenCreatedResult.errors);

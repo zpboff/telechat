@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { loggerMiddleware } from '../middlewares/loggerMiddleware';
+import { loggerMiddleware } from '../middlewares';
 
 const testRouter = Router();
 

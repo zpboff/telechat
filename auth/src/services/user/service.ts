@@ -1,4 +1,4 @@
-import {getUserById, getUserByEmail, UserEntity} from "../../stores";
+import {getUserById, getUserByEmail, UserEntity, getUserByLogin} from "../../stores";
 import {getToken} from "../../stores/tokenStore";
 import {isCorrect, isSuccess} from "../../types";
 import {mapUser} from "./mapper";
@@ -33,6 +33,16 @@ export async function findUserByEmail(email: string): Promise<User | null> {
     return null;
 }
 
+export async function findUserByLogin(login: string): Promise<User | null> {
+    const result = await getUserByLogin(login);
+
+    if (isSuccess(result)) {
+        return mapUser(result.entity);
+    }
+
+    return null;
+}
+
 export async function findUserByToken(refreshToken: string): Promise<User | null> {
     const tokenInfo = await getToken(refreshToken)
 
@@ -40,5 +50,5 @@ export async function findUserByToken(refreshToken: string): Promise<User | null
         return null;
     }
 
-    return await findUser(tokenInfo.entity?.userId as number);
+    return await findUser(tokenInfo.entity?.userid as number);
 }

@@ -2,7 +2,7 @@ import {buildResult, buildResultFromError, isSuccess, Result} from "../../../typ
 import {isNil} from "lodash";
 import {compare} from "bcrypt";
 import {mapUser, User} from "../../user";
-import {generateTokens} from "../../token/service";
+import {generateTokens} from "../../token";
 import {AuthActionResult, BaseErrors} from "../types";
 import {getUserByEmail, UserEntity} from "../../../stores";
 
@@ -41,7 +41,7 @@ async function checkPassword(password: string, passwordHash: string = ""): Promi
 async function checkTokensCreated(userEntity: UserEntity): Promise<Result<AuthActionResult>> {
     const user = mapUser(userEntity);
 
-    const result = await generateTokens(user);
+    const result = await generateTokens(user as User);
 
     if(!isSuccess(result)) {
         return buildResultFromError<AuthActionResult>(result.errors);
