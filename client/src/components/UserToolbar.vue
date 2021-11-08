@@ -1,5 +1,5 @@
 <template>
-    <div class="user-toolbar">
+    <div class="user-toolbar" v-click-outside="hide">
         <div class="user-info" @click="toggle">
             <span>{{ firstName }}</span>
             <user-avatar-icon :first-name="firstName" :last-name="lastName" />
@@ -8,6 +8,12 @@
             </div>
         </div>
         <div class="user-actions" v-if="isOpened">
+            <span class="user-actions_link">
+                Тест
+            </span>
+            <header-link link="/logout" class="user-actions_link">
+                Выход
+            </header-link>
             <header-link link="/logout" class="user-actions_link">
                 Выход
             </header-link>
@@ -37,6 +43,10 @@ export default {
     methods: {
         toggle() {
             this.isOpened = !this.isOpened;
+        },
+        hide() {
+            console.log('hide')
+            this.isOpened = false;
         }
     },
     computed: mapState({

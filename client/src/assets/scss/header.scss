@@ -86,7 +86,7 @@ $link-hover-bg: darken(colors.$base-bg-color, 5);
 
     .user-actions {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         position: absolute;
         right: 0;
         top: 100%;
@@ -102,8 +102,8 @@ $link-hover-bg: darken(colors.$base-bg-color, 5);
             flex-grow: 1;
 
             &:hover {
-                background-color: colors.$base-bg-color;
-                box-shadow: 0 4px 2px -2px colors.$main-color;
+                background-color: $link-hover-bg;
+                box-shadow: -2px 0px 0px 0px colors.$main-color;
             }
         }
     }
