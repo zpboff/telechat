@@ -5,7 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import {configs} from './configs';
 import {authRouter, usersRouter, testRouter} from './routes'
-import {errorMiddleware, loggerMiddleware} from "./middlewares";
+import {errorMiddleware, loggerMiddleware, siteIsWorkingMiddleware} from "./middlewares";
 
 const app = express();
 app.use(cors((req, callback) => {
@@ -17,11 +17,13 @@ app.use(cors((req, callback) => {
 app.use(json());
 app.use(cookieParser());
 
+app.use(loggerMiddleware);
+app.use(errorMiddleware);
+app.use(siteIsWorkingMiddleware);
+
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter);
-app.use(loggerMiddleware);
-app.use(errorMiddleware);
 
 app.get('/', (_, res: Response) => {
     return res.status(200);
