@@ -2,6 +2,7 @@
 @use 'base';
 
 $link-padding: 10px;
+$link-hover-bg: darken(colors.$base-bg-color, 5);
 
 .header {
     height: 50px;
@@ -15,10 +16,9 @@ $link-padding: 10px;
 
 .auth-links {
     @include base.flexed;
-    padding: 0 1rem;
 
-    *:not(:last-child) {
-      margin-right: 10px;
+    > * {
+        margin-right: 10px;
     }
 }
 
@@ -42,5 +42,75 @@ $link-padding: 10px;
     img {
         border-radius: .5em;
         border: 2px solid white;
+    }
+}
+
+.popover {
+    position: relative;
+
+    &--content {
+        position: absolute;
+        right: 0;
+        top: 100%;
+    }
+}
+
+.user-toolbar {
+    @include base.flexed;
+
+    .user-info {
+        @include base.flexed;
+        cursor: pointer;
+        padding: 5px 10px;
+
+        & > :not(:last-child) {
+            margin-right: 10px;
+        }
+
+        &:hover {
+            background-color: $link-hover-bg;
+        }
+    }
+
+    .avatar-icon {
+        border-radius: 50%;
+        border: 2px solid #ed254e;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .actions-handler {
+        @include base.flexed;
+
+        padding: 0 5px;
+        transition: transform 0.3s ease;
+
+        &--active {
+            transform: rotateX(180deg);
+        }
+    }
+
+    .user-actions {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 0 1px $link-hover-bg;
+        width: 200px;
+        border-radius: 2px;
+        background-color: colors.$base-bg-color;
+        font-size: 14px;
+
+        &_link {
+            display: flex;
+            padding: 10px;
+            flex-grow: 1;
+
+            &:hover {
+                background-color: $link-hover-bg;
+                box-shadow: -2px 0px 0px 0px colors.$main-color;
+            }
+        }
     }
 }

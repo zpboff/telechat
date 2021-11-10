@@ -1,7 +1,7 @@
 import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
 import {AuthActionResult, BaseErrors} from "../types";
 import {findUserByEmail, mapUser, User, UserCreateModel} from "../../user";
-import {isNil, map} from "lodash";
+import {isNil} from "lodash";
 import {hash} from "bcrypt";
 import {configs} from "../../../configs";
 import {createUser, UserEntity} from "../../../stores";

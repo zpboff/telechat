@@ -5,9 +5,10 @@ import Register from "../pages/Register.vue";
 import News from "../pages/News.vue";
 import Logout from "../pages/Logout.vue";
 import User from "../pages/User.vue";
+import Settings from "../pages/Settings.vue";
 import NotFound from "../pages/NotFound.vue";
-import { withRedirectWhenAuth } from "@/components/HOC/withRedirectWhenAuth";
-import { withAuthCheck } from "@/components/HOC/withAuthCheck";
+import { withRedirectWhenAuth } from "@/HOC/withRedirectWhenAuth";
+import { withAuthCheck } from "@/HOC/withAuthCheck";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -40,6 +41,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/user/:login",
         name: "User",
         component: withAuthCheck(User)
+    },
+    {
+        path: "/settings",
+        name: "Settings",
+        component: withAuthCheck(Settings)
     },
     {
         path: "/about",

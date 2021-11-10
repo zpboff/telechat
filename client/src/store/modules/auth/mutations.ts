@@ -5,6 +5,8 @@ import { removeToken } from "@/store/modules/auth/tokenStorage";
 
 const authMutations: MutationTree<UserViewModel> = {
     setAuthInfo(state, authInfo: UserViewModel) {
+        state.firstName = authInfo.firstName;
+        state.lastName = authInfo.lastName;
         state.login = authInfo.login;
     },
     logout(state) {

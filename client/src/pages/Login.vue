@@ -3,21 +3,30 @@
         <div class="container">
             <form @submit.prevent="submit" class="form form--small">
                 <div class="form-header">
-                    <img src="../assets/logo.png" width="35" height="35" alt="Telechat" title="Telechat"
+                    <img
+                        src="../assets/logo.png"
+                        width="35"
+                        height="35"
+                        alt="Telechat"
+                        title="Telechat"
                          class="form-logo" />
                     <h2>Вход</h2>
                 </div>
-                <div class="form-control" v-bind:class="{'form-control--expanded': emailFieldExpanded}">
-                    <label class="label" for="email">Email</label>
-                    <input @focus="expandEmailField()" @focusout="collapseEmailField()" class="input" id="email"
-                           type="email" v-model="email" name="email" />
-                </div>
-                <div class="form-control" v-bind:class="{'form-control--expanded': passwordFieldExpanded}">
-                    <label class="label" for="password">Пароль</label>
-                    <input @focus="expandPasswordField()" @focusout="collapsePasswordField()" class="input"
-                           id="password"
-                           type="password" v-model="password" name="password" />
-                </div>
+                <form-input
+                    :value="email"
+                    type="email"
+                    id="email"
+                    name="email"
+                    label="Email"
+                    @setValue="setEmail"
+                />
+                <form-input
+                    :value="password"
+                    type="password"
+                    id="password"
+                    name="password"
+                    label="Пароль"
+                    @setValue="setPassword" />
                 <div class="form-submitter">
                     <primary-button>Войти</primary-button>
                 </div>
@@ -41,16 +50,15 @@
 import isEmpty from "lodash.isempty";
 import BaseLayout from "@/components/BaseLayout";
 import PrimaryButton from "@/components/PrimaryButton";
+import FormInput from "@/components/FormInput";
 
 export default {
     name: "Login",
-    components: { PrimaryButton, BaseLayout },
+    components: { FormInput, PrimaryButton, BaseLayout },
     data() {
         return {
             email: "",
-            emailFieldExpanded: false,
             password: "",
-            passwordFieldExpanded: false,
             errors: []
         };
     },
@@ -60,21 +68,13 @@ export default {
         }
     },
     methods: {
-        expandEmailField() {
-            this.emailFieldExpanded = true;
+        setEmail(email) {
+            console.log("email", email);
+            this.email = email;
         },
-        collapseEmailField() {
-            if (!this.email) {
-                this.emailFieldExpanded = false;
-            }
-        },
-        expandPasswordField() {
-            this.passwordFieldExpanded = true;
-        },
-        collapsePasswordField() {
-            if (!this.password) {
-                this.passwordFieldExpanded = false;
-            }
+        setPassword(password) {
+            console.log("password", password);
+            this.password = password;
         },
         async submit() {
             const { email, password } = this;

@@ -12,6 +12,7 @@ import PrimaryButton from "@/components/PrimaryButton.vue";
 import { mapGetters } from "vuex";
 import BaseLoader from "@/components/BaseLoader.vue";
 import BaseLayout from "@/components/BaseLayout.vue";
+import { authInfo } from "@/mixins/authInfo";
 
 @Options({
     components: {
@@ -19,9 +20,7 @@ import BaseLayout from "@/components/BaseLayout.vue";
         BaseLayout,
         PrimaryButton
     },
-    computed: {
-        ...mapGetters("auth", ["isAuthenticated"])
-    },
+    mixins: [authInfo],
     async created() {
         if (this.isAuthenticated) {
             await this.$router.push("/news");
