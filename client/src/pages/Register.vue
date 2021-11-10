@@ -34,7 +34,7 @@
                     type="text"
                     id="firstName"
                     name="firstName"
-                    label="Email"
+                    label="Имя"
                     @setValue="setFirstName"
                 />
                 <form-input
