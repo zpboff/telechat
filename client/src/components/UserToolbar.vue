@@ -1,24 +1,21 @@
 <template>
-    <div class="user-toolbar" v-click-outside="hide">
-        <div class="user-info" @click="toggle">
+    <base-popover class="user-toolbar" switch-class="user-info" content-class="user-actions">
+        <template v-slot:switch>
             <span>{{ firstName }}</span>
             <user-avatar-icon :first-name="firstName" :last-name="lastName" />
-            <div class="actions-handler" :class="{ 'actions-handler--active': isOpened }">
+            <div class="actions-handler">
                 <chevron-down width="24" height="24"></chevron-down>
             </div>
-        </div>
-        <div class="user-actions" v-if="isOpened">
-            <span class="user-actions_link">
-                Тест
-            </span>
-            <header-link link="/logout" class="user-actions_link">
-                Выход
+        </template>
+        <template v-slot:content>
+            <header-link link="/settings" class="user-actions_link">
+                Настройки
             </header-link>
             <header-link link="/logout" class="user-actions_link">
                 Выход
             </header-link>
-        </div>
-    </div>
+        </template>
+    </base-popover>
 </template>
 
 <script>
@@ -26,29 +23,11 @@ import { mapState } from "vuex";
 import UserAvatarIcon from "@/components/UserAvatarIcon";
 import ChevronDown from "@/components/icons/ChevronDown";
 import HeaderLink from "@/components/HeaderLink";
+import BasePopover from "@/components/BasePopover";
 
 export default {
     name: "UserToolbar",
-    components: { HeaderLink, ChevronDown, UserAvatarIcon },
-    data() {
-        return {
-            isOpened: false
-        };
-    },
-    created() {
-        // document.addEventListener('click', event => {
-        //
-        // });
-    },
-    methods: {
-        toggle() {
-            this.isOpened = !this.isOpened;
-        },
-        hide() {
-            console.log('hide')
-            this.isOpened = false;
-        }
-    },
+    components: { BasePopover, HeaderLink, ChevronDown, UserAvatarIcon },
     computed: mapState({
         firstName(state) {
             return state.auth.firstName;

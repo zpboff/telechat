@@ -45,9 +45,18 @@ $link-hover-bg: darken(colors.$base-bg-color, 5);
     }
 }
 
+.popover {
+    position: relative;
+
+    &--content {
+        position: absolute;
+        right: 0;
+        top: 100%;
+    }
+}
+
 .user-toolbar {
     @include base.flexed;
-    position: relative;
 
     .user-info {
         @include base.flexed;
@@ -87,9 +96,6 @@ $link-hover-bg: darken(colors.$base-bg-color, 5);
     .user-actions {
         display: flex;
         flex-direction: column;
-        position: absolute;
-        right: 0;
-        top: 100%;
         box-shadow: 0 0 0 1px $link-hover-bg;
         width: 200px;
         border-radius: 2px;
