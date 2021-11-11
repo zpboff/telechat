@@ -1,12 +1,13 @@
 import {NextFunction, Request, Response} from "express";
 import {getSiteStatus} from "../stores/siteStatusStore";
-import {isCorrect} from "../types";
+import {hasResult} from "../types";
+import {ApiError} from "../exceptions/ApiError";
 
 export async function siteIsWorkingMiddleware(req: Request, res: Response, next: NextFunction) {
     const status = await getSiteStatus();
 
-    if(!isCorrect(status) || !status.entity?.siteaccessible) {
-        return res.status(503).send();
+    if(!hasResult(status) || !status.entity?.siteaccessible) {
+        next(ApiError.NotAvailable());
     }
 
     next();

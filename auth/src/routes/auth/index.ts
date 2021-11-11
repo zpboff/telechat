@@ -3,16 +3,17 @@ import {configs} from '../../configs';
 import {ApiError} from '../../exceptions/ApiError';
 import {authorizeMiddleware} from '../../middlewares';
 import {AuthActionResult, login, logout, refresh, registration} from '../../services';
-import {isCorrect, isSuccess, Result} from '../../types';
+import {hasError, hasResult, Result} from '../../types';
 import {AuthenticateResponse} from "./types";
 import {mapUserViewModel} from "./mapUserViewModel";
+import {BaseErrorContainer} from "../../exceptions/types";
 
 const authRouter = Router();
 
 authRouter.post('/registration', async (req, res, next) => {
     const result = await registration(req.body);
 
-    if (!isCorrect(result)) {
+    if (!hasResult(result)) {
         return next(ApiError.Unauthorized(result.errors));
     }
 
@@ -32,7 +33,7 @@ authRouter.get('/logout', authorizeMiddleware, async (req, res, next) => {
 
     setRefreshTokenCookie(res, refreshToken, new Date(new Date().getTime() - 1));
 
-    if (!isSuccess(logoutResult)) {
+    if (hasError(logoutResult)) {
         return next(ApiError.BadRequest(logoutResult.errors));
     }
 
@@ -56,8 +57,8 @@ authRouter.get('/refresh', async (req, res, next) => {
 });
 
 
-function authenticate(result: Result<AuthActionResult>, res: Response, next: NextFunction) {
-    if (!isCorrect(result)) {
+function authenticate(result: Result<AuthActionResult, BaseErrorContainer>, res: Response, next: NextFunction) {
+    if (!hasResult(result)) {
         return next(ApiError.Forbidden(result.errors));
     }
 

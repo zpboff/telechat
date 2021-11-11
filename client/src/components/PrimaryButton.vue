@@ -27,11 +27,6 @@ export default {
               "button-primary": true
           }
       }
-    },
-    methods: {
-        onClick(event) {
-            this.$emit('click', event)
-        }
     }
 };
 </script>

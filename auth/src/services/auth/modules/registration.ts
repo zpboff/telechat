@@ -1,6 +1,6 @@
-import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
-import {AuthActionResult, BaseErrors} from "../types";
-import {findUserByEmail, mapUser, User, UserCreateModel} from "../../user";
+import {buildResult, buildResultFromError, hasError, Result} from "../../../types";
+import {AuthActionResult} from "../types";
+import {findUserByEmail, mapUserEntityToUser, User, UserCreateModel} from "../../user";
 import {isNil} from "lodash";
 import {hash} from "bcrypt";
 import {configs} from "../../../configs";
@@ -8,21 +8,22 @@ import {createUser, UserEntity} from "../../../stores";
 import {generateTokens} from "../../token";
 import validator from 'validator';
 import {withCatch} from "../../../exceptions/withCatch";
+import {BaseErrorContainer} from "../../../exceptions/types";
 
-type RegistrationErrors = BaseErrors & {
+type RegistrationErrors = BaseErrorContainer & {
     email?: string[];
     password?: string[];
     firstName?: string[];
     lastName?: string[];
 }
 
-async function checkParams(user: UserCreateModel): Promise<Result<null>> {
-    return await withCatch<null>(async () => {
+async function checkParams(user: UserCreateModel): Promise<Result<null, BaseErrorContainer>> {
+    return await withCatch(async () => {
         const errors: RegistrationErrors = {};
         const minPasswordLength = 6;
 
         if (isNil(user)) {
-            errors.common = 'Модель не заполнена';
+            errors.common = ['Модель не заполнена'];
             return buildResultFromError(errors);
         }
 
@@ -68,16 +69,16 @@ async function checkParams(user: UserCreateModel): Promise<Result<null>> {
             errors.lastName.push(`Поле должно быть заполнено`);
         }
 
-        return buildResultFromError<null>(errors);
+        return buildResultFromError(errors);
     });
 }
 
-async function checkExistingUser(email: string): Promise<Result<null>> {
+async function checkExistingUser(email: string): Promise<Result<null, BaseErrorContainer>> {
     const user = await findUserByEmail(email);
 
     if (!isNil(user)) {
-        const errors: BaseErrors = {
-            common: "Пользователь с таким email уже существует"
+        const errors: BaseErrorContainer = {
+            common: ["Пользователь с таким email уже существует"]
         };
 
         return buildResultFromError(errors);
@@ -86,19 +87,19 @@ async function checkExistingUser(email: string): Promise<Result<null>> {
     return buildResult(null);
 }
 
-async function checkUserCreated(userCreateModel: UserCreateModel): Promise<Result<User>> {
+async function checkUserCreated(userCreateModel: UserCreateModel): Promise<Result<User, BaseErrorContainer>> {
     userCreateModel.password = await hash(userCreateModel.password, configs.saltRounds);
 
     const userEntityResult = await createUser(userCreateModel);
-    const user = mapUser(userEntityResult.entity as UserEntity);
+    const user = mapUserEntityToUser(userEntityResult.entity as UserEntity);
 
     return buildResult(user as User);
 }
 
-async function checkTokensCreated(user: User): Promise<Result<AuthActionResult>> {
+async function checkTokensCreated(user: User): Promise<Result<AuthActionResult, BaseErrorContainer>> {
     const result = await generateTokens(user);
 
-    if (!isSuccess(result)) {
+    if (hasError(result)) {
         return buildResultFromError(result.errors);
     }
 
@@ -111,22 +112,22 @@ async function checkTokensCreated(user: User): Promise<Result<AuthActionResult>>
     return buildResult(authResult);
 }
 
-export async function registration(user: UserCreateModel): Promise<Result<AuthActionResult>> {
+export async function registration(user: UserCreateModel): Promise<Result<AuthActionResult, BaseErrorContainer>> {
     const checkParamsResult = await checkParams(user);
 
-    if (!isSuccess(checkParamsResult)) {
+    if (hasError(checkParamsResult)) {
         return buildResultFromError(checkParamsResult.errors);
     }
 
     const existingUserCheckResult = await checkExistingUser(user.email);
 
-    if (!isSuccess(existingUserCheckResult)) {
+    if (hasError(existingUserCheckResult)) {
         return buildResultFromError(existingUserCheckResult.errors);
     }
 
     const userCreatedCheckResult = await checkUserCreated(user);
 
-    if (!isSuccess(existingUserCheckResult)) {
+    if (hasError(existingUserCheckResult)) {
         return buildResultFromError(userCreatedCheckResult.errors);
     }
 

@@ -1,17 +1,17 @@
 import {buildResultFromError, Result} from "../types";
-import {BaseErrors} from "../services";
+import {BaseErrorContainer} from "./types";
+import {logger} from "../services";
 
-export async function withCatch<T>(callback: () => Promise<Result<T>>) {
+export async function withCatch<TResult>(callback: () => Promise<Result<TResult, BaseErrorContainer>>) {
     try {
         return await callback();
-    }
-    catch (err) {
-        console.log(err);
+    } catch (err) {
+        logger.error(err);
 
-        const errors: BaseErrors = {
+        const errors: BaseErrorContainer = {
             common: err.message
         }
 
-        return buildResultFromError<T>(errors);
+        return buildResultFromError<TResult, BaseErrorContainer>(errors);
     }
 }

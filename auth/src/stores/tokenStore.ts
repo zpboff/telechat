@@ -1,8 +1,8 @@
 import {isNil} from "lodash";
 import {pool} from "../db";
 import {buildResult, buildResultFromError, HasId, Result} from "../types";
-import {BaseErrors} from "../services";
 import {withCatch} from "../exceptions/withCatch";
+import {BaseErrorContainer} from "../exceptions/types";
 
 export type TokenEntity = HasId<number> & {
     userid: number;
@@ -16,23 +16,26 @@ type CountResult = {
     count: number;
 }
 
-export async function getTokenByUser(userId: number): Promise<Result<TokenEntity>> {
+export async function getTokenByUser(userId: number): Promise<Result<TokenEntity, BaseErrorContainer>> {
+    const query = "SELECT * FROM tokens WHERE userId=$1";
+
     return withCatch<TokenEntity>(async () => {
-        const {rows} = await pool.query("SELECT * FROM tokens WHERE userId=$1", [userId]);
+        const {rows} = await pool.query(query, [userId]);
         const [tokenInfo] = rows;
 
         return await getTokenResult(tokenInfo);
     });
 }
 
-export async function getToken(token: string): Promise<Result<TokenEntity>> {
+export async function getToken(token: string): Promise<Result<TokenEntity, BaseErrorContainer>> {
+    const query = "SELECT * FROM tokens WHERE token=$1";
     return withCatch<TokenEntity>(async () => {
-        const {rows} = await pool.query<TokenEntity>("SELECT * FROM tokens WHERE token=$1", [token]);
+        const {rows} = await pool.query<TokenEntity>(query, [token]);
         const [tokenInfo] = rows;
 
         if (isNil(tokenInfo)) {
-            const errors: BaseErrors = {
-                common: "Токен не найден"
+            const errors: BaseErrorContainer = {
+                common: ["Токен не найден"]
             }
 
             return buildResultFromError(errors);
@@ -42,7 +45,7 @@ export async function getToken(token: string): Promise<Result<TokenEntity>> {
     });
 }
 
-export async function createToken(userId: number, token: string, expirationDate: Date): Promise<Result<number>> {
+export async function createToken(userId: number, token: string, expirationDate: Date): Promise<Result<number, BaseErrorContainer>> {
     const query = `
 INSERT INTO tokens
 (userId, token, expirationDate) 
@@ -57,7 +60,7 @@ RETURNING id`;
     });
 }
 
-export async function deleteToken(userId: string, token: string): Promise<Result<number>> {
+export async function deleteToken(userId: string, token: string): Promise<Result<number, BaseErrorContainer>> {
     const query = `
 WITH deleted AS (
     DELETE FROM tokens
@@ -74,10 +77,10 @@ SELECT count(*) FROM deleted;`;
     });
 }
 
-async function getTokenResult(tokenInfo: TokenEntity): Promise<Result<TokenEntity>> {
-    if (!isNil(tokenInfo)) {
-        await pool.query("UPDATE Tokens SET accessDate=current_timestamp where id=$1", [tokenInfo.id]);
-    }
+async function getTokenResult(tokenInfo: TokenEntity): Promise<Result<TokenEntity, BaseErrorContainer>> {
+    const query = "UPDATE Tokens SET accessDate=current_timestamp where id=$1";
+
+    await pool.query(query, [tokenInfo.id]);
 
     return buildResult(tokenInfo);
 }
