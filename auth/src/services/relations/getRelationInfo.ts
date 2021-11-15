@@ -1,11 +1,11 @@
 import {buildResult, buildResultFromError, hasError, hasResult, Nullable, Result} from "../../types";
-import {getRelation, UsersRelationsEntity, UsersRelationsState} from "../../stores/usersRelations";
+import {getRelation, RelationEntity, RelationState} from "../../stores/relationsStore";
 import {BaseErrorContainer} from "../../exceptions/types";
 import {UserEntity} from "../../stores";
 import {checkExistingUserByLogin} from "../checks";
 import {checkRelationParams} from "./checkRelationParams";
 
-export async function getRelationInfo(userLogin: string, targetUserLogin: string): Promise<Result<UsersRelationsEntity, BaseErrorContainer>> {
+export async function getRelationInfo(userLogin: string, targetUserLogin: string): Promise<Result<RelationEntity, BaseErrorContainer>> {
     const checkParamsResult = await checkRelationParams(userLogin, targetUserLogin);
 
     if (hasError(checkParamsResult)) {

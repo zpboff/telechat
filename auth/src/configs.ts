@@ -11,6 +11,7 @@ type Configs = {
 }
 
 type DbConfigs = {
+    host: string;
     port: number;
     database: string;
     username: string;
@@ -31,6 +32,7 @@ const configs: Configs = {
 }
 
 const dbConfigs: DbConfigs = {
+    host: process.env.SQL_DB_NAME ?? "localhost",
     port: parseInt(process.env.SQL_PORT ?? "5342"),
     database: process.env.SQL_DB_NAME ?? "telechat",
     username: process.env.SQL_USERNAME ?? "postgres",

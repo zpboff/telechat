@@ -1,11 +1,11 @@
 import {getUserByLogin, UserEntity} from "../../stores";
 import {buildResult, buildResultFromError, hasError, hasResult, Result} from "../../types";
 import {isNil} from "lodash";
-import {createFriendRequest, getRelation, UsersRelationsState} from "../../stores/usersRelations";
+import {updateRelationState, getRelation, RelationState} from "../../stores/relationsStore";
 import {BaseErrorContainer} from "../../exceptions/types";
 import {checkRelationParams, RelationErrorsContainer} from "./checkRelationParams";
 
-type SubscribeErrorContainer = RelationErrorsContainer & {
+type RelationErrorContainer = RelationErrorsContainer & {
     request?: string;
 }
 
@@ -27,16 +27,16 @@ async function checkExistingUser(login: string): Promise<Result<UserEntity, Base
     return result;
 }
 
-export async function checkFriendRequest(userId: number, targetUserId: number): Promise<Result<null, BaseErrorContainer>> {
+export async function checkRelation(userId: number, targetUserId: number, relationState: RelationState): Promise<Result<null, BaseErrorContainer>> {
     const existingRequestResult = await getRelation(userId, targetUserId);
 
     if (hasError(existingRequestResult)) {
         return buildResultFromError(existingRequestResult.errors);
     }
 
-    if (!isNil(existingRequestResult.entity)) {
-        const errors: SubscribeErrorContainer = {
-            request: 'Запрос уже существует'
+    if (existingRequestResult.entity?.state === relationState) {
+        const errors: RelationErrorContainer = {
+            request: 'Некорректные параметры'
         }
 
         return buildResultFromError(errors);
@@ -45,7 +45,7 @@ export async function checkFriendRequest(userId: number, targetUserId: number): 
     return buildResult(null);
 }
 
-export async function subscribe(userLogin: string, targetUserLogin: string): Promise<Result<null, BaseErrorContainer>> {
+export async function setRelation(userLogin: string, targetUserLogin: string, relationState: RelationState): Promise<Result<null, BaseErrorContainer>> {
     const checkParamsResult = await checkRelationParams(userLogin, targetUserLogin);
 
     if (hasError(checkParamsResult)) {
@@ -67,13 +67,13 @@ export async function subscribe(userLogin: string, targetUserLogin: string): Pro
     const {id: userId} = checkUserResult.entity as UserEntity;
     const {id: targetUserId} = checkTargetUserResult.entity as UserEntity;
 
-    const checkRequest = await checkFriendRequest(userId, targetUserId);
+    const checkRequest = await checkRelation(userId, targetUserId, relationState);
 
     if (hasError(checkRequest)) {
         return buildResultFromError(checkRequest.errors);
     }
 
-    const createRequestResult = await createFriendRequest(userId, targetUserId, UsersRelationsState.Subscribed);
+    const createRequestResult = await updateRelationState(userId, targetUserId, relationState);
 
     if (!hasResult(createRequestResult)) {
         return buildResultFromError(createRequestResult.errors);

@@ -1,1 +1,2 @@
-export * from './subscribe';
+export * from './setRelation';
+export * from './getRelationInfo';

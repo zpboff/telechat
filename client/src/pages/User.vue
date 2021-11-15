@@ -5,19 +5,23 @@
         <div v-else>
             {{ this.userInfo }}
             <div v-if="canAccept">
-                <primary-button @click="subscribe">Принять запрос</primary-button>
+                <primary-button @click="accept">Принять запрос</primary-button>
+                <primary-button @click="cancel">Отклонить запрос</primary-button>
             </div>
             <div v-if="canSubscribe">
                 <primary-button @click="subscribe">Подписаться</primary-button>
             </div>
             <div v-if="canCancelSubscribe">
-                <primary-button @click="subscribe">Отписаться</primary-button>
+                <primary-button @click="cancel">Отписаться</primary-button>
             </div>
             <div v-if="canBlock">
-                <primary-button @click="subscribe">Заблокировать</primary-button>
+                <primary-button @click="block">Заблокировать</primary-button>
             </div>
             <div v-if="canUnblock">
-                <primary-button @click="subscribe">Разблокировать</primary-button>
+                <primary-button @click="cancel">Разблокировать</primary-button>
+            </div>
+            <div v-if="canUnblock">
+                <primary-button @click="cancel">Разблокировать</primary-button>
             </div>
         </div>
     </layout-with-sidebar>
@@ -30,7 +34,7 @@ import BaseLoader from "@/components/BaseLoader.vue";
 import NotFound from "@/pages/NotFound.vue";
 import PrimaryButton from "@/components/PrimaryButton.vue";
 import { getUserInfo, UsersRelationsState, UserViewModel } from "@/modules/user/getUserInfo";
-import { subscribe } from "@/modules/user/relations";
+import { accept, block, cancel, subscribe } from "@/modules/user/relations";
 
 type ComponentBindings = {
     userInfo: UserViewModel;
@@ -55,6 +59,15 @@ export default defineComponent<unknown, ComponentBindings>({
     methods: {
         async subscribe() {
             await subscribe(this.userLogin);
+        },
+        async accept() {
+            await accept(this.userLogin);
+        },
+        async block() {
+            await block(this.userLogin);
+        },
+        async cancel() {
+            await cancel(this.userLogin);
         }
     },
     computed: {
@@ -65,7 +78,7 @@ export default defineComponent<unknown, ComponentBindings>({
             return !this.isLoaded && !this.userInfo;
         },
         canSubscribe(): boolean {
-            return this.userInfo?.relationState == null || this?.userInfo.relationState === UsersRelationsState.Canceled;
+            return this.userInfo?.relationState == null || this?.userInfo.relationState === UsersRelationsState.Initial;
         },
         canCancelSubscribe(): boolean {
             return this.userInfo?.relationState === UsersRelationsState.Subscribed && !this.userInfo?.isSubscriber;

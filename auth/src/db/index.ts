@@ -1,5 +1,5 @@
-import { Pool } from 'pg';
-import { dbConfigs } from '../configs';
+import {Pool} from 'pg';
+import {dbConfigs} from '../configs';
 
 export const pool = new Pool({
     database: dbConfigs.database,

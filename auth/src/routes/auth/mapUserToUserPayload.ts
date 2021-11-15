@@ -2,7 +2,7 @@ import {User} from "../../services";
 import {UserPayload, UserViewModel} from "./types";
 import {isNil} from "lodash";
 import {Nullable} from "../../types";
-import {UsersRelationsState} from "../../stores/usersRelations";
+import {RelationState} from "../../stores/relationsStore";
 import {getRelationInfo} from "../../services/relations/getRelationInfo";
 
 export function mapUserToUserPayload(user: Nullable<User>): Nullable<UserPayload> {
@@ -24,8 +24,8 @@ export async function mapUserToUserViewModel(login: string, user: Nullable<User>
 
     const userPayload = mapUserToUserPayload(user) as UserPayload;
     const relationState = await getRelationInfo(login, user.login);
-    const isSubscriber = relationState.entity?.state === UsersRelationsState.Subscribed
-        && relationState.entity?.userlogin === user.login
+    const isSubscriber = relationState.entity?.state === RelationState.Subscribed
+        && relationState.entity?.stateinitiatorlogin === user.login
 
     return {
         ...userPayload,

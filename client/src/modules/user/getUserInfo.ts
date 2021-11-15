@@ -2,10 +2,10 @@ import { client } from "@/client";
 import { Nullable } from "@/types";
 
 export enum UsersRelationsState {
+    Initial,
     Subscribed,
     Friend,
-    Blocked,
-    Canceled
+    Blocked
 }
 
 export type UserPayload = {

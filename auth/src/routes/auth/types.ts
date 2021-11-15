@@ -1,4 +1,4 @@
-import {UsersRelationsState} from "../../stores/usersRelations";
+import {RelationState} from "../../stores/relationsStore";
 import {Nullable} from "../../types";
 
 export type UserPayload = {
@@ -9,7 +9,7 @@ export type UserPayload = {
 
 export type UserViewModel = UserPayload & {
     isSubscriber: boolean;
-    relationState: Nullable<UsersRelationsState>;
+    relationState: Nullable<RelationState>;
 }
 
 export type AuthenticateResponse = {
