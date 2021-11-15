@@ -3,7 +3,7 @@ import {UserPayload, UserViewModel} from "./types";
 import {isNil} from "lodash";
 import {Nullable} from "../../types";
 import {RelationState} from "../../stores/relationsStore";
-import {getRelationInfo} from "../../services/relations/getRelationInfo";
+import {getRelationInfo} from "../../services";
 
 export function mapUserToUserPayload(user: Nullable<User>): Nullable<UserPayload> {
     if (isNil(user)) {

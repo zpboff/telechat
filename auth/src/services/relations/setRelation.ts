@@ -1,7 +1,7 @@
 import {getUserByLogin, UserEntity} from "../../stores";
 import {buildResult, buildResultFromError, hasError, hasResult, Result} from "../../types";
 import {isNil} from "lodash";
-import {updateRelationState, getRelation, RelationState} from "../../stores/relationsStore";
+import {createRelationState, getRelation, RelationState, createRelation} from "../../stores/relationsStore";
 import {BaseErrorContainer} from "../../exceptions/types";
 import {checkRelationParams, RelationErrorsContainer} from "./checkRelationParams";
 
@@ -27,7 +27,7 @@ async function checkExistingUser(login: string): Promise<Result<UserEntity, Base
     return result;
 }
 
-export async function checkRelation(userId: number, targetUserId: number, relationState: RelationState): Promise<Result<null, BaseErrorContainer>> {
+export async function checkRelation(userId: number, targetUserId: number, relationState: RelationState): Promise<Result<number, BaseErrorContainer>> {
     const existingRequestResult = await getRelation(userId, targetUserId);
 
     if (hasError(existingRequestResult)) {
@@ -42,7 +42,7 @@ export async function checkRelation(userId: number, targetUserId: number, relati
         return buildResultFromError(errors);
     }
 
-    return buildResult(null);
+    return buildResult(existingRequestResult.entity?.id);
 }
 
 export async function setRelation(userLogin: string, targetUserLogin: string, relationState: RelationState): Promise<Result<null, BaseErrorContainer>> {
@@ -73,10 +73,28 @@ export async function setRelation(userLogin: string, targetUserLogin: string, re
         return buildResultFromError(checkRequest.errors);
     }
 
-    const createRequestResult = await updateRelationState(userId, targetUserId, relationState);
+    if (!hasResult(checkRequest)) {
+        return await saveRelation(userId, targetUserId, relationState);
+    }
 
-    if (!hasResult(createRequestResult)) {
-        return buildResultFromError(createRequestResult.errors);
+    return await setRelationState(checkRequest.entity as number, userId, relationState);
+}
+
+async function saveRelation(userId: number, targetUserId: number, relationState: RelationState): Promise<Result<null, BaseErrorContainer>> {
+    const createRelationResult = await createRelation(userId, targetUserId, relationState);
+
+    if (hasError(createRelationResult)) {
+        return buildResultFromError(createRelationResult.errors);
+    }
+
+    return buildResult(null);
+}
+
+async function setRelationState(relationshipId: number, userId: number, relationState: RelationState): Promise<Result<null, BaseErrorContainer>> {
+    const createRelationResult = await createRelationState(relationshipId, userId, relationState);
+
+    if (hasError(createRelationResult)) {
+        return buildResultFromError(createRelationResult.errors);
     }
 
     return buildResult(null);

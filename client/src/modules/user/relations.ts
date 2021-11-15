@@ -5,7 +5,7 @@ export async function subscribe(login: string) {
 }
 
 export async function accept(login: string) {
-    await client.post(`/users/subscribe/${login}`)
+    await client.post(`/users/accept/${login}`)
 }
 
 export async function cancel(login: string) {
@@ -13,5 +13,9 @@ export async function cancel(login: string) {
 }
 
 export async function block(login: string) {
-    await client.post(`/users/accept/${login}`)
+    await client.post(`/users/block/${login}`)
+}
+
+export async function removeFromFriends(login: string) {
+    await client.post(`/users/removeFromFriends/${login}`)
 }

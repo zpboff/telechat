@@ -23,6 +23,9 @@
             <div v-if="canUnblock">
                 <primary-button @click="cancel">Разблокировать</primary-button>
             </div>
+            <div v-if="canRemoveFromFriends">
+                <primary-button @click="cancel">Удалить из друзей</primary-button>
+            </div>
         </div>
     </layout-with-sidebar>
 </template>
@@ -34,7 +37,7 @@ import BaseLoader from "@/components/BaseLoader.vue";
 import NotFound from "@/pages/NotFound.vue";
 import PrimaryButton from "@/components/PrimaryButton.vue";
 import { getUserInfo, UsersRelationsState, UserViewModel } from "@/modules/user/getUserInfo";
-import { accept, block, cancel, subscribe } from "@/modules/user/relations";
+import { accept, block, cancel, removeFromFriends, subscribe } from "@/modules/user/relations";
 
 type ComponentBindings = {
     userInfo: UserViewModel;
@@ -68,6 +71,9 @@ export default defineComponent<unknown, ComponentBindings>({
         },
         async cancel() {
             await cancel(this.userLogin);
+        },
+        async removeFromFriends() {
+            await removeFromFriends(this.userLogin);
         }
     },
     computed: {
@@ -91,6 +97,9 @@ export default defineComponent<unknown, ComponentBindings>({
         },
         canAccept(): boolean {
             return this.userInfo?.isSubscriber;
+        },
+        canRemoveFromFriends(): boolean {
+            return this.userInfo?.relationState === UsersRelationsState.Friend;
         }
     }
 });
