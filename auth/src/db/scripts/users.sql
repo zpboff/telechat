@@ -10,4 +10,4 @@ CREATE TABLE public.users
     login text COLLATE pg_catalog."default" default uuid_generate_v4()::text,
     createDate timestamp with time zone default current_timestamp,
     updateDate timestamp with time zone default current_timestamp
-)
+);

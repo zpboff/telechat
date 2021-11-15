@@ -1,21 +1,22 @@
-import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
+import {buildResult, buildResultFromError, hasError, Result} from "../../../types";
 import {isNil} from "lodash";
 import {compare} from "bcrypt";
-import {mapUser, User} from "../../user";
+import {mapUserEntityToUser, User} from "../../user";
 import {generateTokens} from "../../token";
-import {AuthActionResult, BaseErrors} from "../types";
+import {AuthActionResult} from "../types";
 import {getUserByEmail, UserEntity} from "../../../stores";
+import {BaseErrorContainer} from "../../../exceptions/types";
 
-async function checkExistingUser(email: string): Promise<Result<UserEntity>> {
+async function checkExistingUser(email: string): Promise<Result<UserEntity, BaseErrorContainer>> {
     const result = await getUserByEmail(email);
 
-    if (!isSuccess(result)) {
+    if (hasError(result)) {
         return buildResultFromError(result.errors);
     }
 
     if (isNil(result.entity)) {
-        const errors: BaseErrors = {
-            common: 'Пользователь не найден'
+        const errors: BaseErrorContainer = {
+            common: ['Пользователь не найден']
         }
 
         return buildResultFromError(errors);
@@ -24,12 +25,12 @@ async function checkExistingUser(email: string): Promise<Result<UserEntity>> {
     return result;
 }
 
-async function checkPassword(password: string, passwordHash: string = ""): Promise<Result<null>> {
+async function checkPassword(password: string, passwordHash: string = ""): Promise<Result<null, BaseErrorContainer>> {
     const passwordsMatch = await compare(password, passwordHash);
 
     if (!passwordsMatch) {
-        const errors: BaseErrors = {
-            common: 'Пароли не совпадают'
+        const errors: BaseErrorContainer = {
+            common: ['Пароли не совпадают']
         }
 
         return buildResultFromError(errors);
@@ -38,13 +39,13 @@ async function checkPassword(password: string, passwordHash: string = ""): Promi
     return buildResult(null);
 }
 
-async function checkTokensCreated(userEntity: UserEntity): Promise<Result<AuthActionResult>> {
-    const user = mapUser(userEntity);
+async function checkTokensCreated(userEntity: UserEntity): Promise<Result<AuthActionResult, BaseErrorContainer>> {
+    const user = mapUserEntityToUser(userEntity);
 
     const result = await generateTokens(user as User);
 
-    if(!isSuccess(result)) {
-        return buildResultFromError<AuthActionResult>(result.errors);
+    if (hasError(result)) {
+        return buildResultFromError(result.errors);
     }
 
     const authResult: AuthActionResult = {
@@ -56,16 +57,16 @@ async function checkTokensCreated(userEntity: UserEntity): Promise<Result<AuthAc
     return buildResult(authResult);
 }
 
-export async function login(email: string, password: string): Promise<Result<AuthActionResult>> {
+export async function login(email: string, password: string): Promise<Result<AuthActionResult, BaseErrorContainer>> {
     const checkExistingUserResult = await checkExistingUser(email);
 
-    if (!isSuccess(checkExistingUserResult)) {
+    if (hasError(checkExistingUserResult)) {
         return buildResultFromError(checkExistingUserResult.errors);
     }
 
     const checkPasswordResult = await checkPassword(password, checkExistingUserResult.entity?.password);
 
-    if (!isSuccess(checkPasswordResult)) {
+    if (hasError(checkPasswordResult)) {
         return buildResultFromError(checkPasswordResult.errors);
     }
 

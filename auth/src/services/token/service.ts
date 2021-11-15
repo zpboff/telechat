@@ -2,20 +2,20 @@ import {sign} from "jsonwebtoken";
 import {isEmpty} from "lodash";
 import {v4} from "uuid";
 import {configs} from "../../configs";
-import {createToken, deleteToken, getTokenByUser} from "../../stores/tokenStore";
-import {buildResult, buildResultFromError, isSuccess, Result} from "../../types";
+import {createToken, deleteToken, getTokenByUser} from "../../stores";
+import {buildResult, buildResultFromError, hasError, Result} from "../../types";
 import {User} from "../user";
 import {TokenInfo} from "./types";
-import {BaseErrors} from "../auth";
+import {BaseErrorContainer} from "../../exceptions/types";
 
-async function checkAccessTokenCreated(user: User): Promise<Result<string>> {
+async function checkAccessTokenCreated(user: User): Promise<Result<string, BaseErrorContainer>> {
     const accessToken = sign(user, configs.secret, {
         expiresIn: configs.refreshTokenLifeTime
     });
 
     if (isEmpty(accessToken)) {
-        const errors: BaseErrors = {
-            common: 'Ошибка при создании access-токена'
+        const errors: BaseErrorContainer = {
+            common: ['Ошибка при создании access-токена']
         }
 
         return buildResultFromError(errors);
@@ -24,12 +24,12 @@ async function checkAccessTokenCreated(user: User): Promise<Result<string>> {
     return buildResult(accessToken);
 }
 
-async function checkRefreshTokenCreated(userId: number) {
+async function checkRefreshTokenCreated(userId: number): Promise<Result<string, BaseErrorContainer>> {
     const expirationDate = new Date(new Date().getTime() + configs.refreshTokenLifeTime);
 
     const getTokenResult = await getTokenByUser(userId);
 
-    if (!isSuccess(getTokenResult)) {
+    if (hasError(getTokenResult)) {
         return buildResultFromError(getTokenResult.errors);
     }
 
@@ -39,14 +39,14 @@ async function checkRefreshTokenCreated(userId: number) {
         refreshToken = v4();
         const createResult = await createToken(userId, refreshToken, expirationDate);
 
-        if (!isSuccess(createResult)) {
+        if (!hasError(createResult)) {
             refreshToken = undefined;
         }
     }
 
     if (isEmpty(refreshToken)) {
-        const errors: BaseErrors = {
-            common: 'Ошибка при создании refresh-токена'
+        const errors: BaseErrorContainer = {
+            common: ['Ошибка при создании refresh-токена']
         }
 
         return buildResultFromError(errors);
@@ -55,16 +55,16 @@ async function checkRefreshTokenCreated(userId: number) {
     return buildResult(refreshToken);
 }
 
-export async function generateTokens(user: User): Promise<Result<TokenInfo>> {
+export async function generateTokens(user: User): Promise<Result<TokenInfo, BaseErrorContainer>> {
     const checkAccessTokenCreatedResult = await checkAccessTokenCreated(user);
 
-    if (!isSuccess(checkAccessTokenCreatedResult)) {
+    if (hasError(checkAccessTokenCreatedResult)) {
         return buildResultFromError(checkAccessTokenCreatedResult.errors);
     }
 
     const checkRefreshTokenCreatedResult = await checkRefreshTokenCreated(user.id);
 
-    if (!isSuccess(checkRefreshTokenCreatedResult)) {
+    if (hasError(checkRefreshTokenCreatedResult)) {
         return buildResultFromError(checkRefreshTokenCreatedResult.errors);
     }
 

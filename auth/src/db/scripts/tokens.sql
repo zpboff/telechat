@@ -7,4 +7,4 @@ CREATE TABLE public.tokens
     accessDate timestamp with time zone default current_timestamp,
     expirationDate timestamp with time zone NOT NULL,
     CONSTRAINT fk_user FOREIGN KEY(userId) REFERENCES users(id)
-)
+);

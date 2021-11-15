@@ -1,15 +1,16 @@
-import {buildResult, buildResultFromError, isSuccess, Result} from "../../../types";
+import {buildResult, buildResultFromError, hasError, Result} from "../../../types";
 import {findUserByToken, User} from "../../user";
 import {isNil} from "lodash";
 import {generateTokens} from "../../token";
-import {AuthActionResult, BaseErrors} from "../types";
+import {AuthActionResult} from "../types";
+import {BaseErrorContainer} from "../../../exceptions/types";
 
-async function checkUser(token: string): Promise<Result<User>> {
+async function checkUser(token: string): Promise<Result<User, BaseErrorContainer>> {
     const user = await findUserByToken(token);
 
     if (isNil(user)) {
-        const errors: BaseErrors = {
-            common: 'Вы не авторизованы'
+        const errors: BaseErrorContainer = {
+            common: ['Вы не авторизованы']
         }
 
         return buildResultFromError(errors);
@@ -18,21 +19,26 @@ async function checkUser(token: string): Promise<Result<User>> {
     return buildResult(user);
 }
 
-async function checkTokensCreated(user: User): Promise<Result<AuthActionResult>> {
+async function checkTokensCreated(user: User): Promise<Result<AuthActionResult, BaseErrorContainer>> {
     const result = await generateTokens(user);
 
-    return isSuccess(result)
-        ? buildResult({
-            accessToken: result.entity?.accessToken,
-            refreshToken: result.entity?.refreshToken,
-            user
-        }) : buildResultFromError(result.errors);
+    if(hasError(result)) {
+        return buildResultFromError(result.errors);
+    }
+
+    const authResult: AuthActionResult = {
+        accessToken: result.entity?.accessToken,
+        refreshToken: result.entity?.refreshToken,
+        user
+    }
+
+    return buildResult(authResult);
 }
 
-export async function refresh(token: string): Promise<Result<AuthActionResult>> {
+export async function refresh(token: string): Promise<Result<AuthActionResult, BaseErrorContainer>> {
     const checkUserResult = await checkUser(token);
 
-    if (!isSuccess(checkUserResult)) {
+    if (hasError(checkUserResult)) {
         return buildResultFromError(checkUserResult.errors);
     }
 

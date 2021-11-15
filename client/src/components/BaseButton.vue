@@ -1,5 +1,5 @@
 <template>
-    <button :type="type" v-on:click="onClick" class="button" v-bind:class="classes">
+    <button :type="type" class="button" v-bind:class="classes">
         <slot></slot>
     </button>
 </template>
@@ -16,11 +16,6 @@ export default {
         },
         classes: {
             type: Object
-        }
-    },
-    methods: {
-        onClick(event) {
-            this.$emit('click', event)
         }
     }
 };

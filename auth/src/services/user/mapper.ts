@@ -1,8 +1,8 @@
 import {UserEntity} from "../../stores";
-import {User} from "./service";
 import {isNil} from "lodash";
+import {User} from "./types";
 
-export const mapUser = (user: UserEntity | null): User | null => {
+export const mapUserEntityToUser = (user: UserEntity | null | undefined): User | null => {
     if (isNil(user)) {
         return null;
     }
