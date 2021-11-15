@@ -1,4 +1,4 @@
 export * from './auth';
 export * from './user';
-export * from './friends';
+export * from './relations';
 export * from './logger';

@@ -17,9 +17,9 @@ export function runServer() {
     app.use(json());
     app.use(cookieParser());
 
-    app.use(loggerMiddleware);
-    app.use(errorMiddleware);
     app.use(siteIsWorkingMiddleware);
+    app.use(errorMiddleware);
+    app.use(loggerMiddleware);
 
     app.use('/auth', authRouter);
     app.use('/users', usersRouter);

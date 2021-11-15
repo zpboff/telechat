@@ -5,7 +5,7 @@ import {authorizeMiddleware} from '../../middlewares';
 import {AuthActionResult, login, logout, refresh, registration} from '../../services';
 import {hasError, hasResult, Result} from '../../types';
 import {AuthenticateResponse} from "./types";
-import {mapUserViewModel} from "./mapUserViewModel";
+import {mapUserToUserPayload} from "./mapUserToUserPayload";
 import {BaseErrorContainer} from "../../exceptions/types";
 
 const authRouter = Router();
@@ -67,7 +67,7 @@ function authenticate(result: Result<AuthActionResult, BaseErrorContainer>, res:
     setRefreshTokenCookie(res, refreshToken, new Date(new Date().getTime() + configs.refreshTokenLifeTime));
 
     const authResult: AuthenticateResponse = {
-        user: mapUserViewModel(user),
+        user: mapUserToUserPayload(user),
         accessToken
     }
 

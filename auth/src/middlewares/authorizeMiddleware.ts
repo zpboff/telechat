@@ -4,7 +4,7 @@ import {isNil} from "lodash";
 import {configs} from "../configs";
 import {ApiError} from "../exceptions/ApiError";
 import {BaseErrorContainer} from "../exceptions/types";
-import {UserViewModel} from "../routes/auth/types";
+import {UserPayload} from "../routes/auth/types";
 
 export async function authorizeMiddleware(req: Request, _res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization ?? "";
@@ -26,7 +26,7 @@ export async function authorizeMiddleware(req: Request, _res: Response, next: Ne
             next(ApiError.Forbidden())
         }
 
-        req.user = decodedUser as UserViewModel;
+        req.user = decodedUser as UserPayload;
         next();
     } catch (ex) {
         const errors: BaseErrorContainer = {

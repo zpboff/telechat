@@ -3,7 +3,7 @@ import {ApiError} from "../exceptions/ApiError";
 import {logger} from "../services";
 import {BaseErrorContainer} from "../exceptions/types";
 
-export async function errorMiddleware(err: Error, req: Request, res: Response, _next: NextFunction) {
+export function errorMiddleware(err: Error, req: Request, res: Response, _next: NextFunction) {
     logger.error(err, req, res);
 
     if (err instanceof ApiError) {

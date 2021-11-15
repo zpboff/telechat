@@ -5,18 +5,20 @@ import {BaseErrorContainer} from "../exceptions/types";
 
 export type UsersRelationsEntity = HasId<number> & {
     userid: number;
+    userlogin: string;
     targetuserid: number;
+    targetuserlogin: string;
     state: UsersRelationsState;
 }
 
 export enum UsersRelationsState {
-    Pending,
-    Accepted,
+    Subscribed,
+    Friend,
     Blocked,
     Canceled
 }
 
-export async function createFriendRequest(userId: number, targetUserId: number) {
+export async function createFriendRequest(userId: number, targetUserId: number, state: UsersRelationsState) {
     const insertRelationStateQuery = `
         INSERT INTO userRelationsState
             (userId, state)
@@ -35,7 +37,7 @@ export async function createFriendRequest(userId: number, targetUserId: number) 
         try {
             await client.query('BEGIN')
 
-            const {rows} = await client.query<HasId<number>>(insertRelationStateQuery, [userId, UsersRelationsState.Pending]);
+            const {rows} = await client.query<HasId<number>>(insertRelationStateQuery, [userId, state]);
             const [{ id: stateId }] = rows;
 
             const {rows: relationRows} = await client.query<HasId<number>>(insertRelationStatusQuery, [userId, targetUserId, stateId]);
@@ -53,16 +55,20 @@ export async function createFriendRequest(userId: number, targetUserId: number) 
     });
 }
 
-export async function getRequest(userId: number, targetUserId: number): Promise<Result<UsersRelationsEntity, BaseErrorContainer>> {
+export async function getRelation(userId: number, targetUserId: number): Promise<Result<UsersRelationsEntity, BaseErrorContainer>> {
     const query = `
         SELECT
             ur.userid,
+            u.login as userlogin,
             ur.targetuserid,
+            tu.login as targetuserlogin,
             urs.state
         FROM userRelations ur
         JOIN userRelationsState urs ON ur.stateid = urs.id
-        WHERE ur.userid = $1
-          AND ur.targetUserId = $2
+        JOIN users u on u.id = ur.userid
+        JOIN users tu on tu.id = ur.targetuserid
+        WHERE (ur.userid = $1 AND ur.targetUserId = $2)
+            OR (ur.userid = $2 AND ur.targetUserId = $1)
         ORDER BY urs.id DESC
         LIMIT 1`;
 

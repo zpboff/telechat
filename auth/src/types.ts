@@ -24,6 +24,8 @@ export function buildResultFromError<TEntity, TErrors>(errors: Nullable<TErrors>
     }
 }
 
+export type Dict<T> = { [key: string]: T }
+
 export function hasError<TEntity, TErrors>(result: Result<TEntity, TErrors>) {
     return !isEmpty(result.errors);
 }
