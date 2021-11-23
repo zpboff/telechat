@@ -64,11 +64,11 @@ body {
 
 .container {
     @include flexed;
-    height: 100%;
 }
 
 .page {
     @include flexed;
+    height: 100%;
 }
 
 input:-webkit-autofill,

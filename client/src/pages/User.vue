@@ -91,13 +91,21 @@
                     </div>
                     <div class="tabs-container">
                         <a class="tab" :class='{"tab--active": needShowPosts}' href="#"
-                           v-on:click:.prevent="showPosts">
+                           @click.prevent="showPosts">
                             Записи
                         </a>
                         <a class="tab" :class='{"tab--active": needShowInfo}' href="#"
-                           v-on:click:.prevent="showInfo">
+                           @click.prevent="showInfo">
                             Информация
                         </a>
+                    </div>
+                    <div class="tab-body container">
+                        <div v-if="needShowPosts">
+                            Записи
+                        </div>
+                        <div v-if="needShowInfo">
+                            Информация
+                        </div>
                     </div>
                 </div>
             </div>

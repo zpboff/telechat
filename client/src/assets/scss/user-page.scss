@@ -39,6 +39,8 @@ $top-block-height: 220px;
     height: 100%;
     flex-grow: 1;
     padding: $padding;
+    display: flex;
+    flex-direction: column;
 
     &-head {
         display: flex;
@@ -92,6 +94,10 @@ $top-block-height: 220px;
           margin-right: 10px;
         }
     }
+
+    .tab-body {
+        flex-grow: 1;
+    }
 }
 
 .friends-list {
@@ -114,3 +120,4 @@ $top-block-height: 220px;
         font-size: 14px;
     }
 }
+
