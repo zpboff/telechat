@@ -31,17 +31,18 @@
                     <div v-if="this.userInfo.friendsCount">
                         <line-separator>Друзья</line-separator>
                         <div class="friends-list">
-                            <a
+                            <router-link
                                 class="user-preview-icon"
                                 v-for="friend in this.userInfo.friends"
                                 :key="friend.login"
+                                :to="`/user/${friend.login}`"
                             >
                                 <user-avatar-icon
                                     :first-name="friend.firstName"
                                     :last-name="friend.lastName"
                                 ></user-avatar-icon>
                                 <div class="note">{{ friend.firstName }}</div>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
