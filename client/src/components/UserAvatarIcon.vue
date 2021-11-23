@@ -1,5 +1,5 @@
 <template>
-    <div class="avatar-icon">
+    <div class="user-icon">
         {{initials}}
     </div>
 </template>

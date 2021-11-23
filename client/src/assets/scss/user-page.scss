@@ -67,7 +67,6 @@ $top-block-height: 220px;
     .relations {
         @include flexed;
         justify-content: flex-start;
-        margin: 15px 0;
 
         .relation-info {
             @include flexed;
@@ -92,5 +91,26 @@ $top-block-height: 220px;
         & > * {
           margin-right: 10px;
         }
+    }
+}
+
+.friends-list {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .user-preview-icon {
+        width: 70px;
+    }
+}
+
+.user-preview-icon {
+    @include flexed;
+    flex-direction: column;
+
+    .note {
+        padding: 5px;
+        font-size: 14px;
     }
 }

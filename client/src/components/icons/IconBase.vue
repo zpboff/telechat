@@ -24,11 +24,11 @@ export default {
     name: "IconBase",
     props: {
         width: {
-            type: Number,
+            type: [String, Number],
             default: 24
         },
         height: {
-            type: Number,
+            type: [String, Number],
             default: 24
         },
         iconName: {

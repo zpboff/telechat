@@ -72,16 +72,6 @@ $link-hover-bg: darken(colors.$base-bg-color, 5);
         }
     }
 
-    .avatar-icon {
-        border-radius: 50%;
-        border: 2px solid #ed254e;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     .actions-handler {
         @include base.flexed;
 

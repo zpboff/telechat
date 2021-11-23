@@ -69,11 +69,9 @@ export default {
     },
     methods: {
         setEmail(email) {
-            console.log("email", email);
             this.email = email;
         },
         setPassword(password) {
-            console.log("password", password);
             this.password = password;
         },
         async submit() {

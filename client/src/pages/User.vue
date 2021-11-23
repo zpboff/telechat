@@ -29,7 +29,22 @@
                     </div>
                     <line-separator>Друзья</line-separator>
                     <div class="friends-list">
-                        Список друзей
+                        <div class="user-preview-icon">
+                            <user-avatar-icon first-name="София" last-name="Замараева"></user-avatar-icon>
+                            <div class="note">София</div>
+                        </div>
+                        <div class="user-preview-icon">
+                            <user-avatar-icon first-name="Алексей" last-name="Кашин"></user-avatar-icon>
+                            <div class="note">Алексей</div>
+                        </div>
+                        <div class="user-preview-icon">
+                            <user-avatar-icon first-name="Максим" last-name="Букин"></user-avatar-icon>
+                            <div class="note">Максим</div>
+                        </div>
+                        <div class="user-preview-icon">
+                            <user-avatar-icon first-name="Александр" last-name="Букин"></user-avatar-icon>
+                            <div class="note">Александр</div>
+                        </div>
                     </div>
                 </div>
                 <div class="details">
@@ -40,6 +55,16 @@
                                 <map-pin class="pin"></map-pin>
                                 <span class="location-name">Тула, Россия</span>
                             </a>
+                        </div>
+                        <div style="width: 250px">
+                            <div class="info-row">
+                                <div class="info-row--label">
+                                    День рождения:
+                                </div>
+                                <div class="info-row--value">
+                                    1 января 2000 г.
+                                </div>
+                            </div>
                         </div>
                         <div class="relations">
                             <a class="relation-info" href="#">
@@ -61,8 +86,18 @@
                         </div>
                         <div class="user-actions">
                             <primary-button>Написать</primary-button>
-                            <relation-actions :user-info="userInfo" />
+                            <relation-actions :userInfo="userInfo" />
                         </div>
+                    </div>
+                    <div class="tabs-container">
+                        <a class="tab" :class='{"tab--active": needShowPosts}' href="#"
+                           v-on:click:.prevent="showPosts">
+                            Записи
+                        </a>
+                        <a class="tab" :class='{"tab--active": needShowInfo}' href="#"
+                           v-on:click:.prevent="showInfo">
+                            Информация
+                        </a>
                     </div>
                 </div>
             </div>
@@ -80,16 +115,32 @@ import RelationActions from "@/components/RelationActions.vue";
 import MapPin from "@/components/icons/MapPin.vue";
 import PrimaryButton from "@/components/PrimaryButton.vue";
 import LineSeparator from "@/components/LineSeparator.vue";
+import UserAvatarIcon from "@/components/UserAvatarIcon.vue";
 
 type ComponentBindings = {
     userInfo: UserViewModel;
     isLoaded: boolean;
     userLogin: string;
+    currentTab: Tabs;
+}
+
+enum Tabs {
+    Posts,
+    Info
 }
 
 export default defineComponent<unknown, ComponentBindings>({
     name: "User",
-    components: { LineSeparator, PrimaryButton, MapPin, RelationActions, NotFound, BaseLoader, LayoutWithSidebar },
+    components: {
+        UserAvatarIcon,
+        LineSeparator,
+        PrimaryButton,
+        MapPin,
+        RelationActions,
+        NotFound,
+        BaseLoader,
+        LayoutWithSidebar
+    },
     async created() {
         const user = await getUserInfo(this.userLogin);
         this.userInfo = user;
@@ -98,8 +149,17 @@ export default defineComponent<unknown, ComponentBindings>({
     data() {
         return {
             isLoaded: true,
-            userInfo: null
+            userInfo: null,
+            currentTab: Tabs.Posts
         };
+    },
+    methods: {
+        showPosts() {
+            this.currentTab = Tabs.Posts;
+        },
+        showInfo() {
+            this.currentTab = Tabs.Info;
+        }
     },
     computed: {
         userLogin(): string {
@@ -107,6 +167,12 @@ export default defineComponent<unknown, ComponentBindings>({
         },
         notFound(): boolean {
             return !this.isLoaded && !this.userInfo;
+        },
+        needShowPosts(): boolean {
+            return this.currentTab == Tabs.Posts;
+        },
+        needShowInfo(): boolean {
+            return this.currentTab == Tabs.Info;
         }
 
     }

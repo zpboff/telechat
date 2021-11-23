@@ -1,4 +1,4 @@
-<template>
+<template v-if="this.userInfo">
     <div v-if="canAccept">
         <primary-button @click="accept">Принять запрос</primary-button>
         <primary-button @click="cancel">Отклонить запрос</primary-button>
@@ -34,20 +34,16 @@ import {
     UsersRelationsState,
     UserViewModel
 } from "../modules/user";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
-type ComponentBindings = {
-    isLoaded: boolean;
-    userLogin: string;
-};
-
-type Props = {
-    userInfo: UserViewModel;
-};
-
-export default defineComponent<Props, ComponentBindings>({
+export default defineComponent({
     name: "RelationActions",
     components: { PrimaryButton },
+    props: {
+        userInfo: {
+            type: Object as PropType<UserViewModel>
+        }
+    },
     computed: {
         canBlock(): boolean {
             return this.userInfo?.relationState !== UsersRelationsState.Blocked;
@@ -56,7 +52,7 @@ export default defineComponent<Props, ComponentBindings>({
             return this.userInfo?.relationState === UsersRelationsState.Blocked;
         },
         canAccept(): boolean {
-            return this.userInfo?.isSubscriber;
+            return this.userInfo?.isSubscriber ?? false;
         },
         canRemoveFromFriends(): boolean {
             return this.userInfo?.relationState === UsersRelationsState.Friend;
@@ -66,6 +62,9 @@ export default defineComponent<Props, ComponentBindings>({
         },
         canCancelSubscribe(): boolean {
             return this.userInfo?.relationState === UsersRelationsState.Subscribed && !this.userInfo?.isSubscriber;
+        },
+        userLogin(): string {
+            return this.$route.params.login as string;
         },
     },
     methods: {
@@ -83,8 +82,8 @@ export default defineComponent<Props, ComponentBindings>({
         },
         async removeFromFriends() {
             await removeFromFriends(this.userLogin);
-        }
-    },
+        },
+    }
 });
 </script>
 

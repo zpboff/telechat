@@ -6,13 +6,16 @@
 @import "user-page";
 @import "links";
 
+html {
+    color: $text-color;
+}
+
 * {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     outline: none;
     box-sizing: border-box;
-    color: $text-color;
 }
 
 ::before {
@@ -116,3 +119,32 @@ input:-webkit-autofill:active {
     }
 }
 
+
+.user-icon {
+    border-radius: 50%;
+    border: 2px solid #ed254e;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabs-container {
+    @include flexed;
+    justify-content: flex-start;
+
+    .tab {
+        padding: $padding;
+        display: block;
+        margin: 0 5px;
+
+        &--active {
+            box-shadow: 0px 2px 0px 0px $main-color;
+        }
+
+        &:hover:not(&--active) {
+            box-shadow: 0px 2px 0px 0px lighten($main-color, 20);
+        }
+    }
+}
