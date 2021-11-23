@@ -8,7 +8,7 @@
                     <div class="avatar-container">
                         <img
                             class="avatar"
-                            src="../assets/images/avatar.jpg"
+                            :src="this.userInfo.avatar"
                             alt="Аватар"
                             title="Аватар"
                         />
@@ -38,6 +38,7 @@
                                 :to="`/user/${friend.login}`"
                             >
                                 <user-avatar-icon
+                                    :avatar="friend.avatar"
                                     :first-name="friend.firstName"
                                     :last-name="friend.lastName"
                                 ></user-avatar-icon>

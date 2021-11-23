@@ -119,15 +119,13 @@ input:-webkit-autofill:active {
     }
 }
 
-
 .user-icon {
-    border-radius: 50%;
+    @include user-icon;
+}
+
+.user-initials {
+    @include user-icon;
     border: 2px solid #ed254e;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .tabs-container {
@@ -147,4 +145,10 @@ input:-webkit-autofill:active {
             box-shadow: 0px 2px 0px 0px lighten($main-color, 20);
         }
     }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
 }
