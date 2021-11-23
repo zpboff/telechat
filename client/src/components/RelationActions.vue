@@ -31,8 +31,8 @@ import {
     cancel,
     removeFromFriends,
     subscribe,
-    UsersRelationsState,
-    UserViewModel
+    RelationsState,
+    UserDetailCard
 } from "../modules/user";
 import { defineComponent, PropType } from "vue";
 
@@ -41,27 +41,27 @@ export default defineComponent({
     components: { PrimaryButton },
     props: {
         userInfo: {
-            type: Object as PropType<UserViewModel>
+            type: Object as PropType<UserDetailCard>
         }
     },
     computed: {
         canBlock(): boolean {
-            return this.userInfo?.relationState !== UsersRelationsState.Blocked;
+            return this.userInfo?.relationState !== RelationsState.Blocked;
         },
         canUnblock(): boolean {
-            return this.userInfo?.relationState === UsersRelationsState.Blocked;
+            return this.userInfo?.relationState === RelationsState.Blocked;
         },
         canAccept(): boolean {
             return this.userInfo?.isSubscriber ?? false;
         },
         canRemoveFromFriends(): boolean {
-            return this.userInfo?.relationState === UsersRelationsState.Friend;
+            return this.userInfo?.relationState === RelationsState.Friend;
         },
         canSubscribe(): boolean {
-            return this.userInfo?.relationState == null || this?.userInfo.relationState === UsersRelationsState.Initial;
+            return this.userInfo?.relationState == null || this?.userInfo.relationState === RelationsState.Initial;
         },
         canCancelSubscribe(): boolean {
-            return this.userInfo?.relationState === UsersRelationsState.Subscribed && !this.userInfo?.isSubscriber;
+            return this.userInfo?.relationState === RelationsState.Subscribed && !this.userInfo?.isSubscriber;
         },
         userLogin(): string {
             return this.$route.params.login as string;

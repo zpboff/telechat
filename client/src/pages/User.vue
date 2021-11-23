@@ -2,55 +2,55 @@
     <not-found v-if="notFound"></not-found>
     <layout-with-sidebar v-else>
         <div class="container page">
-            <base-loader v-if="isLoaded"></base-loader>
+            <base-loader v-if="this.isLoaded"></base-loader>
             <div v-else class="user-page">
                 <div class="short-info">
                     <div class="avatar-container">
-                        <img class="avatar" src="../assets/images/avatar.jpg" alt="Аватар" title="Аватар">
+                        <img
+                            class="avatar"
+                            src="../assets/images/avatar.jpg"
+                            alt="Аватар"
+                            title="Аватар"
+                        />
                     </div>
                     <line-separator>Контактные данные</line-separator>
                     <div class="contacts">
                         <div class="info-row">
-                            <div class="info-row--label">
-                                Телефон:
-                            </div>
-                            <a class="info-row--value" href="tel:+79998887766">
-                                +79998887766
+                            <div class="info-row--label">Телефон:</div>
+                            <a class="info-row--value" :href="`tel:${this.userInfo.contactPhone}`">
+                                {{ userInfo.contactPhone }}
                             </a>
                         </div>
                         <div class="info-row">
-                            <div class="info-row--label">
-                                Email:
-                            </div>
-                            <a class="info-row--value" href="mailto:mail@mail.mail">
-                                mail@mail.mail
+                            <div class="info-row--label">Email:</div>
+                            <a class="info-row--value" :href="`mailto:${this.userInfo.email}`">
+                                {{ userInfo.contactEmail }}
                             </a>
                         </div>
                     </div>
-                    <line-separator>Друзья</line-separator>
-                    <div class="friends-list">
-                        <div class="user-preview-icon">
-                            <user-avatar-icon first-name="София" last-name="Замараева"></user-avatar-icon>
-                            <div class="note">София</div>
-                        </div>
-                        <div class="user-preview-icon">
-                            <user-avatar-icon first-name="Алексей" last-name="Кашин"></user-avatar-icon>
-                            <div class="note">Алексей</div>
-                        </div>
-                        <div class="user-preview-icon">
-                            <user-avatar-icon first-name="Максим" last-name="Букин"></user-avatar-icon>
-                            <div class="note">Максим</div>
-                        </div>
-                        <div class="user-preview-icon">
-                            <user-avatar-icon first-name="Александр" last-name="Букин"></user-avatar-icon>
-                            <div class="note">Александр</div>
+                    <div v-if="this.userInfo.friendsCount">
+                        <line-separator>Друзья</line-separator>
+                        <div class="friends-list">
+                            <a
+                                class="user-preview-icon"
+                                v-for="friend in this.userInfo.friends"
+                                :key="friend.login"
+                            >
+                                <user-avatar-icon
+                                    :first-name="friend.firstName"
+                                    :last-name="friend.lastName"
+                                ></user-avatar-icon>
+                                <div class="note">{{ friend.firstName }}</div>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="details">
                     <div class="details-head">
                         <div class="common-info">
-                            <h3 class="user-name">{{ userInfo.firstName }} {{ userInfo.lastName }}</h3>
+                            <h3 class="user-name">
+                                {{ userInfo.firstName }} {{ userInfo.lastName }}
+                            </h3>
                             <a class="link location" href="#">
                                 <map-pin class="pin"></map-pin>
                                 <span class="location-name">Тула, Россия</span>
@@ -58,54 +58,56 @@
                         </div>
                         <div style="width: 250px">
                             <div class="info-row">
-                                <div class="info-row--label">
-                                    День рождения:
-                                </div>
+                                <div class="info-row--label">День рождения:</div>
                                 <div class="info-row--value">
-                                    1 января 2000 г.
+                                    {{ birthDay }}
                                 </div>
                             </div>
                         </div>
                         <div class="relations">
                             <a class="relation-info" href="#">
                                 <div class="relation-info-count">
-                                    67
+                                    {{ userInfo.friendsCount }}
                                 </div>
                                 <div class="relation-info-type">
-                                    друзей
+                                    {{ friendsCountText }}
                                 </div>
                             </a>
                             <a class="relation-info" href="#">
                                 <div class="relation-info-count">
-                                    174
+                                    {{ userInfo.subscribersCount }}
                                 </div>
                                 <div class="relation-info-type">
-                                    подписчика
+                                    {{ subscribersCountText }}
                                 </div>
                             </a>
                         </div>
                         <div class="user-actions">
                             <primary-button>Написать</primary-button>
-                            <relation-actions :userInfo="userInfo" />
+                            <relation-actions :userInfo="this.userInfo" />
                         </div>
                     </div>
                     <div class="tabs-container">
-                        <a class="tab" :class='{"tab--active": needShowPosts}' href="#"
-                           @click.prevent="showPosts">
+                        <a
+                            class="tab"
+                            :class="{ 'tab--active': needShowPosts }"
+                            href="#"
+                            @click.prevent="showPosts"
+                        >
                             Записи
                         </a>
-                        <a class="tab" :class='{"tab--active": needShowInfo}' href="#"
-                           @click.prevent="showInfo">
+                        <a
+                            class="tab"
+                            :class="{ 'tab--active': needShowInfo }"
+                            href="#"
+                            @click.prevent="showInfo"
+                        >
                             Информация
                         </a>
                     </div>
                     <div class="tab-body container">
-                        <div v-if="needShowPosts">
-                            Записи
-                        </div>
-                        <div v-if="needShowInfo">
-                            Информация
-                        </div>
+                        <div v-if="needShowPosts">Записи</div>
+                        <div v-if="needShowInfo">Информация</div>
                     </div>
                 </div>
             </div>
@@ -118,26 +120,28 @@ import { defineComponent } from "vue";
 import LayoutWithSidebar from "@/components/LayoutWithSidebar.vue";
 import BaseLoader from "@/components/BaseLoader.vue";
 import NotFound from "@/pages/NotFound.vue";
-import { getUserInfo, UserViewModel } from "@/modules/user/getUserInfo";
+import { getUserInfo, UserDetailCard } from "@/modules/user/getUserInfo";
 import RelationActions from "@/components/RelationActions.vue";
 import MapPin from "@/components/icons/MapPin.vue";
 import PrimaryButton from "@/components/PrimaryButton.vue";
 import LineSeparator from "@/components/LineSeparator.vue";
 import UserAvatarIcon from "@/components/UserAvatarIcon.vue";
+import { Nullable } from "@/types";
+import { dateToString } from "@/modules/date";
+import { pluralize } from "@/modules/pluralize";
 
-type ComponentBindings = {
-    userInfo: UserViewModel;
+type Data = {
+    userInfo: Nullable<UserDetailCard>;
     isLoaded: boolean;
-    userLogin: string;
     currentTab: Tabs;
-}
+};
 
 enum Tabs {
     Posts,
     Info
 }
 
-export default defineComponent<unknown, ComponentBindings>({
+export default defineComponent({
     name: "User",
     components: {
         UserAvatarIcon,
@@ -155,11 +159,13 @@ export default defineComponent<unknown, ComponentBindings>({
         this.isLoaded = false;
     },
     data() {
-        return {
+        const data: Data = {
             isLoaded: true,
             userInfo: null,
             currentTab: Tabs.Posts
         };
+
+        return data;
     },
     methods: {
         showPosts() {
@@ -181,8 +187,24 @@ export default defineComponent<unknown, ComponentBindings>({
         },
         needShowInfo(): boolean {
             return this.currentTab == Tabs.Info;
-        }
+        },
+        birthDay(): string {
+            if (!this.userInfo?.birthdayDate) {
+                return "";
+            }
 
+            return dateToString(new Date(this.userInfo.birthdayDate));
+        },
+        friendsCountText(): string {
+            return pluralize(this.userInfo?.friendsCount ?? 0, ["друг", "друга", "друзей"]);
+        },
+        subscribersCountText(): string {
+            return pluralize(this.userInfo?.subscribersCount ?? 0, [
+                "подписчик",
+                "подписчика",
+                "подписчиков"
+            ]);
+        }
     }
 });
 </script>
