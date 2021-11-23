@@ -57,7 +57,7 @@
                                 <span class="location-name">Тула, Россия</span>
                             </a>
                         </div>
-                        <div style="width: 250px">
+                        <div class="user-details--info">
                             <div class="info-row">
                                 <div class="info-row--label">День рождения:</div>
                                 <div class="info-row--value">
@@ -83,32 +83,34 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="user-actions">
+                        <div class="user-actions" v-if="!isYourPage">
                             <primary-button>Написать</primary-button>
                             <relation-actions :userInfo="this.userInfo" />
                         </div>
                     </div>
-                    <div class="tabs-container">
-                        <a
-                            class="tab"
-                            :class="{ 'tab--active': needShowPosts }"
-                            href="#"
-                            @click.prevent="showPosts"
-                        >
-                            Записи
-                        </a>
-                        <a
-                            class="tab"
-                            :class="{ 'tab--active': needShowInfo }"
-                            href="#"
-                            @click.prevent="showInfo"
-                        >
-                            Информация
-                        </a>
-                    </div>
-                    <div class="tab-body container">
-                        <div v-if="needShowPosts">Записи</div>
-                        <div v-if="needShowInfo">Информация</div>
+                    <div class="main-area">
+                        <div class="tabs-container">
+                            <a
+                                class="tab"
+                                :class="{ 'tab--active': needShowPosts }"
+                                href="#"
+                                @click.prevent="showPosts"
+                            >
+                                Записи
+                            </a>
+                            <a
+                                class="tab"
+                                :class="{ 'tab--active': needShowInfo }"
+                                href="#"
+                                @click.prevent="showInfo"
+                            >
+                                Информация
+                            </a>
+                        </div>
+                        <div class="tab-body container">
+                            <div v-if="needShowPosts">Записи</div>
+                            <div v-if="needShowInfo">Информация</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -155,8 +157,7 @@ export default defineComponent({
         LayoutWithSidebar
     },
     async created() {
-        const user = await getUserInfo(this.userLogin);
-        this.userInfo = user;
+        this.userInfo = await getUserInfo(this.userLogin);
         this.isLoaded = false;
     },
     data() {
@@ -177,6 +178,9 @@ export default defineComponent({
         }
     },
     computed: {
+        isYourPage(): boolean {
+            return this.userLogin === this.$store.state.auth.login;
+        },
         userLogin(): string {
             return this.$route.params.login as string;
         },
