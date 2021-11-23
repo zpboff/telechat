@@ -35,7 +35,7 @@
                         {{ error }}
                     </div>
                 </div>
-                <div class="form-note">
+                <div class="note">
                     Нет учетной записи?
                     <router-link to="/register">
                         Создать

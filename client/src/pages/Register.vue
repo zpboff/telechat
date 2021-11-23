@@ -53,7 +53,7 @@
                         {{ error }}
                     </div>
                 </div>
-                <div class="form-note">
+                <div class="note">
                     Есть учетная запись?
                     <router-link to="/login"> Войти </router-link>
                 </div>

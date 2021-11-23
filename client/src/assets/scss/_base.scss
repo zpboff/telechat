@@ -1,5 +1,12 @@
+@import "colors";
+
 @mixin flexed {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@mixin note {
+    color: $note-color;
+    font-size: 12px;
 }

@@ -1,6 +1,6 @@
 <template>
     <base-layout>
-        <div class="container">
+        <div class="container page">
             <base-loader></base-loader>
         </div>
     </base-layout>

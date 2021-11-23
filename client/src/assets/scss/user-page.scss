@@ -1,0 +1,96 @@
+@import "base";
+
+$padding: 15px;
+$top-block-height: 220px;
+
+.user-page {
+    height: 100%;
+    width: 100%;
+    padding: 40px;
+    @include flexed;
+    flex-direction: row;
+}
+
+.short-info {
+    @include flexed;
+    height: 100%;
+    width: 250px;
+    align-items: flex-start;
+    padding: $padding;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .avatar-container {
+        width: $top-block-height;
+        height: $top-block-height;
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .contacts {
+        width: 100%;
+    }
+}
+
+.details {
+    height: 100%;
+    flex-grow: 1;
+    padding: $padding;
+
+    &-head {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: $top-block-height;
+    }
+
+    .common-info {
+        @include flexed;
+        justify-content: flex-start;
+
+        .user-name {
+            margin-right: 20px;
+        }
+
+        .pin {
+            margin-right: 5px;
+        }
+
+        .location {
+            @include flexed;
+        }
+    }
+
+    .relations {
+        @include flexed;
+        justify-content: flex-start;
+        margin: 15px 0;
+
+        .relation-info {
+            @include flexed;
+            flex-flow: column;
+
+            margin-right: 20px;
+
+            &-count {
+                font-size: 24px;
+            }
+
+            &-type {
+
+            }
+        }
+    }
+
+    .user-actions {
+        @include flexed;
+        justify-content: flex-start;
+
+        & > * {
+          margin-right: 10px;
+        }
+    }
+}

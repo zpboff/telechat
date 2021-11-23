@@ -1,30 +1,70 @@
 <template>
     <not-found v-if="notFound"></not-found>
     <layout-with-sidebar v-else>
-        <base-loader v-if="isLoaded"></base-loader>
-        <div v-else>
-            {{ this.userInfo }}
-            <div v-if="canAccept">
-                <primary-button @click="accept">Принять запрос</primary-button>
-                <primary-button @click="cancel">Отклонить запрос</primary-button>
-            </div>
-            <div v-if="canSubscribe">
-                <primary-button @click="subscribe">Подписаться</primary-button>
-            </div>
-            <div v-if="canCancelSubscribe">
-                <primary-button @click="cancel">Отписаться</primary-button>
-            </div>
-            <div v-if="canBlock">
-                <primary-button @click="block">Заблокировать</primary-button>
-            </div>
-            <div v-if="canUnblock">
-                <primary-button @click="cancel">Разблокировать</primary-button>
-            </div>
-            <div v-if="canUnblock">
-                <primary-button @click="cancel">Разблокировать</primary-button>
-            </div>
-            <div v-if="canRemoveFromFriends">
-                <primary-button @click="cancel">Удалить из друзей</primary-button>
+        <div class="container page">
+            <base-loader v-if="isLoaded"></base-loader>
+            <div v-else class="user-page">
+                <div class="short-info">
+                    <div class="avatar-container">
+                        <img class="avatar" src="../assets/images/avatar.jpg" alt="Аватар" title="Аватар">
+                    </div>
+                    <line-separator>Контактные данные</line-separator>
+                    <div class="contacts">
+                        <div class="info-row">
+                            <div class="info-row--label">
+                                Телефон:
+                            </div>
+                            <a class="info-row--value" href="tel:+79998887766">
+                                +79998887766
+                            </a>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-row--label">
+                                Email:
+                            </div>
+                            <a class="info-row--value" href="mailto:mail@mail.mail">
+                                mail@mail.mail
+                            </a>
+                        </div>
+                    </div>
+                    <line-separator>Друзья</line-separator>
+                    <div class="friends-list">
+                        Список друзей
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="details-head">
+                        <div class="common-info">
+                            <h3 class="user-name">{{ userInfo.firstName }} {{ userInfo.lastName }}</h3>
+                            <a class="link location" href="#">
+                                <map-pin class="pin"></map-pin>
+                                <span class="location-name">Тула, Россия</span>
+                            </a>
+                        </div>
+                        <div class="relations">
+                            <a class="relation-info" href="#">
+                                <div class="relation-info-count">
+                                    67
+                                </div>
+                                <div class="relation-info-type">
+                                    друзей
+                                </div>
+                            </a>
+                            <a class="relation-info" href="#">
+                                <div class="relation-info-count">
+                                    174
+                                </div>
+                                <div class="relation-info-type">
+                                    подписчика
+                                </div>
+                            </a>
+                        </div>
+                        <div class="user-actions">
+                            <primary-button>Написать</primary-button>
+                            <relation-actions :user-info="userInfo" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </layout-with-sidebar>
@@ -35,9 +75,11 @@ import { defineComponent } from "vue";
 import LayoutWithSidebar from "@/components/LayoutWithSidebar.vue";
 import BaseLoader from "@/components/BaseLoader.vue";
 import NotFound from "@/pages/NotFound.vue";
+import { getUserInfo, UserViewModel } from "@/modules/user/getUserInfo";
+import RelationActions from "@/components/RelationActions.vue";
+import MapPin from "@/components/icons/MapPin.vue";
 import PrimaryButton from "@/components/PrimaryButton.vue";
-import { getUserInfo, UsersRelationsState, UserViewModel } from "@/modules/user/getUserInfo";
-import { accept, block, cancel, removeFromFriends, subscribe } from "@/modules/user/relations";
+import LineSeparator from "@/components/LineSeparator.vue";
 
 type ComponentBindings = {
     userInfo: UserViewModel;
@@ -47,7 +89,7 @@ type ComponentBindings = {
 
 export default defineComponent<unknown, ComponentBindings>({
     name: "User",
-    components: { PrimaryButton, NotFound, BaseLoader, LayoutWithSidebar },
+    components: { LineSeparator, PrimaryButton, MapPin, RelationActions, NotFound, BaseLoader, LayoutWithSidebar },
     async created() {
         const user = await getUserInfo(this.userLogin);
         this.userInfo = user;
@@ -59,48 +101,14 @@ export default defineComponent<unknown, ComponentBindings>({
             userInfo: null
         };
     },
-    methods: {
-        async subscribe() {
-            await subscribe(this.userLogin);
-        },
-        async accept() {
-            await accept(this.userLogin);
-        },
-        async block() {
-            await block(this.userLogin);
-        },
-        async cancel() {
-            await cancel(this.userLogin);
-        },
-        async removeFromFriends() {
-            await removeFromFriends(this.userLogin);
-        }
-    },
     computed: {
         userLogin(): string {
             return this.$route.params.login as string;
         },
         notFound(): boolean {
             return !this.isLoaded && !this.userInfo;
-        },
-        canSubscribe(): boolean {
-            return this.userInfo?.relationState == null || this?.userInfo.relationState === UsersRelationsState.Initial;
-        },
-        canCancelSubscribe(): boolean {
-            return this.userInfo?.relationState === UsersRelationsState.Subscribed && !this.userInfo?.isSubscriber;
-        },
-        canBlock(): boolean {
-            return this.userInfo?.relationState !== UsersRelationsState.Blocked;
-        },
-        canUnblock(): boolean {
-            return this.userInfo?.relationState === UsersRelationsState.Blocked;
-        },
-        canAccept(): boolean {
-            return this.userInfo?.isSubscriber;
-        },
-        canRemoveFromFriends(): boolean {
-            return this.userInfo?.relationState === UsersRelationsState.Friend;
         }
+
     }
 });
 </script>

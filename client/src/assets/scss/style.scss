@@ -3,6 +3,8 @@
 @import "buttons";
 @import "header";
 @import "forms";
+@import "user-page";
+@import "links";
 
 * {
     font-family: 'Roboto', sans-serif;
@@ -10,7 +12,7 @@
     padding: 0;
     outline: none;
     box-sizing: border-box;
-    color: inherit;
+    color: $text-color;
 }
 
 ::before {
@@ -32,6 +34,7 @@ a {
     background-color: transparent;
     text-decoration: none;
 }
+
 body {
     background-color: $body-color;
 }
@@ -61,9 +64,55 @@ body {
     height: 100%;
 }
 
+.page {
+    @include flexed;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
+
+.line-separator {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 100%;
+    letter-spacing: .5px;
+
+    &::after {
+        content: '';
+        height: 1px;
+        background-color: silver;
+        flex-grow: 1;
+        margin-left: 1em;
+    }
+}
+
+.note {
+    @include note;
+}
+
+.info-row {
+    @include flexed;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0;
+
+    &--label {
+        @include note;
+        font-size: 14px;
+        margin-right: 10px;
+        flex-grow: 1;
+    }
+
+    &--value {
+        color: $text-color;
+        font-size: 14px;
+    }
+}
+
