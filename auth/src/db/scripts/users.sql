@@ -32,5 +32,5 @@ CREATE TABLE public.userInfo
     birthdayDate timestamp with time zone,
     updateDate timestamp with time zone default current_timestamp,
     CONSTRAINT fk_user FOREIGN KEY(userId) REFERENCES users(id),
-    CONSTRAINT fk_photo FOREIGN KEY(userId) REFERENCES userImages(id)
+    CONSTRAINT fk_photo FOREIGN KEY(photoId) REFERENCES userImages(id)
 );
