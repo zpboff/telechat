@@ -1,7 +1,7 @@
 import { client } from "@/client";
 import { Nullable } from "@/types";
 
-export enum UsersRelationsState {
+export enum RelationsState {
     Initial,
     Subscribed,
     Friend,
@@ -14,13 +14,22 @@ export type UserPayload = {
     lastName: string;
 }
 
-export type UserViewModel = UserPayload & {
+export type UserDetailCard = UserPayload & {
     isSubscriber: boolean;
-    relationState: Nullable<UsersRelationsState>;
+    avatar: string;
+    birthdayDate: string;
+    locationId: number;
+    locationName: string;
+    contactEmail: string;
+    contactPhone: string;
+    friendsCount: number;
+    subscribersCount: number;
+    friends: UserPayload[];
+    relationState: Nullable<RelationsState>;
 }
 
-export async function getUserInfo(login: string): Promise<UserViewModel> {
-    const { data } = await client.get<UserViewModel>(`/users/get/${login}`);
+export async function getUserInfo(login: string): Promise<UserDetailCard> {
+    const { data } = await client.get<UserDetailCard>(`/users/get/${login}`);
 
     return data;
 }

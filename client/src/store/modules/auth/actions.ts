@@ -1,11 +1,11 @@
 import { ActionTree } from "vuex";
-import { UserViewModel, Credentials, UserCreateModel } from "@/store/modules/auth/types";
+import { UserPayload, Credentials, UserCreateModel } from "@/store/modules/auth/types";
 import { AuthResult, login, logout, refresh, register } from "@/store/modules/auth/api";
 import isEmpty from "lodash.isempty";
 import { saveToken } from "@/store/modules/auth/tokenStorage";
 
 
-const authActions: ActionTree<UserViewModel, UserViewModel> = {
+const authActions: ActionTree<UserPayload, UserPayload> = {
     Login: async function({ dispatch }, credentials: Credentials) {
         const authInfo = await login(credentials);
         return await dispatch("SetAuthInfo", authInfo);

@@ -1,7 +1,7 @@
 import {Router} from "express";
 import {authorizeMiddleware} from "../../middlewares";
 import {findUserByLogin, setRelation} from "../../services";
-import {mapUserToUserViewModel} from "../auth/mapUserToUserPayload";
+import {mapUserToUserDetailCard} from "../auth/mapUserToUserPayload";
 import {hasError} from "../../types";
 import {ApiError} from "../../exceptions/ApiError";
 import {RelationState} from "../../stores/relationsStore";
@@ -60,7 +60,7 @@ usersRouter.post('/removeFromFriends/:login', authorizeMiddleware, async (req, r
 
 usersRouter.get('/get/:login', authorizeMiddleware, async (req, res) => {
     const user = await findUserByLogin(req.params.login);
-    const userViewModel = await mapUserToUserViewModel(req.user.login, user);
+    const userViewModel = await mapUserToUserDetailCard(req.user.login, user);
 
     return res.json(userViewModel);
 });

@@ -34,7 +34,6 @@ export default {
             this.isOpened = !this.isOpened;
         },
         hide() {
-            console.log("hide");
             this.isOpened = false;
         }
     }

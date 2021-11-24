@@ -1,9 +1,10 @@
-import { UserViewModel } from "@/store/modules/auth/types";
+import { UserPayload } from "@/store/modules/auth/types";
 
-const authInitialState = (): UserViewModel => ({
+const authInitialState = (): UserPayload => ({
     login: null,
     lastName: null,
-    firstName: null
+    firstName: null,
+    avatar: null
 });
 
 export default authInitialState;

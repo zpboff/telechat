@@ -35,7 +35,7 @@
                         {{ error }}
                     </div>
                 </div>
-                <div class="form-note">
+                <div class="note">
                     Нет учетной записи?
                     <router-link to="/register">
                         Создать
@@ -69,11 +69,9 @@ export default {
     },
     methods: {
         setEmail(email) {
-            console.log("email", email);
             this.email = email;
         },
         setPassword(password) {
-            console.log("password", password);
             this.password = password;
         },
         async submit() {

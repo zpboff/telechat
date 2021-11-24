@@ -1,0 +1,11 @@
+@import "colors";
+
+a, a:visited, a:hover, a:active {
+    color: inherit;
+}
+
+.link {
+    &, &:visited, &:hover, &:active {
+        color: $main-color;
+    }
+}

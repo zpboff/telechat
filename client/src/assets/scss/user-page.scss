@@ -1,0 +1,127 @@
+@import "base";
+
+$padding: 15px;
+$top-block-height: 220px;
+
+.user-page {
+    height: 100%;
+    width: 100%;
+    padding: 40px;
+    @include flexed;
+    flex-direction: row;
+
+    .main-area {
+        padding: $padding 0;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.short-info {
+    @include flexed;
+    height: 100%;
+    width: 250px;
+    align-items: flex-start;
+    padding: $padding;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .avatar-container {
+        width: $top-block-height;
+        height: $top-block-height;
+    }
+
+    .contacts {
+        width: 100%;
+    }
+}
+
+.details {
+    height: 100%;
+    flex-grow: 1;
+    padding: $padding;
+    display: flex;
+    flex-direction: column;
+
+    &-head {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: $top-block-height;
+    }
+
+    .common-info {
+        @include flexed;
+        justify-content: flex-start;
+
+        .user-name {
+            margin-right: 20px;
+        }
+
+        .pin {
+            margin-right: 5px;
+        }
+
+        .location {
+            @include flexed;
+        }
+    }
+
+    .relations {
+        @include flexed;
+        justify-content: flex-start;
+
+        .relation-info {
+            @include flexed;
+            flex-flow: column;
+
+            margin-right: 20px;
+
+            &-count {
+                font-size: 24px;
+            }
+
+            &-type {
+
+            }
+        }
+    }
+
+    .user-actions {
+        @include flexed;
+        justify-content: flex-start;
+
+        & > * {
+          margin-right: 10px;
+        }
+    }
+
+    .tab-body {
+        flex-grow: 1;
+    }
+}
+
+.friends-list {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .user-preview-icon {
+        width: 70px;
+    }
+}
+
+.user-preview-icon {
+    @include flexed;
+    flex-direction: column;
+
+    .note {
+        padding: 5px;
+        font-size: 14px;
+    }
+}
+
+.user-details--info {
+    width: 250px;
+}

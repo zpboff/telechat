@@ -2,7 +2,7 @@
     <base-popover class="user-toolbar" switch-class="user-info" content-class="user-actions">
         <template v-slot:switch>
             <span>{{ firstName }}</span>
-            <user-avatar-icon :first-name="firstName" :last-name="lastName" />
+            <user-avatar-icon :avatar="avatar" :first-name="firstName" :last-name="lastName" />
             <div class="actions-handler">
                 <chevron-down width="24" height="24"></chevron-down>
             </div>
@@ -34,6 +34,9 @@ export default {
         },
         lastName(state) {
             return state.auth.lastName;
+        },
+        avatar(state) {
+            return state.auth.avatar;
         }
     })
 };

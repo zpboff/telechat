@@ -1,4 +1,20 @@
+@import "colors";
+
 @mixin flexed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin note {
+    color: $note-color;
+    font-size: 12px;
+}
+
+@mixin user-icon {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;

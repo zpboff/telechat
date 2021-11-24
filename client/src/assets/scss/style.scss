@@ -3,6 +3,12 @@
 @import "buttons";
 @import "header";
 @import "forms";
+@import "user-page";
+@import "links";
+
+html {
+    color: $text-color;
+}
 
 * {
     font-family: 'Roboto', sans-serif;
@@ -10,7 +16,6 @@
     padding: 0;
     outline: none;
     box-sizing: border-box;
-    color: inherit;
 }
 
 ::before {
@@ -32,6 +37,7 @@ a {
     background-color: transparent;
     text-decoration: none;
 }
+
 body {
     background-color: $body-color;
 }
@@ -58,6 +64,10 @@ body {
 
 .container {
     @include flexed;
+}
+
+.page {
+    @include flexed;
     height: 100%;
 }
 
@@ -66,4 +76,79 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
+}
+
+.line-separator {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 100%;
+    letter-spacing: .5px;
+
+    &::after {
+        content: '';
+        height: 1px;
+        background-color: silver;
+        flex-grow: 1;
+        margin-left: 1em;
+    }
+}
+
+.note {
+    @include note;
+}
+
+.info-row {
+    @include flexed;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0;
+
+    &--label {
+        @include note;
+        font-size: 14px;
+        margin-right: 10px;
+        flex-grow: 1;
+    }
+
+    &--value {
+        color: $text-color;
+        font-size: 14px;
+    }
+}
+
+.user-icon {
+    @include user-icon;
+}
+
+.user-initials {
+    @include user-icon;
+    border: 2px solid #ed254e;
+}
+
+.tabs-container {
+    @include flexed;
+    justify-content: flex-start;
+
+    .tab {
+        padding: $padding;
+        display: block;
+        margin: 0 5px;
+
+        &--active {
+            box-shadow: 0px 2px 0px 0px $main-color;
+        }
+
+        &:hover:not(&--active) {
+            box-shadow: 0px 2px 0px 0px lighten($main-color, 20);
+        }
+    }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
 }

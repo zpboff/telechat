@@ -1,7 +1,7 @@
 CREATE TABLE public.tokens
 (
     id SERIAL PRIMARY KEY,
-    userId SERIAL NOT NULL,
+    userId integer NOT NULL,
     token text COLLATE pg_catalog."default" NOT NULL,
     createDate timestamp with time zone default current_timestamp,
     accessDate timestamp with time zone default current_timestamp,

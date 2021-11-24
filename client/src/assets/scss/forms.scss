@@ -62,9 +62,4 @@
     .form-submitter {
         @include flexed;
     }
-
-    .form-note {
-        color: $note-color;
-        font-size: 12px;
-    }
 }

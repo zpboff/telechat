@@ -1,6 +1,8 @@
 <template>
     <base-layout v-if="isLoaded">
-        <base-loader></base-loader>
+        <div class="container page">
+            <base-loader></base-loader>
+        </div>
     </base-layout>
     <router-view v-else />
 </template>
