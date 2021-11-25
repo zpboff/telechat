@@ -18,8 +18,7 @@ var Initialize = func() {
 var Run = func() {
 	server := gin.Default()
 	server.Use(middlewares.LoggerMiddleware)
-
-	server.POST("/", routes.RegisterUser)
+	routes.RegisterRoutes(server)
 
 	log.Print(fmt.Sprintf("Запуск сервиса регистрации: localhost:%d", configs.Configs.Server.Port))
 

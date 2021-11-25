@@ -6,7 +6,7 @@ import (
 	"services/registration/models"
 )
 
-func ValidateRequest(request *models.UserCreateRequest) error {
+func ValidateUserCreateRequest(request *models.UserCreateRequest) error {
 	return validation.ValidateStruct(request,
 		validation.Field(&request.FirstName, validation.Required.Error("Необходимо заполнить поле")),
 		validation.Field(&request.LastName, validation.Required.Error("Необходимо заполнить поле")),
