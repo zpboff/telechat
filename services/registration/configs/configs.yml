@@ -1,0 +1,6 @@
+logger:
+  connectionString: "0.0.0.0:12201"
+db:
+  connectionString: "postgres://postgres:postgres@localhost:5432/Telechat"
+server:
+  port: 3002

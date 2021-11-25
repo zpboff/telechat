@@ -1,6 +1,0 @@
-logger:
-  connectionString: "0.0.0.0:12201"
-db:
-  connectionString: "localhost:5432"
-server:
-  port: 3002

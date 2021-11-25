@@ -6,7 +6,7 @@ import (
 	validation "github.com/go-ozzo/ozzo-validation"
 	"log"
 	"services/registration/models"
-	"services/registration/stores"
+	"services/registration/stores/users"
 )
 
 func RegisterUser(context *gin.Context)  {
@@ -15,7 +15,7 @@ func RegisterUser(context *gin.Context)  {
 		log.Print(err)
 	}
 
-	result, err := stores.CreateUser(&request)
+	result, err := users.CreateUser(&request)
 	response := models.Response{
 		Entity: result,
 		Errors: err,
