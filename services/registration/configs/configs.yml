@@ -4,3 +4,5 @@ db:
   connectionString: "postgres://postgres:postgres@localhost:5432/Telechat"
 server:
   port: 3002
+security:
+  salt: 14

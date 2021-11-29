@@ -5,17 +5,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"services/registration/configs"
-	"services/registration/db"
 	"services/registration/middlewares"
 	"services/registration/routes"
 )
 
-var Initialize = func() {
-	configs.Configs.Init()
-	db.Pool.Connect()
-}
-
 var Run = func() {
+	configs.Configs.Init()
 	server := gin.Default()
 	server.Use(middlewares.LoggerMiddleware)
 	routes.RegisterRoutes(server)

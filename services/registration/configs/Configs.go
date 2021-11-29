@@ -16,6 +16,9 @@ type Config struct {
 	Server struct {
 		Port int `yaml:"port"`
 	} `yaml:"server"`
+	Security struct{
+		Salt int `yaml:"salt"`
+	}
 }
 
 var Configs = Config{}

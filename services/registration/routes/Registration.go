@@ -29,5 +29,7 @@ func Registration(context *gin.Context) {
 		})
 	case models.UserAlreadyExists:
 		context.Status(409)
+	case models.InternalError:
+		context.Status(500)
 	}
 }
