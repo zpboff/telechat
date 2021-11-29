@@ -24,12 +24,10 @@ func Registration(context *gin.Context) {
 			Entity: result,
 		})
 	case models.InvalidRequest:
-		context.JSON(403, models.Response{
+		context.JSON(400, models.Response{
 			Errors: err,
 		})
 	case models.UserAlreadyExists:
 		context.Status(409)
-	case models.ServerError:
-		context.Status(500)
 	}
 }

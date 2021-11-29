@@ -1,4 +1,4 @@
-package users
+package stores
 
 type UserEntity struct {
 	Id int
